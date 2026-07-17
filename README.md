@@ -6,8 +6,8 @@ thinking mode, and tool calls. Check your bill for exact charges."
 
 This repo works it out by measurement, and prices all 14 models against each other.
 
-**→ [Interactive chart](https://oliver-mee.github.io/alibaba-token-plan-pricing/)** *(if Pages is enabled)*
-· [`index.html`](index.html) is self-contained, so you can just open it.
+**→ [Interactive chart](https://oliver-mee.github.io/alibaba-token-plan-pricing/)** ·
+[`index.html`](index.html) is self-contained, so you can just open it offline too.
 
 ---
 
@@ -60,10 +60,6 @@ console, same "limited-time" badge, opposite behaviour. There is no rule — it 
 **287,680 on Qwen** — 62% more for the same content. Per-token prices are not comparable across vendors,
 and tier thresholds are counted in the vendor's own tokens: the same text DeepSeek saw as a 178k prompt
 pushed Qwen past its 256k boundary into tier-2 pricing.
-
-**`max_tokens` does not cap reasoning tokens.** `max_tokens: 1` on `deepseek-v4-flash` returned **127**
-completion tokens, 122 of them reasoning. Reasoning bills as output. Send `enable_thinking: false` if you
-want to control spend.
 
 **Every source is wrong, including Alibaba's own console.** We probed the gateway directly for
 structured-output support and compared it against the console and against models.dev (the community
@@ -139,7 +135,8 @@ inference to build a product on. Every cost figure here is bounded by that.
 | [`data/model-studio-pricing-cn.md`](data/model-studio-pricing-cn.md) | Chinese Mainland datasheet — **the sheet the plan bills against**. All 14 models. |
 | [`data/model-studio-pricing.md`](data/model-studio-pricing.md) | International datasheet. Capabilities, limits, tool pricing, and discrepancies against published model metadata. |
 | [`data/probes/`](data/probes) | Raw probe results with exact token counts. |
-| [`probe-credit-rate.py`](probe-credit-rate.py) | Reproduce the measurement. |
+| [`probe-credit-rate.py`](probe-credit-rate.py) | Reproduce the credit-rate measurement. |
+| [`probe-capabilities.py`](probe-capabilities.py) | Reproduce the capability probe (structured output, thinking, limits). |
 
 ### Reproducing
 
