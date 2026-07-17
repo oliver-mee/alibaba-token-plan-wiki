@@ -1,0 +1,10 @@
+{
+  "model": "qwen3.7-plus",
+  "test": "tier1",
+  "in": 132732,
+  "cached": 0,
+  "fired_local": "19:21:23",
+  "predict_t1_list": 26.64,
+  "predict_t1_disc": 21.3,
+  "predict_flat600": 79.64
+}

@@ -1,0 +1,682 @@
+<meta charset="utf-8">
+<title>Alibaba Token Plan — what your credits actually buy</title>
+<style>
+  :root {
+    --ink: #1c1c1e; --muted: #6f6f76; --hairline: #e4e2dd;
+    --bg: #fffefb; --surface: #f7f5f0; --sky: #7cb9e8;
+    --warn: #a8621f; --warn-bg: #fdf2e4;
+    --rmb: #b8433f; --rmb-bg: #fdf0ef; --sky-ink: #2a6fa8;
+    --font: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#eceae5; --muted:#9b9992; --hairline:#33333a; --bg:#131316; --surface:#1c1c20;
+            --warn:#e2a566; --warn-bg:#2c2214; --rmb:#e08a86; --rmb-bg:#2a1817; --sky-ink:#8cc4ea; }
+  }
+  :root[data-theme="dark"] { --ink:#eceae5; --muted:#9b9992; --hairline:#33333a; --bg:#131316;
+                             --surface:#1c1c20; --warn:#e2a566; --warn-bg:#2c2214;
+                             --rmb:#e08a86; --rmb-bg:#2a1817; --sky-ink:#8cc4ea; }
+  :root[data-theme="light"] { --ink:#1c1c1e; --muted:#6f6f76; --hairline:#e4e2dd; --bg:#fffefb;
+                              --surface:#f7f5f0; --warn:#a8621f; --warn-bg:#fdf2e4;
+                              --rmb:#b8433f; --rmb-bg:#fdf0ef; --sky-ink:#2a6fa8; }
+
+  body { background: var(--bg); color: var(--ink); font-family: var(--font); line-height: 1.55; }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 60px 24px 100px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-size: clamp(30px, 4.4vw, 46px); line-height: 1.1; font-weight: 700; margin: 12px 0 18px; letter-spacing: -.025em; }
+  .lede { font-size: 17.5px; color: var(--muted); max-width: 66ch; }
+  .lede strong { color: var(--ink); font-weight: 600; }
+  h2 { font-size: 21px; font-weight: 700; margin: 60px 0 6px; letter-spacing: -.015em; }
+  h2 + .sub { font-size: 14px; color: var(--muted); margin-bottom: 18px; max-width: 68ch; }
+  code { font-family: var(--mono); font-size: .9em; }
+
+  .keybox { border: 1px solid var(--hairline); border-left: 3px solid var(--sky); border-radius: 10px;
+            background: var(--surface); padding: 20px 24px; margin: 30px 0; }
+  .keybox .k { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .keybox .big { font-size: clamp(19px, 2.4vw, 25px); font-weight: 700; margin: 8px 0 8px; letter-spacing: -.02em; }
+  .keybox p { font-size: 14px; color: var(--muted); max-width: 74ch; }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 26px; align-items: flex-end;
+              border: 1px solid var(--hairline); border-radius: 12px; background: var(--surface);
+              padding: 16px 20px; margin: 26px 0 6px; }
+  .ctl-label { font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 7px; }
+  .seg { display: flex; border: 1px solid var(--hairline); border-radius: 8px; overflow: hidden; }
+  .seg button { font: inherit; font-size: 13px; padding: 7px 12px; border: 0; cursor: pointer;
+                background: var(--bg); color: var(--muted); border-right: 1px solid var(--hairline); }
+  .seg button:last-child { border-right: 0; }
+  .seg button[aria-pressed="true"] { background: var(--sky); color: #0f2334; font-weight: 600; }
+  input[type=range] { width: 180px; accent-color: var(--sky); }
+  .mixval { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  .readout { font-size: 13px; color: var(--muted); min-height: 40px; margin: 14px 0 6px 26px; }
+  .readout b { color: var(--ink); }
+  .chartwrap { display: flex; gap: 10px; }
+  .ylab { writing-mode: vertical-rl; transform: rotate(180deg); align-self: center;
+          font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .plot { position: relative; flex: 1; min-width: 0; height: 500px; border: 1px solid var(--hairline);
+          border-radius: 12px; background: var(--surface); }
+  .grid-l { position: absolute; inset-block: 0; border-left: 1px solid var(--hairline); opacity: .55; }
+  .grid-h { position: absolute; inset-inline: 0; border-top: 1px solid var(--hairline); opacity: .55; }
+  .tick { position: absolute; font-size: 10px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .dot { position: absolute; border-radius: 50%; cursor: pointer; transform: translate(-50%,-50%);
+         transition: transform .12s; box-shadow: 0 0 0 2px var(--surface); }
+  .dot:hover, .dot.hot { transform: translate(-50%,-50%) scale(1.45); z-index: 6; }
+  .dot.dominated { opacity: .34; }
+  .dot.frontier { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--ink); }
+  .dlabel { position: absolute; font-size: 10px; font-weight: 500; white-space: nowrap;
+            transform: translate(-50%, 8px); pointer-events: none; color: var(--ink); }
+  .dlabel.dim { opacity: .3; }
+  .dlabel.strong { opacity: .95; font-weight: 700; }
+  .xlab { text-align: center; margin-top: 8px; font-size: 11px; font-weight: 600;
+          letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(215px,1fr)); gap: 13px; margin-top: 18px; }
+  .card { border: 1px solid var(--hairline); border-radius: 11px; padding: 15px 17px; background: var(--surface); }
+  .card .k { font-size: 10.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .card .v { font-size: 17px; font-weight: 700; margin: 5px 0 4px; letter-spacing: -.015em; word-break: break-word; }
+  .card .d { font-size: 12.5px; color: var(--muted); }
+
+  table { border-collapse: collapse; width: 100%; font-size: 13px; margin-top: 6px; }
+  th, td { text-align: right; padding: 8px; border-bottom: 1px solid var(--hairline); font-variant-numeric: tabular-nums; }
+  th:first-child, td:first-child { text-align: left; }
+  th { font-size: 10.5px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  tbody tr:hover { background: var(--surface); }
+  tbody tr.dominated { color: var(--muted); }
+  .model { font-weight: 600; }
+  .vendor { font-weight: 400; color: var(--muted); font-size: 11.5px; margin-left: 5px; }
+  .swatch { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px; }
+  .pill { display: inline-block; font-size: 9.5px; font-weight: 700; padding: 2px 6px; border-radius: 20px; margin-left: 5px; white-space: nowrap; text-transform: uppercase; letter-spacing: .04em; }
+  .pill.front { background: var(--sky); color: #0f2334; }
+  .pill.warn { background: var(--warn-bg); color: var(--warn); }
+  .pill.na { border: 1px solid var(--hairline); color: var(--muted); }
+
+  .callout { border: 1px solid var(--hairline); border-radius: 11px; background: var(--surface);
+             padding: 17px 21px; margin: 20px 0; font-size: 14px; }
+  .callout h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .callout p { color: var(--muted); max-width: 76ch; }
+  .callout p + p { margin-top: 8px; }
+  .callout b { color: var(--ink); }
+
+  .foot { margin-top: 66px; padding-top: 22px; border-top: 1px solid var(--hairline);
+          font-size: 12.5px; color: var(--muted); max-width: 82ch; }
+  .foot p + p { margin-top: 10px; }
+  .foot b { color: var(--ink); font-weight: 600; }
+
+  /* ── flow diagram ─────────────────────────────────────────── */
+  .flow { margin: 26px 0 8px; }
+  .lane { border: 1px solid var(--hairline); border-radius: 12px; background: var(--surface);
+          padding: 16px 20px; margin-bottom: 10px; position: relative; }
+  .lane.usd { border-left: 3px solid var(--sky); }
+  .lane.rmb { border-left: 3px solid var(--rmb); }
+  .lane.ghost { border-left: 3px solid var(--hairline); opacity: .78; }
+  .lane-h { display: flex; align-items: baseline; gap: 9px; margin-bottom: 11px; flex-wrap: wrap; }
+  .lane-n { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+            color: var(--muted); border: 1px solid var(--hairline); border-radius: 20px; padding: 2px 8px; }
+  .lane-t { font-size: 15px; font-weight: 700; letter-spacing: -.01em; }
+  .lane-s { font-size: 12.5px; color: var(--muted); }
+  .steps { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 13.5px; }
+  .node { border: 1px solid var(--hairline); border-radius: 8px; padding: 7px 12px; background: var(--bg);
+          font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .node b { font-weight: 700; }
+  .node.hi { border-color: var(--rmb); }
+  .node.hiusd { border-color: var(--sky); }
+  .arrow { color: var(--muted); font-size: 16px; flex-shrink: 0; }
+  .arrow-l { font-size: 11px; color: var(--muted); white-space: nowrap; }
+  .note { font-size: 12.5px; color: var(--muted); margin-top: 10px; max-width: 78ch; }
+  .note b { color: var(--ink); }
+  .tag-usd { color: var(--sky-ink); font-weight: 700; }
+  .tag-rmb { color: var(--rmb); font-weight: 700; }
+  .deal { border: 1px solid var(--rmb); border-radius: 12px; padding: 16px 20px; margin-top: 4px;
+          background: var(--rmb-bg); }
+  .deal .lane-t { color: var(--ink); }
+  .keyline { font-size: 14px; font-weight: 700; margin-top: 4px; }
+  @media (max-width: 700px) {
+    .steps { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .arrow { transform: rotate(90deg); margin-left: 14px; }
+  }
+  .scroll { overflow-x: auto; }
+  @media (max-width: 640px) { .plot { height: 400px; } .ylab { display: none; } }
+</style>
+
+<div class="wrap">
+  <div class="eyebrow">Alibaba Cloud Model Studio · Token Plan · July 2026</div>
+  <h1>Nine of the twelve models are never the right answer</h1>
+  <p class="lede">
+    The Token Plan bundles fourteen models from six vendors behind one prepaid credit pool. Because the
+    pricing was never set to be internally coherent, most of the menu is dead weight: <strong>nine of the
+    twelve scoreable models are strictly beaten</strong> by another model on the same plan that is cheaper
+    on both input and output <em>and</em> at least as intelligent. Not cheaper-but-worse. Just worse.
+    Three models are ever worth picking.
+  </p>
+
+  <div class="keybox">
+    <div class="k">What a credit actually is</div>
+    <div class="big">One credit is one Chinese fen. 0.01 RMB.</div>
+    <p>
+      Nothing documents this, but it decodes the entire plan. The Chinese Alibaba site prices these models in
+      <b>round RMB per million tokens</b> — <code>deepseek-v4-flash</code> is 1 in / 2 out,
+      <code>deepseek-v4-pro</code> is 12 / 24, <code>glm-5.2</code> is 8 / 28. <b>A model's credit price is
+      simply its RMB price times 100.</b> So V4 Flash costs 100 / 200 credits, V4 Pro 1,200 / 2,400.
+    </p>
+    <p>
+      Measured on the live gateway, not inferred: four models fired with known token counts and their charges
+      read off the bill gave <b>727.15 / 726.99 / 726.99 / 727.02 credits per dollar — agreeing to 0.02%</b>.
+      That is exactly 100 fen ÷ $0.1375, the fixed rate Alibaba converts RMB at. The dollar prices you see on
+      the international console are the derived view, which is why they are odd numbers (1.65, 3.301, 0.138)
+      while the credit prices are round.
+    </p>
+    <p>
+      On the buy side, a <b>Max seat</b> turns $200 into 250,000 credits — <b>$344 of usage at list, 1.72x
+      face value</b>. Pro returns 1.38x, Standard just 1.15x. Everything below is priced in credits, because
+      credits are the only thing you actually spend.
+    </p>
+  </div>
+
+  <div class="callout">
+    <h3>Only some of the advertised discounts are real</h3>
+    <p>
+      Two Qwen models show limited-time discounts on their console pricing pages. <b>The plan honours one and
+      ignores the other.</b> Both were measured directly:
+    </p>
+    <p>
+      <b><code>qwen3.7-max</code>, 50% off — honoured.</b> 254,344 input tokens cost <b>152.55 credits</b>.
+      Its discounted rate predicts 152.55; its list rate predicts 305.10. You pay 600 credits per 1M, not 1,200.
+    </p>
+    <p>
+      <b><code>qwen3.7-plus</code>, 20% off — ignored.</b> 132,732 input tokens cost <b>26.63 credits</b>.
+      Its <em>list</em> rate predicts 26.64; its discounted rate predicts 21.30. You pay 200 credits per 1M,
+      not 160.
+    </p>
+    <p>
+      Same vendor, same console, same "limited-time" badge, opposite behaviour. There is no rule to infer:
+      whether a discount reaches your credit bill has to be measured per model. Reasoning about credit burn
+      from the console's advertised prices will be wrong for at least one of these two, and you cannot tell
+      which from the page.
+    </p>
+  </div>
+
+  <div class="callout">
+    <h3>Before anything else: this plan is not for backends</h3>
+    <p>
+      Alibaba's terms are explicit. <b>"For interactive use with compatible AI tools only. Not permitted for
+      automated scripts or application backends. Violations may result in subscription suspension or API Key
+      revocation."</b> Keys are per-seat and may not be shared.
+    </p>
+    <p>
+      So this is a seat subscription for interactive coding tools — Claude Code, OpenClaw, Cursor, Hermes —
+      not cheap inference to build a product on. Every cost figure on this page is bounded by that.
+    </p>
+  </div>
+
+  <h2>What a seat actually buys</h2>
+  <p class="sub">The three tiers do not buy credits at the same rate. Max is worth 50% more per dollar than Standard.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr>
+        <th>Seat</th><th>Price / mo</th><th>Credits / mo</th><th>Credits per $</th>
+        <th>API value</th><th>Effective</th><th>Tokens of v4-flash</th><th>Tokens of glm-5.2</th>
+      </tr></thead>
+      <tbody id="seats"></tbody>
+    </table>
+  </div>
+
+
+  <h2>Where the dollars actually are</h2>
+  <p class="sub">Two currencies are in play and it is easy to assume they meet somewhere. They do not. Dollars appear when you buy and on the price display; the charge itself never sees one.</p>
+
+  <div class="flow">
+
+    <div class="lane usd">
+      <div class="lane-h">
+        <span class="lane-n">1</span>
+        <span class="lane-t">You buy a seat</span>
+        <span class="lane-s">the only place dollars are real</span>
+      </div>
+      <div class="steps">
+        <span class="node hiusd"><b class="tag-usd">$200</b></span>
+        <span class="arrow">&rarr;</span>
+        <span class="arrow-l">Alibaba's price list<br>(not an exchange rate)</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node hiusd"><b>250,000 credits</b></span>
+      </div>
+      <p class="note">
+        A Max seat. Standard is $30 &rarr; 25,000; Pro $100 &rarr; 100,000. These are just prices Alibaba set,
+        like tokens at an arcade. Nothing is being converted here.
+      </p>
+    </div>
+
+    <div class="lane rmb">
+      <div class="lane-h">
+        <span class="lane-n">2</span>
+        <span class="lane-t">You call a model</span>
+        <span class="lane-s">no dollars anywhere in this line</span>
+      </div>
+      <div class="steps">
+        <span class="node">100,000 tokens<br><span class="lane-s">deepseek-v4-pro, input</span></span>
+        <span class="arrow">&rarr;</span>
+        <span class="node hi">Chinese price sheet<br><b class="tag-rmb">12 RMB</b> <span class="lane-s">per 1M</span></span>
+        <span class="arrow">&rarr;</span>
+        <span class="node hi"><b class="tag-rmb">1.2 RMB</b><br><span class="lane-s">for this call</span></span>
+        <span class="arrow">=</span>
+        <span class="node hi"><b>120 credits</b><br><span class="lane-s">120 fen</span></span>
+      </div>
+      <p class="note">
+        That last step is <b>not a conversion</b>. A credit <b>is</b> a fen &mdash; 0.01 RMB. 1.2 RMB is 120 fen
+        is 120 credits. Same quantity, different name. This is why every model's credit price is a round
+        number: it is just the RMB price with two zeros on the end.
+      </p>
+    </div>
+
+    <div class="lane ghost">
+      <div class="lane-h">
+        <span class="lane-n">3</span>
+        <span class="lane-t">What the console shows you</span>
+        <span class="lane-s">cosmetic &mdash; never touches your bill</span>
+      </div>
+      <div class="steps">
+        <span class="node hi"><b class="tag-rmb">12 RMB</b> <span class="lane-s">per 1M</span></span>
+        <span class="arrow">&rarr;</span>
+        <span class="arrow-l">&divide; 7.27<br>fixed rate</span>
+        <span class="arrow">&rarr;</span>
+        <span class="node"><b class="tag-usd">$1.65</b> <span class="lane-s">per 1M</span></span>
+      </div>
+      <p class="note">
+        The international console displays the Chinese prices in dollars for your convenience. It is a
+        <b>display layer only</b>. This is why those dollar figures are such odd numbers &mdash; $1.65, $3.301,
+        $0.138 &mdash; while the credit prices are clean. The odd ones are the derived ones.
+      </p>
+    </div>
+
+    <div class="deal">
+      <div class="lane-h">
+        <span class="lane-t">So is it a good deal?</span>
+        <span class="lane-s">the only place the two currencies meet</span>
+      </div>
+      <div class="steps">
+        <span class="node"><b>250,000 credits</b></span>
+        <span class="arrow">=</span>
+        <span class="node hi"><b class="tag-rmb">2,500 RMB</b> <span class="lane-s">of usage</span></span>
+        <span class="arrow">=</span>
+        <span class="node"><b class="tag-usd">$344</b> <span class="lane-s">at list</span></span>
+      </div>
+      <p class="keyline">You paid $200 for $344 of usage. <span class="tag-rmb">1.72x.</span></p>
+      <p class="note">
+        This comparison is the <b>only</b> reason a "credits per dollar" number exists at all. It is not a gear
+        in the machine &mdash; it is us asking "what would this have cost at list?" so we can judge the seat
+        price. Pro returns 1.38x and Standard 1.15x, so <b>Max is the best-value tier by a wide margin</b>.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="callout">
+    <h3>The one number to remember</h3>
+    <p>
+      <b>Credits per 1M tokens = the model's Chinese RMB price &times; 100.</b> That is the whole system.
+      <code>deepseek-v4-flash</code> is 1 RMB in / 2 RMB out, so 100 / 200 credits.
+      <code>deepseek-v4-pro</code> is 12 / 24 RMB, so 1,200 / 2,400 credits. Everything else on this page is
+      that fact plus arithmetic.
+    </p>
+  </div>
+
+  <div class="controls">
+    <div>
+      <span class="ctl-label">Input size (resolves each model's tier)</span>
+      <div class="seg" id="seg-size">
+        <button data-size="s" aria-pressed="true">under 32k</button>
+        <button data-size="m" aria-pressed="false">32k&ndash;256k</button>
+        <button data-size="l" aria-pressed="false">over 256k</button>
+      </div>
+    </div>
+    <div>
+      <span class="ctl-label">Cost blend</span>
+      <input type="range" id="mix" min="0" max="100" step="5" value="75">
+      <div class="mixval" id="mixval"></div>
+    </div>
+    <div>
+      <span class="ctl-label">Beaten models</span>
+      <div class="seg" id="seg-dom">
+        <button data-dom="show" aria-pressed="true">Show</button>
+        <button data-dom="hide" aria-pressed="false">Hide</button>
+      </div>
+    </div>
+  </div>
+
+  <p class="readout" id="readout"></p>
+
+  <div class="chartwrap">
+    <div class="ylab">Intelligence (AA index) &rarr;</div>
+    <div style="flex:1; min-width:0">
+      <div class="plot" id="plot"></div>
+      <div class="xlab">Credits per 1M tokens at this blend (log scale) &rarr; cheaper is left</div>
+    </div>
+  </div>
+
+  <div class="cards" id="cards"></div>
+
+  <h2>The only models worth picking</h2>
+  <p class="sub">Everything else is beaten outright at this input size and blend. Move the blend slider: the middle slot swaps between kimi-k2.6 and deepseek-v4-pro as output gets more expensive.</p>
+  <div class="callout" id="frontier"></div>
+
+  <div class="callout">
+    <h3>Half the frontier is a limited-time offer</h3>
+    <p>
+      <code>qwen3.7-max</code> holds its place <b>only because of a 50% discount</b>. At its list price of
+      1,200 / 3,600 credits per 1M it dominates <b>nothing at all</b>, and is itself beaten by
+      <code>glm-5.2</code>. The
+      discount is the entire argument for it. <code>qwen3.7-plus</code> is on 20% off. Both are marked
+      limited-time and neither should be planned around.
+    </p>
+  </div>
+
+  <h2>All 14 models</h2>
+  <p class="sub">Credits per 1M tokens at the selected input size, after any discount. Sorted by intelligence per credit.</p>
+  <div class="scroll">
+    <table>
+      <thead><tr>
+        <th>Model</th><th>Intel</th><th>cr / 1M in</th><th>cr / 1M out</th>
+        <th>cr cached in</th><th>Blended</th><th>Intel per 1k cr</th><th>Context</th><th>Max out</th><th>RPM</th>
+      </tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </div>
+
+  <div class="callout">
+    <h3>What to actually use</h3>
+    <p>
+      <b><code>deepseek-v4-flash</code> for everything by default.</b> It is 100 / 200 credits per 1M, the
+      cheapest on the plan by a factor of four, with 1M context, a 384K output ceiling (3x anything else) and
+      the joint-highest rate limit. It beats six models outright. Its intelligence (40.3) is mid-table, but
+      nothing cheaper is smarter and nothing near its price comes close.
+    </p>
+    <p>
+      <b><code>glm-5.2</code> when the task is genuinely hard.</b> Highest intelligence on the plan at 51.1,
+      for 800 / 2,800 credits — roughly 10x V4 Flash. Capped at 500 RPM, so it is not a fan-out model.
+    </p>
+    <p>
+      <b><code>qwen3.7-plus</code> when you need what DeepSeek lacks:</b> image and video input, the built-in
+      Responses-API tools, and 15,000 RPM. It is beaten on pure price-vs-intelligence, but capabilities are
+      not on this chart and that is a real reason to pick it. Note its tokeniser is hungry (see below), which
+      erodes its price advantage on the same text.
+    </p>
+    <p>
+      <b>Ignore <code>deepseek-v4-pro</code> unless your work is output-heavy.</b> It looks like the value
+      pick on public leaderboards because DeepSeek's own API is dirt cheap. Here it is 12x V4 Flash for four
+      intelligence points. Its one genuine niche: at 2,400 credits its output is cheaper than
+      <code>glm-5.2</code>'s 2,800, so below about 25% input it re-enters the frontier.
+    </p>
+  </div>
+
+  <div class="callout">
+    <h3>A token is not a token</h3>
+    <p>
+      The same 1.1MB of text tokenised to <b>177,685 tokens on DeepSeek, 201,921 on GLM, and 287,680 on
+      Qwen</b> — 62% more than DeepSeek for identical content. Per-token prices across vendors are therefore
+      not directly comparable, and this chart, like every other, quietly assumes they are. Qwen needs roughly
+      60% more tokens to say the same thing, which eats most of its headline price advantage.
+    </p>
+    <p>
+      It has a sharper edge too: that call crossed Qwen's 256k tier boundary and was billed at tier-2 rates on
+      text DeepSeek saw as a 178k prompt. Tier thresholds are counted in the vendor's own tokens, not yours.
+    </p>
+  </div>
+
+  <div class="callout">
+    <h3>The good models have the tightest taps</h3>
+    <p>
+      <b>500 RPM</b> is the ceiling on every GLM, every Kimi and MiniMax — including <code>glm-5.2</code>, the
+      smartest model on the plan. The Qwen Plus and Flash models get <b>15,000</b>, and DeepSeek gets 15,000 on
+      the mainland sheet. For a wide agent fan-out that gap matters more than price.
+    </p>
+  </div>
+
+  <div class="foot">
+    <p>
+      <b>Prices:</b> Alibaba Cloud Model Studio console, per-model details pages, <b>Chinese Mainland</b>
+      sheet, captured 16 July 2026, at the rate each model is actually charged (measured, not advertised).
+      Cross-checked against the Chinese site's native RMB sheet: the two are the same prices, converted at
+      1 RMB = $0.1375, consistent across ten components to 0.36%. Credits at <b>727 per USD</b>, measured on
+      the live gateway across four models to 0.02%. Alibaba's own docs example implies 724 and is slightly
+      stale; an earlier estimate of ours said 744 and was wrong.
+    </p>
+    <p>
+      <b>How we know it bills on the mainland sheet.</b> Fit observed credit charges against each sheet and
+      ask whether credits-per-dollar is the same constant for every model. On mainland it is, to within 0.4%
+      across two independent models. On international it varies by 13&ndash;27%, so it cannot be the basis.
+      The docs example agrees: against mainland it gives 724, matching our API measurements; against
+      international it gives 400, matching nothing. Four of the plan's fourteen models have no international
+      price at all, so it could not bill that way even in principle.
+    </p>
+    <p>
+      <b>Method.</b> The burn rate was measured, not inferred: ~178k-288k input tokens fired at four models
+      with thinking disabled and caching defeated, then each call's credit charge read from the console bill.
+      Implied rates 727.15 / 726.99 / 726.99 / 727.02. Figures here read 100.3 rather than a clean 100 because
+      the console publishes dollars to only 3 decimals, so converting back adds ~0.3% of noise; the round
+      number is the real one. Reproduce it with <code>probe-credit-rate.py</code> in this repository.
+    </p>
+    <p>
+      <b>Seat pricing</b> from the console's Add-seats page, 16 July 2026. "API value" is credits ÷ 727,
+      i.e. what the same usage would cost at list. Token counts assume a 75/25 input:output blend, uncached.
+    </p>
+    <p>
+      <b>Intelligence:</b> Artificial Analysis Intelligence Index, 19 June 2026. Measured against each
+      vendor's own API, so it describes the model, not this gateway. <code>qwen3.6-flash</code> and
+      <code>deepseek-v3.2</code> have no AA score, so they are listed but not plotted or scored.
+      <b>Throughput is deliberately absent:</b> AA's tokens/sec is measured elsewhere and would say nothing
+      true about Model Studio.
+    </p>
+    <p>
+      <b>Tiers:</b> Qwen models step up above 256k input (3x for <code>qwen3.7-plus</code>, 4x for the 3.6
+      pair). <code>glm-5</code> and <code>glm-5.1</code> step up above just <b>32k</b>. <code>qwen3.7-max</code>
+      and all DeepSeek, Kimi and MiniMax models are flat. Models are dropped from a band when their context
+      cannot reach it.
+    </p>
+    <p>
+      <b>Caveats.</b> Credits per request also depend on thinking mode and tool calls, neither of which is
+      modelled here — and reasoning tokens bill as output while ignoring <code>max_tokens</code>, so a
+      "cheap" call on a reasoning model is not cheap. Built-in tools cost extra on top of tokens
+      (<code>web_search</code> is $10 per 1,000 calls). Blended cost assumes uncached input.
+    </p>
+    <p>
+      Full datasheets, the credit-rate experiment, and the metadata errors found along the way:
+      <code>data/</code> in this repository.
+    </p>
+  </div>
+</div>
+
+<script>
+const CR_PER_USD = 727;  // MEASURED 2026-07-16: 4 models agree to 0.02%
+// tiers: s = <32k, m = 32k-256k, l = >256k. null = model cannot serve this input size.
+// [input$, output$, cachedIn$|null] per 1M, MAINLAND, effective (post-discount).
+const M = [
+ // qwen3.7-max: 50% discount IS honoured (measured 152.55 cr on 254,344 tokens = 600 cr/1M).
+ // qwen3.7-plus: 20% discount is NOT honoured (measured 26.63 cr on 132,732 tokens = 200 cr/1M,
+ // exactly its LIST rate). Same vendor, two promotions, only one applied. Measured, not inferred.
+ { id:"qwen3.7-max",  v:"Qwen", intel:46,   ctx:"1M",   out:"64K",  rpm:15000, disc:"50% off honoured",
+   t:{ s:[0.825,2.4755,0.165], m:[0.825,2.4755,0.165], l:[0.825,2.4755,0.165] } },
+ { id:"qwen3.7-plus", v:"Qwen", intel:39,   ctx:"1M",   out:"64K",  rpm:15000, nodisc:"20% off IGNORED",
+   t:{ s:[0.276,1.101,0.056], m:[0.276,1.101,0.056], l:[0.826,3.301,0.166] } },
+ { id:"qwen3.6-plus", v:"Qwen", intel:39.6, ctx:"1M",   out:"64K",  rpm:15000,
+   t:{ s:[0.276,1.651,null], m:[0.276,1.651,null], l:[1.101,6.602,null] } },
+ { id:"qwen3.6-flash",v:"Qwen", intel:null, ctx:"1M",   out:"64K",  rpm:15000,
+   t:{ s:[0.165,0.99,null], m:[0.165,0.99,null], l:[0.66,3.961,null] } },
+ { id:"deepseek-v4-pro",  v:"DeepSeek", intel:44.3, ctx:"1M", out:"384K", rpm:15000,
+   t:{ s:[1.65,3.301,0.138], m:[1.65,3.301,0.138], l:[1.65,3.301,0.138] } },
+ { id:"deepseek-v4-flash",v:"DeepSeek", intel:40.3, ctx:"1M", out:"384K", rpm:15000,
+   t:{ s:[0.138,0.275,0.028], m:[0.138,0.275,0.028], l:[0.138,0.275,0.028] } },
+ { id:"deepseek-v3.2",v:"DeepSeek", intel:null, ctx:"128K", out:"64K", rpm:15000, retire:true,
+   t:{ s:[0.287,0.431,0.058], m:[0.287,0.431,0.058], l:null } },
+ { id:"kimi-k2.7-code",v:"Moonshot", intel:41.9, ctx:"256K", out:"16K", rpm:500,
+   t:{ s:[0.8939,3.7131,0.1788], m:[0.8939,3.7131,0.1788], l:null } },
+ { id:"kimi-k2.6",    v:"Moonshot", intel:42.8, ctx:"256K", out:"16K", rpm:500,
+   t:{ s:[0.8939,3.7131,0.1788], m:[0.8939,3.7131,0.1788], l:null } },
+ { id:"kimi-k2.5",    v:"Moonshot", intel:38.1, ctx:"256K", out:"16K", rpm:500,
+   t:{ s:[0.574,3.011,0.115], m:[0.574,3.011,0.115], l:null } },
+ { id:"glm-5.2",      v:"Zhipu", intel:51.1, ctx:"1M",   out:"128K", rpm:500,
+   t:{ s:[1.1,3.851,0.275], m:[1.1,3.851,0.275], l:[1.1,3.851,0.275] } },
+ { id:"glm-5.1",      v:"Zhipu", intel:40.2, ctx:"202K", out:"128K", rpm:500,
+   t:{ s:[0.825,3.301,0.165], m:[1.1,3.851,0.22], l:null } },
+ { id:"glm-5",        v:"Zhipu", intel:39.5, ctx:"198K", out:"16K",  rpm:500,
+   t:{ s:[0.573,2.58,0.115], m:[0.86,3.154,0.172], l:null } },
+ { id:"MiniMax-M2.5", v:"MiniMax", intel:33.7, ctx:"200K", out:"128K", rpm:500,
+   t:{ s:[0.304,1.213,0.061], m:[0.304,1.213,0.061], l:null } },
+];
+const VC = { "Qwen":"#7a5cf0", "DeepSeek":"#2f7fd4", "Moonshot":"#18916b", "Zhipu":"#cf7a26", "MiniMax":"#ab4f5c" };
+const SIZEL = { s:"under 32k", m:"32k–256k", l:"over 256k" };
+
+let size="s", mixIn=75, domMode="show", hot=null;
+const px = (m) => m.t[size];
+const cr = (usd) => usd * CR_PER_USD;
+const blendC = (p) => p ? cr((p[0]*mixIn + p[1]*(100-mixIn))/100) : null;
+const f0 = (x) => x==null ? "—" : Math.round(x).toLocaleString();
+const f1 = (x) => x==null ? "—" : (x<10 ? x.toFixed(1) : Math.round(x).toLocaleString());
+
+const avail = () => M.filter(m => px(m) != null);
+const scoreable = () => avail().filter(m => m.intel != null);
+
+// Dominance is measured on the axes actually drawn — blended cost and
+// intelligence — so a faded dot always has a ringed dot up and to its left.
+// Comparing input and output prices separately would ring models the eye can
+// plainly see are beaten.
+function dominatedSet() {
+  const P = scoreable(), s = new Map();
+  for (const b of P) {
+    const bb = blendC(px(b));
+    const by = P.filter(a => {
+      if (a === b) return false;
+      const ba = blendC(px(a));
+      return ba <= bb && a.intel >= b.intel && (ba < bb || a.intel > b.intel);
+    });
+    if (by.length) s.set(b.id, by.map(x => x.id));
+  }
+  return s;
+}
+
+const plot = document.getElementById("plot"), PAD = 8;
+
+function render() {
+  const dom = dominatedSet();
+  const P = scoreable();
+  const shown = domMode === "hide" ? P.filter(m => !dom.has(m.id)) : P;
+  const bl = shown.map(m => blendC(px(m)));
+  const lo = Math.log10(Math.min(...bl)), hi = Math.log10(Math.max(...bl));
+  const iL = Math.min(...shown.map(m=>m.intel)), iH = Math.max(...shown.map(m=>m.intel));
+  const fx = b => hi===lo ? .5 : (Math.log10(b)-lo)/(hi-lo);
+  const fy = i => iH===iL ? .5 : (i-iL)/(iH-iL);
+
+  plot.innerHTML = "";
+  [0,.25,.5,.75,1].forEach(g => {
+    const v=document.createElement("div"); v.className="grid-l"; v.style.left=(PAD+g*(100-2*PAD))+"%"; plot.appendChild(v);
+    const h=document.createElement("div"); h.className="grid-h"; h.style.top=(PAD+(1-g)*(100-2*PAD))+"%"; plot.appendChild(h);
+  });
+  [0,.5,1].forEach(g => {
+    const t=document.createElement("div"); t.className="tick";
+    t.style.left=(PAD+g*(100-2*PAD))+"%"; t.style.bottom="6px"; t.style.transform="translateX(-50%)";
+    t.textContent=f0(Math.pow(10,lo+g*(hi-lo))); plot.appendChild(t);
+    const y=document.createElement("div"); y.className="tick";
+    y.style.top=(PAD+(1-g)*(100-2*PAD))+"%"; y.style.left="6px"; y.style.transform="translateY(-50%)";
+    y.textContent=(iL+g*(iH-iL)).toFixed(0); plot.appendChild(y);
+  });
+
+  for (const m of shown) {
+    const L = PAD + fx(blendC(px(m)))*(100-2*PAD), T = PAD + (1-fy(m.intel))*(100-2*PAD);
+    const isDom = dom.has(m.id);
+    const d = document.createElement("div");
+    d.className = "dot" + (isDom?" dominated":" frontier") + (hot===m.id?" hot":"");
+    d.style.left=L+"%"; d.style.top=T+"%";
+    d.style.width=d.style.height=(isDom?11:16)+"px";
+    d.style.background=VC[m.v];
+    d.onmouseenter=()=>{hot=m.id;render()}; d.onmouseleave=()=>{hot=null;render()};
+    plot.appendChild(d);
+    const lab=document.createElement("div");
+    lab.className="dlabel"+(isDom?" dim":" strong");
+    lab.style.left=L+"%"; lab.style.top=T+"%"; lab.textContent=m.id;
+    plot.appendChild(lab);
+  }
+
+  document.getElementById("mixval").textContent = mixIn+"% input / "+(100-mixIn)+"% output";
+  const ro = document.getElementById("readout");
+  if (hot) {
+    const m = M.find(x=>x.id===hot), p = px(m), by = dom.get(m.id);
+    ro.innerHTML = "<b>"+m.id+"</b> · "+m.v+" · intel "+m.intel+" · <b>"+f0(cr(p[0]))+"</b> cr/1M in · <b>"+
+      f0(cr(p[1]))+"</b> cr/1M out · blended <b>"+f0(blendC(p))+"</b> cr · "+m.ctx+" context · "+
+      m.rpm.toLocaleString()+" RPM" +
+      (by ? "<br>Beaten outright by <b>"+by.join("</b>, <b>")+"</b> — cheaper on both sides and at least as smart."
+          : "<br><b>On the frontier.</b> Nothing on the plan is cheaper on both sides and at least as intelligent.");
+  } else {
+    ro.innerHTML = shown.length+" of 14 models plotted at <b>"+SIZEL[size]+"</b> input ("+
+      (14-avail().length)+" cannot serve it, 2 have no intelligence score). <b>"+dom.size+
+      "</b> of "+P.length+" are strictly beaten and drawn faded. Ringed dots are the frontier. Hover anything.";
+  }
+
+  const front = P.filter(m => !dom.has(m.id)).sort((a,b)=>blendC(px(a))-blendC(px(b)));
+  const cheap = front[0], smart = front.reduce((a,b)=>a.intel>b.intel?a:b);
+  const best = P.reduce((a,b)=> (a.intel/blendC(px(a)) > b.intel/blendC(px(b)) ? a : b));
+  document.getElementById("cards").innerHTML = [
+    ["Best value", best.id, f0(blendC(px(best)))+" credits per 1M blended for "+best.intel+" intelligence — "+
+      (best.intel/blendC(px(best))*1000).toFixed(1)+" points per 1,000 credits."],
+    ["Smartest", smart.id, "AA index "+smart.intel+", the highest on the plan, at "+f0(blendC(px(smart)))+" credits per 1M."],
+    ["Cheapest", cheap.id, f0(blendC(px(cheap)))+" credits per 1M blended, at "+cheap.intel+" intelligence."],
+    ["Never worth picking", dom.size+" of "+P.length, "Strictly beaten at this input size. Plus deepseek-v3.2, retiring 10 October."],
+  ].map(([k,v,d])=>'<div class="card"><div class="k">'+k+'</div><div class="v">'+v+'</div><div class="d">'+d+'</div></div>').join("");
+
+  document.getElementById("frontier").innerHTML = front.map(m =>
+    '<p><b>'+m.id+'</b> — intel '+m.intel+', <b>'+f0(blendC(px(m)))+'</b> credits per 1M blended, '+
+    m.ctx+' context, '+m.rpm.toLocaleString()+' RPM.</p>').join("");
+
+  const rows = [...M].sort((a,b)=>{
+    const pa=px(a), pb=px(b);
+    if(!pa) return 1; if(!pb) return -1;
+    const sa=a.intel!=null?a.intel/blendC(pa):-1, sb=b.intel!=null?b.intel/blendC(pb):-1;
+    return sb-sa;
+  });
+  document.getElementById("tbody").innerHTML = rows.map(m=>{
+    const p=px(m), isDom=dom.has(m.id);
+    const pills = (!p ? '<span class="pill na">context too small</span>' : "") +
+      (!isDom && p && m.intel!=null ? '<span class="pill front">frontier</span>' : "") +
+      (m.retire ? '<span class="pill warn">retires 10 Oct</span>' : "") +
+      (m.nodisc ? '<span class="pill warn">'+m.nodisc+'</span>' : "") +
+      (m.disc ? '<span class="pill front">'+m.disc+'</span>' : "") +
+      (m.intel==null ? '<span class="pill na">no score</span>' : "");
+    return '<tr class="'+(isDom?"dominated":"")+'" onmouseenter="hot=\''+m.id+'\';render()" onmouseleave="hot=null;render()">'+
+      '<td><span class="swatch" style="background:'+VC[m.v]+'"></span><span class="model">'+m.id+
+        '</span><span class="vendor">'+m.v+'</span>'+pills+'</td>'+
+      '<td>'+(m.intel??"—")+'</td>'+
+      '<td>'+(p?f0(cr(p[0])):"n/a")+'</td>'+
+      '<td>'+(p?f0(cr(p[1])):"n/a")+'</td>'+
+      '<td>'+(p&&p[2]!=null?f1(cr(p[2])):"—")+'</td>'+
+      '<td>'+(p?"<b>"+f0(blendC(p))+"</b>":"n/a")+'</td>'+
+      '<td>'+(p&&m.intel!=null?(m.intel/blendC(p)*1000).toFixed(1):"—")+'</td>'+
+      '<td>'+m.ctx+'</td><td>'+m.out+'</td><td>'+m.rpm.toLocaleString()+'</td></tr>';
+  }).join("");
+}
+
+document.getElementById("seg-size").onclick = e => {
+  const b=e.target.closest("button"); if(!b) return;
+  size=b.dataset.size; [...e.currentTarget.children].forEach(x=>x.setAttribute("aria-pressed",x===b)); render();
+};
+document.getElementById("seg-dom").onclick = e => {
+  const b=e.target.closest("button"); if(!b) return;
+  domMode=b.dataset.dom; [...e.currentTarget.children].forEach(x=>x.setAttribute("aria-pressed",x===b)); render();
+};
+document.getElementById("mix").oninput = e => { mixIn=+e.target.value; render(); };
+
+// seat tiers — console > Add seats, 16 Jul 2026
+const SEATS = [["Standard",30,25000],["Pro",100,100000],["Max",200,250000]];
+(function seatTable(){
+  const sz = size; size = "s";
+  const bl = id => { const m = M.find(x=>x.id===id); return (px(m)[0]*75 + px(m)[1]*25)/100 * CR_PER_USD; };
+  const flash = bl("deepseek-v4-flash"), glm = bl("glm-5.2");
+  document.getElementById("seats").innerHTML = SEATS.map(([n,usd,c])=>{
+    const val = c / CR_PER_USD, eff = val/usd;
+    return "<tr><td><span class='model'>"+n+" seat</span>"+
+      (n==="Max"?"<span class='pill front'>best value</span>":"")+"</td>"+
+      "<td>$"+usd+"</td><td>"+c.toLocaleString()+"</td><td>"+Math.round(c/usd).toLocaleString()+"</td>"+
+      "<td>$"+val.toFixed(2)+"</td><td><b>"+eff.toFixed(2)+"x</b></td>"+
+      "<td>"+Math.round(c/flash)+"M</td><td>"+Math.round(c/glm)+"M</td></tr>";
+  }).join("");
+  size = sz;
+})();
+
+render();
+</script>

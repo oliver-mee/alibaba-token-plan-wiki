@@ -1,0 +1,9 @@
+{
+  "model": "qwen3.7-max",
+  "in": 254344,
+  "out": 1,
+  "cached": 0,
+  "fired_local": "19:18:50",
+  "predict_list": 305.1,
+  "predict_discounted": 152.55
+}

@@ -1,0 +1,94 @@
+{
+  "a": {
+    "deepseek-v4-flash": {
+      "in": 177685,
+      "out": 1,
+      "cached": 0,
+      "usd": 0.024521,
+      "expect_credits_724": 17.75,
+      "expect_credits_744": 18.24,
+      "usd_corrected": 0.024521,
+      "expect_724": 17.75,
+      "expect_744": 18.24
+    },
+    "deepseek-v4-pro": {
+      "in": 177685,
+      "out": 1,
+      "cached": 0,
+      "usd": 0.293184,
+      "expect_credits_724": 212.26,
+      "expect_credits_744": 218.13,
+      "usd_corrected": 0.293184,
+      "expect_724": 212.26,
+      "expect_744": 218.13
+    },
+    "qwen3.7-plus": {
+      "in": 287680,
+      "out": 1,
+      "cached": 0,
+      "usd": 0.063521,
+      "expect_credits_724": 45.99,
+      "expect_credits_744": 47.26,
+      "usd_corrected": 0.190102,
+      "expect_724": 137.63,
+      "expect_744": 141.44
+    },
+    "glm-5.2": {
+      "in": 201921,
+      "out": 1,
+      "cached": 0,
+      "usd": 0.222117,
+      "expect_credits_724": 160.81,
+      "expect_credits_744": 165.26,
+      "usd_corrected": 0.222117,
+      "expect_724": 160.81,
+      "expect_744": 165.26
+    }
+  },
+  "windows": {
+    "a": "19:05:16-19:05:49 local",
+    "b": "19:06:02-19:08:26 local"
+  },
+  "b": {
+    "deepseek-v4-flash": {
+      "in": 49,
+      "out": 299,
+      "usd": 8.9e-05,
+      "expect_credits_724": 0.06,
+      "expect_credits_744": 0.07,
+      "usd_corrected": 8.9e-05,
+      "expect_724": 0.06,
+      "expect_744": 0.07
+    },
+    "deepseek-v4-pro": {
+      "in": 49,
+      "out": 8000,
+      "usd": 0.026489,
+      "expect_credits_724": 19.18,
+      "expect_credits_744": 19.71,
+      "usd_corrected": 0.026489,
+      "expect_724": 19.18,
+      "expect_744": 19.71
+    },
+    "qwen3.7-plus": {
+      "in": 58,
+      "out": 382,
+      "usd": 0.000349,
+      "expect_credits_724": 0.25,
+      "expect_credits_744": 0.26,
+      "usd_corrected": 0.000349,
+      "expect_724": 0.25,
+      "expect_744": 0.26
+    },
+    "glm-5.2": {
+      "in": 52,
+      "out": 289,
+      "usd": 0.00117,
+      "expect_credits_724": 0.85,
+      "expect_credits_744": 0.87,
+      "usd_corrected": 0.00117,
+      "expect_724": 0.85,
+      "expect_744": 0.87
+    }
+  }
+}
