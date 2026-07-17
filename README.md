@@ -63,24 +63,43 @@ pushed Qwen past its 256k boundary into tier-2 pricing.
 
 **Every source is wrong, including Alibaba's own console.** We probed the gateway directly for
 structured-output support and compared it against the console and against models.dev (the community
-metadata DB that openclaw, hermes and others read from). **The console is wrong for 6 of 9 models
-tested. models.dev is wrong for 3 of 9.** They are wrong in *both* directions, so you cannot fix one
-from the other:
+metadata DB that openclaw, hermes and others read from). Across all 14 chat models, **the console is
+wrong 10 times out of 14. models.dev is wrong 6 times.** They are wrong in *both* directions, and on
+5 models they are *both* wrong at once — so you cannot correct one from the other.
 
 | Model | Console | models.dev | **Gateway (truth)** | Wrong |
-|---|:--:|:--:|---|---|
-| `deepseek-v4-pro` | ✗ | ✓ | **json_schema ✓** | console |
-| `deepseek-v4-flash` | ✗ | ✓ | **json_schema ✓** | console |
-| `qwen3.7-plus` | ✓ | ✗ | **json_schema ✓** | models.dev |
-| `qwen3.6-plus` | ✓ | ✗ | **json_object only** | console |
-| `qwen3.6-flash` | ✓ | ✓ | **json_object only** | **both** |
-| `kimi-k2.7-code` | ✓ | ✗ | **none at all** | console |
-| `kimi-k2.6` | ✗ | ✗ | **json_schema ✓** | **both** |
-| `glm-5.2` | ✓ | ✓ | **json_schema ✓** | — |
-| `MiniMax-M2.5` | ✗ | ✗ | **none** | — |
+|---|:--:|:--:|:--:|---|
+| `deepseek-v4-pro` | ✗ | ✓ | **✓** | console |
+| `deepseek-v4-flash` | ✗ | ✓ | **✓** | console |
+| `deepseek-v3.2` | ✗ | ✓ | **✓** | console |
+| `qwen3.7-max` | ✗ | ✗ | **✓** | **both** |
+| `qwen3.7-plus` | ✓ | ✗ | **✓** | models.dev |
+| `qwen3.6-plus` | ✓ | ✗ | **✗** | console |
+| `qwen3.6-flash` | ✓ | ✓ | **✗** | **both** |
+| `kimi-k2.7-code` | ✓ | ✗ | **✗** | console |
+| `kimi-k2.6` | ✗ | ✗ | **✓** | **both** |
+| `kimi-k2.5` | ✗ | ✗ | **✓** | **both** |
+| `glm-5.2` | ✓ | ✓ | **✓** | — |
+| `glm-5.1` | ✓ | ✓ | **✓** | — |
+| `glm-5` | ✗ | ✗ | **✓** | **both** |
+| `MiniMax-M2.5` | ✗ | ✗ | **✗** | — |
 
-Method: send a `json_schema` `response_format` with a prompt that never mentions JSON; conforming
-JSON means the decoder worked. Control: every model returns prose without the schema.
+Reproduce with [`probe-capabilities.py`](probe-capabilities.py). Method: send a `json_schema`
+`response_format` with a prompt that never mentions JSON, and check the reply is conforming JSON.
+Control: the same call without the schema returns prose on every model, so a conforming reply is the
+decoder and not the model being helpful.
+
+`qwen3.6-plus` and `qwen3.6-flash` reject `json_schema` with an error about `json_object` — they do not
+recognise schema mode at all and fall back to the older mode (which needs the word "json" in the
+prompt). Their console tick is true only in that weak sense.
+
+**The Kimi pair is inverted** from the reasoning both catalogs inherited. models.dev omits structured
+output on `kimi-k2.7-code` "mirroring the `kimi-k2.6` sibling" — but k2.6 **has** it and k2.7-code does
+**not**. Right answer, backwards reason, and wrong on the sibling.
+
+To fix models.dev: **add** `structured_output` to `qwen3.7-max`, `qwen3.7-plus`, `kimi-k2.6`,
+`kimi-k2.5`, `glm-5`; **remove** it from `qwen3.6-flash`. Leave the DeepSeek entries alone — they were
+right all along, and correcting them from the console would have broken them.
 
 **`MiniMax-M2.5` cannot disable thinking.** `enable_thinking: false` → *"The value of the
 enable_thinking parameter is restricted to True."* It always reasons, and reasoning bills as output.
