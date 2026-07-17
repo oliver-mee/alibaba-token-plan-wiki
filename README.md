@@ -65,11 +65,47 @@ pushed Qwen past its 256k boundary into tier-2 pricing.
 completion tokens, 122 of them reasoning. Reasoning bills as output. Send `enable_thinking: false` if you
 want to control spend.
 
+**Every source is wrong, including Alibaba's own console.** We probed the gateway directly for
+structured-output support and compared it against the console and against models.dev (the community
+metadata DB that openclaw, hermes and others read from). **The console is wrong for 6 of 9 models
+tested. models.dev is wrong for 3 of 9.** They are wrong in *both* directions, so you cannot fix one
+from the other:
+
+| Model | Console | models.dev | **Gateway (truth)** | Wrong |
+|---|:--:|:--:|---|---|
+| `deepseek-v4-pro` | ✗ | ✓ | **json_schema ✓** | console |
+| `deepseek-v4-flash` | ✗ | ✓ | **json_schema ✓** | console |
+| `qwen3.7-plus` | ✓ | ✗ | **json_schema ✓** | models.dev |
+| `qwen3.6-plus` | ✓ | ✗ | **json_object only** | console |
+| `qwen3.6-flash` | ✓ | ✓ | **json_object only** | **both** |
+| `kimi-k2.7-code` | ✓ | ✗ | **none at all** | console |
+| `kimi-k2.6` | ✗ | ✗ | **json_schema ✓** | **both** |
+| `glm-5.2` | ✓ | ✓ | **json_schema ✓** | — |
+| `MiniMax-M2.5` | ✗ | ✗ | **none** | — |
+
+Method: send a `json_schema` `response_format` with a prompt that never mentions JSON; conforming
+JSON means the decoder worked. Control: every model returns prose without the schema.
+
+**`MiniMax-M2.5` cannot disable thinking.** `enable_thinking: false` → *"The value of the
+enable_thinking parameter is restricted to True."* It always reasons, and reasoning bills as output.
+There is no cheap call on this model, and no datasheet mentions it.
+
+**`max_tokens` does not cap reasoning tokens.** `max_tokens: 1` on `deepseek-v4-flash` returned **127**
+completion tokens, 122 of them reasoning. Send `enable_thinking: false` if you want to control spend.
+
 **Built-in tools cost extra.** `web_search` is **$10 per 1,000 calls** on top of tokens, `t2i_search` and
 `i2i_search` $8. Only `web_extractor` and `code_interpreter` are free, and both are marked limited-time.
 Qwen models only, Responses API only.
 
-**`deepseek-v3.2` retires 10 October 2026.** It is the only model carrying a retirement tag.
+**`deepseek-v3.2` retires 10 October 2026.** It is the only model carrying a retirement tag, and none
+of the downstream catalogs know.
+
+**Max output is unresolved.** Three sources disagree and none can be trusted. The `262,144` figure in
+circulation for `kimi-k2.7-code` came from reading `Range of max_tokens should be [1, 262144]` as an
+output ceiling — but that is the model's **context window**. `kimi-k2.5` proves validation ranges are
+not caps: its range is `[1, 98304]`, matching neither its context (256K) nor any published figure.
+Resolving it needs a real long generation, and 3 of 4 models ignore "keep going" and stop at ~300
+tokens. Open — see the roadmap.
 
 ### ⚠️ This plan is not for backends
 
@@ -135,6 +171,49 @@ input rate directly.
   output on demand, which made the output measurement unreliable.
 - **Prices captured 16 July 2026** and Alibaba changes them often. Re-run the probe before trusting them.
 - Credits also depend on thinking mode and tool calls, neither of which is modelled in the chart.
+
+
+---
+
+## Roadmap
+
+The measured findings above are solid. These are the open questions, roughly in order of how much
+money they move.
+
+**Compare a CN-purchased plan against an international one.** The plan bills in RMB either way, but
+seats are *sold* separately in each region. If a CN-bought plan buys credits at a better rate against
+the same RMB-denominated burn, that is a straight arbitrage. Nobody has published this comparison.
+
+**Test the CN model endpoints.** The plan exposes `token-plan.cn-beijing.maas.aliyuncs.com` as well as
+Singapore. Same catalogue, same billing? Or does the CN gateway charge differently for the same model?
+The billing sheet is already mainland, so it *should* be identical — which is exactly why it is worth
+checking rather than assuming.
+
+**Probe every capability flag, for every model.** The table above covers structured output on 9 of 14.
+The same treatment is needed for `attachment`, `prefix continuation`, `web_search`, `batches` and the
+modality claims. Given the console is wrong 6 times out of 9 on the one flag we tested properly, the
+prior on the rest being right is not good.
+
+**Settle max output with real generations.** Needs a prompt that reliably forces thousands of tokens
+out of models that would rather stop. Probably per-model prompt engineering, not one trick.
+
+**Verify output rates.** Only *input* rates were measured directly; output rates are inferred by
+assuming the same list-or-discount basis as the input. Low risk, but unverified — and this project's
+track record on "low risk" inferences is poor.
+
+**Then, and only then, fix the upstream catalogs.** models.dev, openclaw and hermes all carry wrong
+values. We nearly shipped a "fix" that would have broken two *correct* DeepSeek entries by trusting
+the console. Nothing goes upstream that has not been probed against the gateway.
+
+### The rule this project learned the hard way
+
+**The gateway is the only authority, and per-model facts are per-model.**
+
+Almost every wrong turn here came from generalising a good measurement one model too far: from
+`qwen3.7-plus` to all discounts, from `kimi-k2.6` to `kimi-k2.7-code`, from one price sheet to another,
+from three models to a fourth. Each looked safe. Each was wrong. The near-misses are the instructive
+part — the international price sheet yields a clean ~500 credits/dollar for three of four models and
+only breaks on the fourth. Test three models and you will be confidently wrong.
 
 ---
 
