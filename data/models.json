@@ -1,0 +1,798 @@
+{
+  "updated": "2026-07-25",
+  "note": "Measured against the live gateway. More accurate than the vendor console.",
+  "tiers": {
+    "team": {
+      "chat_models": 15
+    },
+    "personal": {
+      "chat_models": 6
+    }
+  },
+  "endpoints": {
+    "global": "https://token-plan.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1",
+    "cn": "https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mode/v1"
+  },
+  "anthropic_endpoints": {
+    "global": "https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic",
+    "cn": "https://token-plan.cn-beijing.maas.aliyuncs.com/apps/anthropic"
+  },
+  "capability_notes": {
+    "capability_scope": "Capability values in this file were measured against the OpenAI-compatible surface (/compatible-mode/v1) unless noted. structured_output here means response_format json_schema; thinking here means enable_thinking + reasoning_content. The Anthropic-compatible surface (/apps/anthropic) was SEPARATELY tested 2026-07-24 - see meta.anthropic_surface. It has no /models listing (404) but every model is callable by id. Matters for Claude Code users, who use that surface.",
+    "anthropic_surface": "TESTED 2026-07-24 (Global/Singapore, POST /apps/anthropic/v1/messages, x-api-key + anthropic-version:2023-06-01). FULLY FUNCTIONAL. All 15 chat models callable by the same id (no /models listing - 404 - but direct calls work). Returns NATIVE Anthropic format: thinking + text content blocks, stop_reason, and real cache accounting (cache_creation_input_tokens / cache_read_input_tokens). The thinking param (thinking:{type:enabled,budget_tokens}) is accepted on all 15. Native tool_use (auto tool_choice) works on all 15. Vision via Anthropic image blocks works on the same 7 multimodal models as the OpenAI surface (qwen3.8-max-preview, qwen3.7-plus, qwen3.6-plus, qwen3.6-flash, kimi-k2.5/k2.6/k2.7-code). FORCED tool_choice {type:tool} (the Anthropic structured-output path) works on deepseek-v3.2, kimi-k2.5/k2.6/k2.7-code, glm-5/glm-5.1/glm-5.2 (7) but is REJECTED with 400 by all 5 Qwen, deepseek-v4-pro, deepseek-v4-flash and MiniMax-M2.5 (8). This DIFFERS from the OpenAI surface (where tool_choice:required was honoured by none), so forced-tool structured output is surface-specific.",
+    "openai_compatibility": "OpenAI-param support on /chat/completions, gateway-verified 2026-07-24. UNIVERSAL (all 15 chat models): top_p, frequency_penalty, presence_penalty, stop, seed, max_completion_tokens, streaming. logprobs: per-model (capabilities.logprobs) - Qwen, Kimi, glm-5.1/glm-5 yes; deepseek, MiniMax, glm-5.2 no. n>1 (multiple choices): only where thinking can be OFF (deepseek-v3.2, kimi-k2.5, kimi-k2.6); every other model returns 'n must be 1 when enable_thinking is true'. tool_choice: only 'auto' is honoured - 'required' is REJECTED by Qwen (400) and silently ignored by the rest, so a forced tool call cannot be relied on anywhere. Parallel tool calls DO work (multiple tool_calls returned in one response).",
+    "knowledge_cutoff_note": "NOT recorded per model: self-reported cutoffs (asked each model directly, 2026-07-24) are unreliable and self-contradictory - the Qwen models claim '2026' while sibling qwen3.6-flash said 'July 2024'; others ranged Jan-2024 to Jan-2025. Do not treat model self-report as authoritative. Source from vendor model cards if needed."
+  },
+  "models": [
+    {
+      "id": "qwen3.8-max-preview",
+      "vendor": "Qwen",
+      "kind": "chat",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-07-17",
+      "status": "beta",
+      "limit": {
+        "context": 1000000,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": true,
+        "structured_output": "json_schema",
+        "responses_api": true,
+        "logprobs": true
+      },
+      "thinking": {
+        "mode": "always_on",
+        "can_disable": false,
+        "reasoning_effort": {
+          "accepted": [
+            "low",
+            "medium",
+            "high",
+            "xhigh"
+          ],
+          "documented": [
+            "low",
+            "high",
+            "xhigh"
+          ],
+          "default": "xhigh"
+        },
+        "temperature_floor": 0.6,
+        "budget_max": 262144
+      }
+    },
+    {
+      "id": "qwen3.7-max",
+      "vendor": "Qwen",
+      "kind": "chat",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-05-21",
+      "status": "active",
+      "limit": {
+        "context": 1000000,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": false,
+        "structured_output": "json_schema",
+        "responses_api": true,
+        "logprobs": true
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "budget_max": 262144
+      }
+    },
+    {
+      "id": "qwen3.7-plus",
+      "vendor": "Qwen",
+      "kind": "chat",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-06-02",
+      "status": "active",
+      "limit": {
+        "context": 1000000,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": true,
+        "structured_output": "json_schema",
+        "responses_api": true,
+        "logprobs": true
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "budget_max": 262144
+      }
+    },
+    {
+      "id": "qwen3.6-plus",
+      "vendor": "Qwen",
+      "kind": "chat",
+      "tiers": [
+        "team"
+      ],
+      "released": "2026-04-02",
+      "status": "active",
+      "limit": {
+        "context": 1000000,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": true,
+        "structured_output": "json_schema",
+        "responses_api": true,
+        "logprobs": true
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "budget_max": 131072
+      }
+    },
+    {
+      "id": "qwen3.6-flash",
+      "vendor": "Qwen",
+      "kind": "chat",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-04-27",
+      "status": "active",
+      "limit": {
+        "context": 1000000,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": true,
+        "structured_output": "json_schema",
+        "responses_api": true,
+        "logprobs": true
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "budget_max": 131072
+      }
+    },
+    {
+      "id": "deepseek-v4-pro",
+      "vendor": "DeepSeek",
+      "kind": "chat",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-04-24",
+      "status": "active",
+      "limit": {
+        "context": 1000000,
+        "output": 384000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": false,
+        "structured_output": "json_schema",
+        "responses_api": false,
+        "logprobs": false
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "budget_max": 393216
+      }
+    },
+    {
+      "id": "deepseek-v4-flash",
+      "vendor": "DeepSeek",
+      "kind": "chat",
+      "tiers": [
+        "team"
+      ],
+      "released": "2026-04-24",
+      "status": "active",
+      "limit": {
+        "context": 1000000,
+        "output": 384000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": false,
+        "structured_output": "json_schema",
+        "responses_api": false,
+        "logprobs": false
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "budget_max": 393216
+      }
+    },
+    {
+      "id": "deepseek-v3.2",
+      "vendor": "DeepSeek",
+      "kind": "chat",
+      "tiers": [
+        "team"
+      ],
+      "released": "2025-12-03",
+      "status": "active",
+      "limit": {
+        "context": 131072,
+        "output": 65536
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": false,
+        "structured_output": "json_schema",
+        "responses_api": false,
+        "logprobs": false
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "budget_max": null
+      },
+      "retires": "2026-10-10"
+    },
+    {
+      "id": "kimi-k2.7-code",
+      "vendor": "Moonshot",
+      "kind": "chat",
+      "tiers": [
+        "team"
+      ],
+      "released": "2026-06-12",
+      "status": "active",
+      "limit": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": true,
+        "structured_output": "json_schema",
+        "responses_api": false,
+        "logprobs": true
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "budget_max": 262144
+      }
+    },
+    {
+      "id": "kimi-k2.6",
+      "vendor": "Moonshot",
+      "kind": "chat",
+      "tiers": [
+        "team"
+      ],
+      "released": "2026-04-21",
+      "status": "active",
+      "limit": {
+        "context": 262144,
+        "output": 262144
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": true,
+        "structured_output": "json_schema",
+        "responses_api": false,
+        "logprobs": true
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "budget_max": null
+      }
+    },
+    {
+      "id": "kimi-k2.5",
+      "vendor": "Moonshot",
+      "kind": "chat",
+      "tiers": [
+        "team"
+      ],
+      "released": "2026-01-01",
+      "status": "active",
+      "limit": {
+        "context": 262144,
+        "output": 98304
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": true,
+        "structured_output": "json_schema",
+        "responses_api": false,
+        "logprobs": true
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "budget_max": null
+      }
+    },
+    {
+      "id": "glm-5.2",
+      "vendor": "Zhipu",
+      "kind": "chat",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-06-13",
+      "status": "active",
+      "limit": {
+        "context": 1000000,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": false,
+        "structured_output": "json_schema",
+        "responses_api": false,
+        "logprobs": false
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "reasoning_effort": {
+          "accepted": [
+            "high",
+            "max"
+          ]
+        },
+        "budget_max": 131072
+      }
+    },
+    {
+      "id": "glm-5.1",
+      "vendor": "Zhipu",
+      "kind": "chat",
+      "tiers": [
+        "team"
+      ],
+      "released": "2026-04-07",
+      "status": "active",
+      "limit": {
+        "context": 202752,
+        "output": 128000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": false,
+        "structured_output": "json_schema",
+        "responses_api": false,
+        "logprobs": true
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "budget_max": 131072
+      }
+    },
+    {
+      "id": "glm-5",
+      "vendor": "Zhipu",
+      "kind": "chat",
+      "tiers": [
+        "team"
+      ],
+      "released": "2026-02-12",
+      "status": "active",
+      "limit": {
+        "context": 202752,
+        "output": 16384
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": false,
+        "structured_output": "json_schema",
+        "responses_api": false,
+        "logprobs": true
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "budget_max": 131072
+      }
+    },
+    {
+      "id": "MiniMax-M2.5",
+      "vendor": "MiniMax",
+      "kind": "chat",
+      "tiers": [
+        "team"
+      ],
+      "released": "2026-02-12",
+      "status": "active",
+      "limit": {
+        "context": 196608,
+        "output": 32768
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": false,
+        "structured_output": "none",
+        "responses_api": false,
+        "logprobs": false
+      },
+      "thinking": {
+        "mode": "always_on",
+        "can_disable": false,
+        "budget_max": 38912
+      }
+    },
+    {
+      "id": "qwen-image-2.0",
+      "vendor": "Qwen",
+      "kind": "image",
+      "tiers": [
+        "team"
+      ],
+      "released": "2026-03-03",
+      "status": "active",
+      "limit": {
+        "context": 8192,
+        "output": null
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "image"
+        ]
+      },
+      "capabilities": {
+        "reasoning": false,
+        "tool_call": false,
+        "attachment": false,
+        "structured_output": "none"
+      }
+    },
+    {
+      "id": "qwen-image-2.0-pro",
+      "vendor": "Qwen",
+      "kind": "image",
+      "tiers": [
+        "team"
+      ],
+      "released": "2026-03-03",
+      "status": "active",
+      "limit": {
+        "context": 8192,
+        "output": null
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "image"
+        ]
+      },
+      "capabilities": {
+        "reasoning": false,
+        "tool_call": false,
+        "attachment": false,
+        "structured_output": "none"
+      }
+    },
+    {
+      "id": "wan2.7-image",
+      "vendor": "Wan",
+      "kind": "image",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-05-29",
+      "status": "active",
+      "limit": {
+        "context": 8192,
+        "output": null
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "image"
+        ]
+      },
+      "capabilities": {
+        "reasoning": false,
+        "tool_call": false,
+        "attachment": false,
+        "structured_output": "none"
+      }
+    },
+    {
+      "id": "wan2.7-image-pro",
+      "vendor": "Wan",
+      "kind": "image",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-05-29",
+      "status": "active",
+      "limit": {
+        "context": 8192,
+        "output": null
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "image"
+        ]
+      },
+      "capabilities": {
+        "reasoning": false,
+        "tool_call": false,
+        "attachment": false,
+        "structured_output": "none"
+      }
+    },
+    {
+      "id": "happyhorse-1.1-t2v",
+      "vendor": "HappyHorse",
+      "kind": "video",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-07-17",
+      "status": "active",
+      "limit": {
+        "context": null,
+        "output": null
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "video"
+        ]
+      },
+      "capabilities": {
+        "reasoning": false,
+        "tool_call": false,
+        "attachment": false,
+        "structured_output": "none"
+      }
+    },
+    {
+      "id": "happyhorse-1.1-i2v",
+      "vendor": "HappyHorse",
+      "kind": "video",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-07-17",
+      "status": "active",
+      "limit": {
+        "context": null,
+        "output": null
+      },
+      "modalities": {
+        "input": [
+          "image",
+          "text"
+        ],
+        "output": [
+          "video"
+        ]
+      },
+      "capabilities": {
+        "reasoning": false,
+        "tool_call": false,
+        "attachment": true,
+        "structured_output": "none"
+      }
+    },
+    {
+      "id": "happyhorse-1.1-r2v",
+      "vendor": "HappyHorse",
+      "kind": "video",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-07-17",
+      "status": "active",
+      "limit": {
+        "context": null,
+        "output": null
+      },
+      "modalities": {
+        "input": [
+          "image",
+          "text"
+        ],
+        "output": [
+          "video"
+        ]
+      },
+      "capabilities": {
+        "reasoning": false,
+        "tool_call": false,
+        "attachment": true,
+        "structured_output": "none"
+      }
+    }
+  ]
+}
