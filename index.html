@@ -142,7 +142,7 @@
   <div class="eyebrow">Alibaba Cloud Model Studio · Token Plan · July 2026</div>
   <h1>Nine of the twelve models are never the right answer</h1>
   <p class="lede">
-    The Token Plan bundles fourteen models from six vendors behind one prepaid credit pool. Because the
+    This chart covers fourteen priced models from six vendors behind one prepaid credit pool. Because the
     pricing was never set to be internally coherent, most of the menu is dead weight: <strong>nine of the
     twelve scoreable models are strictly beaten</strong> by another model on the same plan that is cheaper
     on both input and output <em>and</em> at least as intelligent. Not cheaper-but-worse. Just worse.
@@ -369,7 +369,7 @@
     </p>
   </div>
 
-  <h2>All 14 models</h2>
+  <h2>All 14 priced models</h2>
   <p class="sub">Credits per 1M tokens at the selected input size, after any discount. Sorted by intelligence per credit.</p>
   <div class="scroll">
     <table>
@@ -444,7 +444,7 @@
       ask whether credits-per-dollar is the same constant for every model. On mainland it is, to within 0.4%
       across two independent models. On international it varies by 13&ndash;27%, so it cannot be the basis.
       The docs example agrees: against mainland it gives 724, matching our API measurements; against
-      international it gives 400, matching nothing. Four of the plan's fourteen models have no international
+      international it gives 400, matching nothing. Four of these fourteen priced models have no international
       price at all, so it could not bill that way even in principle.
     </p>
     <p>
@@ -604,7 +604,7 @@ function render() {
       (by ? "<br>Beaten outright by <b>"+by.join("</b>, <b>")+"</b> — cheaper on both sides and at least as smart."
           : "<br><b>On the frontier.</b> Nothing on the plan is cheaper on both sides and at least as intelligent.");
   } else {
-    ro.innerHTML = shown.length+" of 14 models plotted at <b>"+SIZEL[size]+"</b> input ("+
+    ro.innerHTML = shown.length+" of 14 priced models plotted at <b>"+SIZEL[size]+"</b> input ("+
       (14-avail().length)+" cannot serve it, 2 have no intelligence score). <b>"+dom.size+
       "</b> of "+P.length+" are strictly beaten and drawn faded. Ringed dots are the frontier. Hover anything.";
   }
