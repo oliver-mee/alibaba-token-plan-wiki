@@ -208,6 +208,23 @@
     </p>
   </div>
 
+  <h2>Current catalogue</h2>
+  <p class="sub">Loaded live from <a href="data/models.json"><code>data/models.json</code></a>, the
+    machine-readable catalogue this repository maintains against the live gateway. The pricing
+    analysis further down is a dated snapshot; this table is the current truth about what exists.</p>
+  <div class="callout" id="cat-note" style="display:none"></div>
+  <div class="scroll">
+    <table>
+      <thead><tr>
+        <th>Model</th><th>Kind</th><th>Tiers</th><th>Context</th><th>Max out</th><th>Released</th><th>Notes</th>
+      </tr></thead>
+      <tbody id="catbody"><tr><td colspan="7" style="text-align:left;color:var(--muted)">
+        Loading <code>data/models.json</code>… (needs to be served over HTTP; on a local
+        <code>file://</code> open this table stays empty; the JSON is one click away above.)
+      </td></tr></tbody>
+    </table>
+  </div>
+
   <h2>What a seat actually buys</h2>
   <p class="sub">The three tiers do not buy credits at the same rate. Max is worth 50% more per dollar than Standard.</p>
   <div class="scroll">
@@ -318,6 +335,8 @@
       that fact plus arithmetic.
     </p>
   </div>
+
+  <div class="callout" id="chart-drift" style="display:none"></div>
 
   <div class="controls">
     <div>
@@ -679,4 +698,57 @@ const SEATS = [["Standard",30,25000],["Pro",100,100000],["Max",200,250000]];
 })();
 
 render();
+
+// ── live catalogue from data/models.json ─────────────────────────────────
+// The pricing analysis above is a dated snapshot (its provenance is the
+// measurement). This section is data-driven so the page can never again be
+// silently wrong about WHICH models exist: it re-renders from the same JSON
+// the repo ships, and flags anything the chart predates.
+(async function liveCatalogue(){
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+  let cat;
+  try {
+    cat = await (await fetch("data/models.json", {cache:"no-store"})).json();
+  } catch (e) { return; }  // file:// or fetch failure: fallback row stays
+  const models = cat.models || [];
+  const kindOrder = {chat:0, image:1, video:2, tts:3, realtime:4};
+  models.sort((a,b)=>(kindOrder[a.kind]??9)-(kindOrder[b.kind]??9) || a.id.localeCompare(b.id));
+  const fmtK = n => n==null ? "—" : (n>=1000000 ? (n/1000000)+"M" : n>=1024 ? Math.round(n/1024)+"K" : n);
+  document.getElementById("catbody").innerHTML = models.map(m=>{
+    const lim = m.limit||{};
+    const notes = [
+      m.status && m.status!=="active" ? esc(m.status) : "",
+      (m.thinking||{}).mode==="always_on" ? "always-thinking" : "",
+      m.retires ? "retires "+esc(m.retires) : "",
+      m.kind==="video" ? "async endpoint, not on /models" : "",
+      (m.kind==="tts"||m.kind==="realtime") ? "DashScope surface" : "",
+    ].filter(Boolean).join(" · ");
+    return "<tr><td><span class='model'>"+esc(m.id)+"</span><span class='vendor'>"+esc(m.vendor||"")+"</span></td>"+
+      "<td>"+esc(m.kind)+"</td><td>"+esc((m.tiers||[]).join("+"))+"</td>"+
+      "<td>"+fmtK(lim.context)+"</td><td>"+fmtK(lim.output)+"</td>"+
+      "<td>"+esc(m.released||"—")+"</td><td style='text-align:left'>"+notes+"</td></tr>";
+  }).join("");
+  const note = document.getElementById("cat-note");
+  note.style.display = "";
+  const teams = cat.tiers||{};
+  note.innerHTML = "<h3>Catalogue as of "+esc(cat.updated||"?")+"</h3><p>"+
+    models.length+" active models: Team sees <b>"+esc(teams.team?teams.team.chat_models:"?")+
+    "</b> chat models, Personal <b>"+esc(teams.personal?teams.personal.chat_models:"?")+
+    "</b> (a strict subset). "+esc(cat.note||"")+"</p>";
+
+  // chart staleness banner: chat models the July analysis doesn't know about
+  const chartIds = new Set(M.map(m=>m.id));
+  const newSince = models.filter(m=>m.kind==="chat" && !chartIds.has(m.id)).map(m=>m.id);
+  const gone = [...chartIds].filter(id => !models.some(m=>m.id===id));
+  if (newSince.length || gone.length) {
+    const d = document.getElementById("chart-drift");
+    d.style.display = "";
+    d.innerHTML = "<h3>This analysis is a snapshot, and the catalogue has moved</h3><p>"+
+      "Prices and dominance below were measured <b>16 July 2026</b>. Since then " +
+      (newSince.length ? "<b>"+newSince.map(esc).join("</b>, <b>")+"</b> joined the plan (not plotted; no measured price or intelligence yet)" : "") +
+      (newSince.length && gone.length ? "; " : "") +
+      (gone.length ? "<b>"+gone.map(esc).join("</b>, <b>")+"</b> left the catalogue" : "") +
+      ". The <a href='#catbody'>current catalogue table above</a> is live from <code>data/models.json</code>.</p>";
+  }
+})();
 </script>

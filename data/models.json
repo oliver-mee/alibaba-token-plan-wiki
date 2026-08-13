@@ -1,12 +1,12 @@
 {
-  "updated": "2026-07-25",
+  "updated": "2026-08-13",
   "note": "Measured against the live gateway. More accurate than the vendor console.",
   "tiers": {
     "team": {
-      "chat_models": 15
+      "chat_models": 16
     },
     "personal": {
-      "chat_models": 6
+      "chat_models": 7
     }
   },
   "endpoints": {
@@ -25,15 +25,15 @@
   },
   "models": [
     {
-      "id": "qwen3.8-max-preview",
+      "id": "qwen3.8-max",
       "vendor": "Qwen",
       "kind": "chat",
       "tiers": [
         "team",
         "personal"
       ],
-      "released": "2026-07-17",
-      "status": "beta",
+      "released": "2026-08-03",
+      "status": "active",
       "limit": {
         "context": 1000000,
         "output": 131072
@@ -56,24 +56,48 @@
         "responses_api": true,
         "logprobs": true
       },
+      "cost": {
+        "status": "published per-token pricing (GA), CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 12,
+          "output": 36,
+          "cache_hit": 1.5
+        },
+        "note": "From the qianwenai.com marketplace card (2026-08-04): input \u00a512/M, output \u00a536/M, cache-hit \u00a51.5/M, explicit-cache \u00a515 write / \u00a51 read per M. The preview's '10% of standard' promotion resolves against this standard rate. Reasoning tokens bill as output (always-on overhead no longer applies since thinking can be disabled).",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 12,
+        "output": 36,
+        "cache_hit": 1.5,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-04"
+      },
       "thinking": {
-        "mode": "always_on",
-        "can_disable": false,
+        "mode": "hybrid",
+        "can_disable": true,
         "reasoning_effort": {
           "accepted": [
-            "low",
-            "medium",
-            "high",
-            "xhigh"
+            "low"
           ],
           "documented": [
             "low",
             "high",
             "xhigh"
           ],
-          "default": "xhigh"
+          "default": "xhigh",
+          "note": "'low' gateway-verified behaviourally (2026-08-05). 'medium' now acceptance-verified on the GA id via the validation enum (2026-08-05); behavioural response per level still untested. Default xhigh.",
+          "validation_enum": [
+            "none",
+            "minimal",
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ],
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
         },
-        "temperature_floor": 0.6,
         "budget_max": 262144
       }
     },
@@ -110,7 +134,18 @@
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
-        "budget_max": 262144
+        "budget_max": 262144,
+        "reasoning_effort": {
+          "validation_enum": [
+            "none",
+            "minimal",
+            "low",
+            "medium",
+            "high",
+            "xhigh"
+          ],
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
+        }
       }
     },
     {
@@ -148,7 +183,18 @@
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
-        "budget_max": 262144
+        "budget_max": 262144,
+        "reasoning_effort": {
+          "validation_enum": [
+            "none",
+            "minimal",
+            "low",
+            "medium",
+            "high",
+            "xhigh"
+          ],
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
+        }
       }
     },
     {
@@ -223,7 +269,18 @@
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
-        "budget_max": 131072
+        "budget_max": 131072,
+        "reasoning_effort": {
+          "validation_enum": [
+            "none",
+            "minimal",
+            "low",
+            "medium",
+            "high",
+            "xhigh"
+          ],
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
+        }
       }
     },
     {
@@ -259,7 +316,17 @@
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
-        "budget_max": 393216
+        "budget_max": 393216,
+        "reasoning_effort": {
+          "validation_enum": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ],
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
+        }
       }
     },
     {
@@ -295,6 +362,70 @@
         "mode": "hybrid",
         "can_disable": true,
         "budget_max": 393216
+      }
+    },
+    {
+      "id": "deepseek-v4-flash-0731",
+      "vendor": "DeepSeek",
+      "kind": "chat",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-08-01",
+      "status": "active",
+      "limit": {
+        "context": 1000000,
+        "output": 393216
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": false,
+        "structured_output": "json_schema",
+        "responses_api": false,
+        "logprobs": false
+      },
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 1,
+          "output": 2,
+          "cache_hit": 0.2
+        },
+        "note": "Marketplace card 2026-08-05: input \u00a51/M, output \u00a52/M, cache-hit \u00a50.2/M (=100/200/20 credits per 1M). Card also shows batch-task and fine-tune flags \u2014 those describe Model Studio platform services, NOT Token Plan gateway routes (batch/fine-tuning routes 404 on the Token Plan gateway, proven 2026-08-04).",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 1,
+        "output": 2,
+        "cache_hit": 0.2,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-05"
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "reasoning_effort": {
+          "validation_enum": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ],
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
+        },
+        "budget_max": 393216,
+        "note": "First thinking records from the 2026-08-05 free enumeration: budget ceiling 393,216 (matches deepseek-v4-pro) and deepseek's characteristic no-none/no-minimal validation enum."
       }
     },
     {
@@ -481,7 +612,17 @@
           "accepted": [
             "high",
             "max"
-          ]
+          ],
+          "validation_enum": [
+            "none",
+            "minimal",
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ],
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
         },
         "budget_max": 131072
       }
@@ -589,6 +730,79 @@
         "mode": "always_on",
         "can_disable": false,
         "budget_max": 38912
+      }
+    },
+    {
+      "id": "qwen-audio-3.0-tts-plus",
+      "vendor": "Qwen",
+      "kind": "tts",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-07-14",
+      "status": "active",
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "audio"
+        ]
+      },
+      "capabilities": {
+        "reasoning": false,
+        "tool_call": false,
+        "attachment": false,
+        "structured_output": "none",
+        "responses_api": false,
+        "logprobs": false,
+        "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all \u2014 every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate."
+      },
+      "cost": {
+        "status": "published, character-metered",
+        "per_10k_chars_rmb": 1.4,
+        "note": "Marketplace card 2026-08-05: \u00a51.4 per \u4e07\u5b57\u7b26 (10k characters), RPM 180. Character-metered, not token-metered.",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_10k_chars",
+        "input": 1.4,
+        "output": null,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-05"
+      }
+    },
+    {
+      "id": "qwen-audio-3.0-realtime-plus",
+      "vendor": "Qwen",
+      "kind": "realtime",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "status": "active",
+      "modalities": {
+        "input": [
+          "audio",
+          "text"
+        ],
+        "output": [
+          "audio",
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": false,
+        "tool_call": false,
+        "attachment": true,
+        "structured_output": "none",
+        "responses_api": false,
+        "logprobs": false,
+        "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all \u2014 every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate."
+      },
+      "cost": {
+        "status": "not published, not probed",
+        "published": false
       }
     },
     {

@@ -6,7 +6,7 @@ This repository covers:
 
 - the Global/Singapore and China/Beijing gateways;
 - Personal and Team model entitlements;
-- chat, image, and video catalogue data;
+- chat, image, video, and audio (TTS/realtime) catalogue data;
 - OpenAI-compatible and Anthropic-compatible behaviour;
 - model capability probes;
 - Token Plan credit pricing.
@@ -27,10 +27,13 @@ catalogues can lag or disagree with runtime behaviour.
 
 ## Current catalogue
 
-As of 25 July 2026:
+As of 13 August 2026:
 
-- Team exposes 15 chat models.
-- Personal exposes 6 chat models.
+- Team exposes 16 chat models; Personal exposes 7 (a strict subset).
+- `/models` lists 22 ids per Team key: 16 chat + 4 image + 1 TTS + 1 realtime
+  audio. The 3 video models never appear on `/models` (async endpoint).
+- The exact counts move as models land. [`data/models.json`](data/models.json)
+  carries the current list and its `updated` date; trust it over this prose.
 - Both tiers use the same `sk-sp-` key prefix, so the tier cannot be inferred
   from the key.
 - Global and China use separate credentials and endpoints.
