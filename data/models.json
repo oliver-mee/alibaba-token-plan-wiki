@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-13",
+  "updated": "2026-08-14",
   "note": "Measured against the live gateway. More accurate than the vendor console.",
   "tiers": {
     "team": {
@@ -56,6 +56,7 @@
         "responses_api": true,
         "logprobs": true
       },
+      "endpoint": "/compatible-mode/v1/chat/completions",
       "cost": {
         "status": "published per-token pricing (GA), CN-denominated sheet",
         "per_1m_rmb": {
@@ -131,6 +132,7 @@
         "responses_api": true,
         "logprobs": true
       },
+      "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -180,6 +182,7 @@
         "responses_api": true,
         "logprobs": true
       },
+      "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -228,6 +231,7 @@
         "responses_api": true,
         "logprobs": true
       },
+      "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -266,6 +270,7 @@
         "responses_api": true,
         "logprobs": true
       },
+      "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -313,6 +318,7 @@
         "responses_api": false,
         "logprobs": false
       },
+      "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -358,6 +364,7 @@
         "responses_api": false,
         "logprobs": false
       },
+      "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -394,6 +401,7 @@
         "responses_api": false,
         "logprobs": false
       },
+      "endpoint": "/compatible-mode/v1/chat/completions",
       "cost": {
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
@@ -457,6 +465,7 @@
         "responses_api": false,
         "logprobs": false
       },
+      "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -495,6 +504,7 @@
         "responses_api": false,
         "logprobs": true
       },
+      "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -532,6 +542,7 @@
         "responses_api": false,
         "logprobs": true
       },
+      "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -569,6 +580,7 @@
         "responses_api": false,
         "logprobs": true
       },
+      "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -605,6 +617,7 @@
         "responses_api": false,
         "logprobs": false
       },
+      "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -656,6 +669,7 @@
         "responses_api": false,
         "logprobs": true
       },
+      "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -691,6 +705,7 @@
         "responses_api": false,
         "logprobs": true
       },
+      "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -726,6 +741,7 @@
         "responses_api": false,
         "logprobs": false
       },
+      "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
         "mode": "always_on",
         "can_disable": false,
@@ -759,6 +775,8 @@
         "logprobs": false,
         "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all \u2014 every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate."
       },
+      "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/inference (DashScope WebSocket protocol; set dashscope.base_websocket_api_url per the vendor's Token Plan multimodal best-practices page). VERIFIED 2026-08-14 by handshake probe (probe-plan-routes.py --ws): HTTP 101 on both regions, auth enforced at handshake (bad key -> 401 InvalidApiKey), zero token cost. Entitlement beyond the handshake (actually running a task) not yet probed.",
+      "status_note": "Listed on /models both tiers, but as of 2026-08-14 no probe has produced audio: Personal fails in-engine (411), Team blocked by exhausted quota. Treat as advertised-but-unverified for actual synthesis.",
       "cost": {
         "status": "published, character-metered",
         "per_10k_chars_rmb": 1.4,
@@ -800,6 +818,7 @@
         "logprobs": false,
         "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all \u2014 every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate."
       },
+      "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/inference (DashScope WebSocket protocol; set dashscope.base_websocket_api_url per the vendor's Token Plan multimodal best-practices page). VERIFIED 2026-08-14 by handshake probe (probe-plan-routes.py --ws): HTTP 101 on both regions, auth enforced at handshake (bad key -> 401 InvalidApiKey), zero token cost. Entitlement beyond the handshake (actually running a task) not yet probed.",
       "cost": {
         "status": "not published, not probed",
         "published": false
@@ -831,7 +850,8 @@
         "tool_call": false,
         "attachment": false,
         "structured_output": "none"
-      }
+      },
+      "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed"
     },
     {
       "id": "qwen-image-2.0-pro",
@@ -859,7 +879,8 @@
         "tool_call": false,
         "attachment": false,
         "structured_output": "none"
-      }
+      },
+      "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed"
     },
     {
       "id": "wan2.7-image",
@@ -888,7 +909,8 @@
         "tool_call": false,
         "attachment": false,
         "structured_output": "none"
-      }
+      },
+      "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed"
     },
     {
       "id": "wan2.7-image-pro",
@@ -917,7 +939,8 @@
         "tool_call": false,
         "attachment": false,
         "structured_output": "none"
-      }
+      },
+      "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed"
     },
     {
       "id": "happyhorse-1.1-t2v",
@@ -946,7 +969,8 @@
         "tool_call": false,
         "attachment": false,
         "structured_output": "none"
-      }
+      },
+      "endpoint": "/api/v1/services/aigc/video-generation/video-synthesis (async, X-DashScope-Async: enable, poll /api/v1/tasks/{task_id})"
     },
     {
       "id": "happyhorse-1.1-i2v",
@@ -976,7 +1000,8 @@
         "tool_call": false,
         "attachment": true,
         "structured_output": "none"
-      }
+      },
+      "endpoint": "/api/v1/services/aigc/video-generation/video-synthesis (async, X-DashScope-Async: enable, poll /api/v1/tasks/{task_id})"
     },
     {
       "id": "happyhorse-1.1-r2v",
@@ -1006,7 +1031,8 @@
         "tool_call": false,
         "attachment": true,
         "structured_output": "none"
-      }
+      },
+      "endpoint": "/api/v1/services/aigc/video-generation/video-synthesis (async, X-DashScope-Async: enable, poll /api/v1/tasks/{task_id})"
     }
   ]
 }
