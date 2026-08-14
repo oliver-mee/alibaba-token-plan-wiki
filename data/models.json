@@ -776,7 +776,7 @@
         "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all \u2014 every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate."
       },
       "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/inference (DashScope WebSocket protocol; set dashscope.base_websocket_api_url per the vendor's Token Plan multimodal best-practices page). VERIFIED 2026-08-14 by handshake probe (probe-plan-routes.py --ws): HTTP 101 on both regions, auth enforced at handshake (bad key -> 401 InvalidApiKey), zero token cost. Entitlement beyond the handshake (actually running a task) not yet probed.",
-      "status_note": "Listed on /models both tiers, but as of 2026-08-14 no probe has produced audio: Personal fails in-engine (411), Team blocked by exhausted quota. Treat as advertised-but-unverified for actual synthesis.",
+      "status_note": "Listed on /models both tiers, but synthesis is broken vendor-side as of 2026-08-14: every key (Personal, Team, Team-with-quota) gets '[cosyvoice:]Engine error [411]' after task-started on the documented WebSocket surface, reproduced with the official SDK. Advertised but not currently servable.",
       "cost": {
         "status": "published, character-metered",
         "per_10k_chars_rmb": 1.4,
