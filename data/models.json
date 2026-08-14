@@ -54,7 +54,10 @@
         "attachment": true,
         "structured_output": "json_schema",
         "responses_api": true,
-        "logprobs": true
+        "logprobs": true,
+        "vision_tool_result": true,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "cost": {
@@ -130,7 +133,10 @@
         "attachment": false,
         "structured_output": "json_schema",
         "responses_api": true,
-        "logprobs": true
+        "logprobs": true,
+        "vision_tool_result": false,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
@@ -162,7 +168,7 @@
       "status": "active",
       "limit": {
         "context": 1000000,
-        "output": 65536
+        "output": 131072
       },
       "modalities": {
         "input": [
@@ -180,7 +186,10 @@
         "attachment": true,
         "structured_output": "json_schema",
         "responses_api": true,
-        "logprobs": true
+        "logprobs": true,
+        "vision_tool_result": true,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
@@ -229,7 +238,10 @@
         "attachment": true,
         "structured_output": "json_schema",
         "responses_api": true,
-        "logprobs": true
+        "logprobs": true,
+        "vision_tool_result": true,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
@@ -268,7 +280,10 @@
         "attachment": true,
         "structured_output": "json_schema",
         "responses_api": true,
-        "logprobs": true
+        "logprobs": true,
+        "vision_tool_result": true,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
@@ -315,8 +330,11 @@
         "tool_call": true,
         "attachment": false,
         "structured_output": "json_schema",
-        "responses_api": false,
-        "logprobs": false
+        "responses_api": true,
+        "logprobs": false,
+        "vision_tool_result": false,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": false
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
@@ -361,8 +379,11 @@
         "tool_call": true,
         "attachment": false,
         "structured_output": "json_schema",
-        "responses_api": false,
-        "logprobs": false
+        "responses_api": true,
+        "logprobs": false,
+        "vision_tool_result": false,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": false
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
@@ -398,8 +419,11 @@
         "tool_call": true,
         "attachment": false,
         "structured_output": "json_schema",
-        "responses_api": false,
-        "logprobs": false
+        "responses_api": true,
+        "logprobs": false,
+        "vision_tool_result": false,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": false
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "cost": {
@@ -463,7 +487,10 @@
         "attachment": false,
         "structured_output": "json_schema",
         "responses_api": false,
-        "logprobs": false
+        "logprobs": false,
+        "vision_tool_result": false,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": false
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
@@ -502,7 +529,10 @@
         "attachment": true,
         "structured_output": "json_schema",
         "responses_api": false,
-        "logprobs": true
+        "logprobs": true,
+        "vision_tool_result": true,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
@@ -540,7 +570,10 @@
         "attachment": true,
         "structured_output": "json_schema",
         "responses_api": false,
-        "logprobs": true
+        "logprobs": true,
+        "vision_tool_result": true,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
@@ -578,7 +611,10 @@
         "attachment": true,
         "structured_output": "json_schema",
         "responses_api": false,
-        "logprobs": true
+        "logprobs": true,
+        "vision_tool_result": true,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
@@ -615,7 +651,10 @@
         "attachment": false,
         "structured_output": "json_schema",
         "responses_api": false,
-        "logprobs": false
+        "logprobs": false,
+        "vision_tool_result": false,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
@@ -667,7 +706,10 @@
         "attachment": false,
         "structured_output": "json_schema",
         "responses_api": false,
-        "logprobs": true
+        "logprobs": true,
+        "vision_tool_result": false,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": false
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
@@ -703,7 +745,10 @@
         "attachment": false,
         "structured_output": "json_schema",
         "responses_api": false,
-        "logprobs": true
+        "logprobs": true,
+        "vision_tool_result": false,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": false
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
@@ -739,7 +784,10 @@
         "attachment": false,
         "structured_output": "none",
         "responses_api": false,
-        "logprobs": false
+        "logprobs": false,
+        "vision_tool_result": false,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "thinking": {
@@ -773,7 +821,8 @@
         "structured_output": "none",
         "responses_api": false,
         "logprobs": false,
-        "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all \u2014 every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate."
+        "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all \u2014 every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate.",
+        "task_runs_on_gateway": false
       },
       "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/inference (DashScope WebSocket protocol; set dashscope.base_websocket_api_url per the vendor's Token Plan multimodal best-practices page). VERIFIED 2026-08-14 by handshake probe (probe-plan-routes.py --ws): HTTP 101 on both regions, auth enforced at handshake (bad key -> 401 InvalidApiKey), zero token cost. Entitlement beyond the handshake (actually running a task) not yet probed.",
       "status_note": "Listed on /models both tiers, but synthesis is broken vendor-side as of 2026-08-14: every key (Personal, Team, Team-with-quota) gets '[cosyvoice:]Engine error [411]' after task-started on the documented WebSocket surface, reproduced with the official SDK. Advertised but not currently servable.",
@@ -816,9 +865,10 @@
         "structured_output": "none",
         "responses_api": false,
         "logprobs": false,
-        "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all \u2014 every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate."
+        "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all \u2014 every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate.",
+        "task_runs_on_gateway": false
       },
-      "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/inference (DashScope WebSocket protocol; set dashscope.base_websocket_api_url per the vendor's Token Plan multimodal best-practices page). VERIFIED 2026-08-14 by handshake probe (probe-plan-routes.py --ws): HTTP 101 on both regions, auth enforced at handshake (bad key -> 401 InvalidApiKey), zero token cost. Entitlement beyond the handshake (actually running a task) not yet probed.",
+      "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/inference (DashScope WebSocket protocol; set dashscope.base_websocket_api_url per the vendor's Token Plan multimodal best-practices page). VERIFIED 2026-08-14 by handshake probe (probe-plan-routes.py --ws): HTTP 101 on both regions, auth enforced at handshake (bad key -> 401 InvalidApiKey), zero token cost. Entitlement beyond the handshake (actually running a task) not yet probed. Realtime routes discovered 2026-08-14: wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/realtime and /api-ws/v1/realtime-inference (101 + auth; the generic /api-ws/v1/inference path rejects this model with 'url error').",
       "cost": {
         "status": "not published, not probed",
         "published": false
