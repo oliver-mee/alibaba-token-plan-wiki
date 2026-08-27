@@ -27,11 +27,13 @@ catalogues can lag or disagree with runtime behaviour.
 
 ## Current catalogue
 
-As of 13 August 2026:
+As of 18 August 2026:
 
-- Team exposes 16 chat models; Personal exposes 7 (a strict subset).
+- Team exposes 17 chat models; Personal exposes 8 (a strict subset).
 - `/models` lists 22 ids per Team key: 16 chat + 4 image + 1 TTS + 1 realtime
   audio. The 3 video models never appear on `/models` (async endpoint).
+- One additional chat model (`deepseek-v4-pro-0813`) is servable by exact id
+  but not surfaced on `/models`; it is in the catalogue as `unlisted`.
 - The exact counts move as models land. [`data/models.json`](data/models.json)
   carries the current list and its `updated` date; trust it over this prose.
 - Both tiers use the same `sk-sp-` key prefix, so the tier cannot be inferred

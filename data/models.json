@@ -1,12 +1,12 @@
 {
-  "updated": "2026-08-14",
+  "updated": "2026-08-18",
   "note": "Measured against the live gateway. More accurate than the vendor console.",
   "tiers": {
     "team": {
-      "chat_models": 16
+      "chat_models": 17
     },
     "personal": {
-      "chat_models": 7
+      "chat_models": 8
     }
   },
   "endpoints": {
@@ -60,6 +60,8 @@
         "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 58,
+      "aa_url": "https://artificialanalysis.ai/models/qwen3-8-max",
       "cost": {
         "status": "published per-token pricing (GA), CN-denominated sheet",
         "per_1m_rmb": {
@@ -103,6 +105,10 @@
           "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
         },
         "budget_max": 262144
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/qwen3.8-max",
+        "cn": "https://www.qianwenai.com/models/qwen3.8-max"
       }
     },
     {
@@ -139,6 +145,29 @@
         "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 47,
+      "aa_url": "https://artificialanalysis.ai/models/qwen3-7-max",
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet (limited-time 50% off promo active)",
+        "per_1m_rmb": {
+          "input": 12.0,
+          "output": 36.0,
+          "cache_hit": 2.4
+        },
+        "note": "CN card 2026-08-18: base input 12 / output 36 / cache-hit 2.4 per 1M. LIMITED-TIME 50% OFF active: input 6 / output 18 / cache 1.2 (card shows original+discounted). Parallel to qwen3.8-max night promo framing.",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 12.0,
+        "output": 36.0,
+        "cache_hit": 2.4,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-18",
+        "night/campaign_promo": {
+          "kind": "limited-time 50% off",
+          "note": "Card shows original and discounted rate; effective 6/18/1.2 per 1M once promo ends this resets to 12/36/2.4"
+        }
+      },
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -154,6 +183,10 @@
           ],
           "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
         }
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/qwen3.7-max",
+        "cn": "https://www.qianwenai.com/models/qwen3.7-max"
       }
     },
     {
@@ -192,6 +225,29 @@
         "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 39,
+      "aa_url": "https://artificialanalysis.ai/models/qwen3-7-plus",
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet (limited-time 8\u6298 promo active)",
+        "per_1m_rmb": {
+          "input": 2.0,
+          "output": 8.0,
+          "cache_hit": 0.4
+        },
+        "note": "CN card 2026-08-18: base input 2 / output 8 / cache-hit 0.4 per 1M. LIMITED-TIME 80% promo active: input 1.6 / output 6.4 / cache 0.32.",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 2.0,
+        "output": 8.0,
+        "cache_hit": 0.4,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-18",
+        "campaign_promo": {
+          "kind": "limited-time 8\u6298",
+          "note": "Effective 1.6/6.4/0.32 per 1M during promo; base 2/8/0.4 afterwards"
+        }
+      },
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -207,6 +263,10 @@
           ],
           "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
         }
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/qwen3.7-plus",
+        "cn": "https://www.qianwenai.com/models/qwen3.7-plus"
       }
     },
     {
@@ -244,10 +304,31 @@
         "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 40,
+      "aa_url": "https://artificialanalysis.ai/models/qwen3-6-plus",
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 2.0,
+          "output": 12.0
+        },
+        "note": "CN card 2026-08-18: input 2 / output 12 per 1M. Explicit-cache create 2.5 / hit 0.2; batch-file 1/6 (Model Studio, not Token Plan route). No implicit cache-hit row shown on card.",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 2.0,
+        "output": 12.0,
+        "source": "qwenianwenai.com marketplace card (source qianwenai.com marketplace card)",
+        "verified": "2026-08-18"
+      },
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
         "budget_max": 131072
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/qwen3.6-plus",
+        "cn": "https://www.qianwenai.com/models/qwen3.6-plus"
       }
     },
     {
@@ -286,6 +367,23 @@
         "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 32,
+      "aa_url": "https://artificialanalysis.ai/models/qwen3-6-35b-a3b",
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 1.2,
+          "output": 7.2
+        },
+        "note": "CN card 2026-08-18: input 1.2 / output 7.2 per 1M. Explicit-cache create 1.5 / hit 0.12; batch-file 0.6/3.6. No implicit cache-hit row shown.",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 1.2,
+        "output": 7.2,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-18"
+      },
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -301,6 +399,10 @@
           ],
           "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
         }
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/qwen3.6-flash",
+        "cn": "https://www.qianwenai.com/models/qwen3.6-flash"
       }
     },
     {
@@ -337,6 +439,25 @@
         "max_tokens_range_validated": false
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 53,
+      "aa_url": "https://artificialanalysis.ai/models/deepseek-v4-pro",
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 12.0,
+          "output": 24.0,
+          "cache_hit": 1.0
+        },
+        "note": "CN card 2026-08-18: input 12 / output 24 / cache-hit 1 per 1M. Base model (the -0813 dated variant has its own lower rate; record them separately).",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 12.0,
+        "output": 24.0,
+        "cache_hit": 1.0,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-18"
+      },
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -351,6 +472,94 @@
           ],
           "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
         }
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/deepseek-v4-pro",
+        "cn": "https://www.qianwenai.com/models/deepseek-v4-pro"
+      }
+    },
+    {
+      "id": "deepseek-v4-pro-0813",
+      "vendor": "DeepSeek",
+      "kind": "chat",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-08-13",
+      "status": "unlisted",
+      "limit": {
+        "context": 1000000,
+        "output": 384000
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": false,
+        "structured_output": "json_schema",
+        "responses_api": true,
+        "logprobs": false,
+        "vision_tool_result": false,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": false
+      },
+      "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 53,
+      "aa_url": "https://artificialanalysis.ai/models/deepseek-v4-pro",
+      "status_note": "Servable by exact id (HTTP 200, probed 2026-08-18) but deliberately NOT surfaced on the gateway /models listing. Unlike 'retired' it must stay in downstream catalogues (it is callable); unlike 'active' it is excluded from the check-drift expected /models set (else it would false-alarm as removed every run). Treat /models gain as real drift when it eventually lists.",
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 4.5,
+          "output": 13.5,
+          "cache_hit": 0.45
+        },
+        "per_1m_rmb_tier2": {
+          "input": 9,
+          "output": 27,
+          "cache_hit": 0.9
+        },
+        "note": "CN qianwenai.com marketplace card 2026-08-18: two pricing bands per the tiered input-band scheme. Tier 1 input 4.5 / output 13.5 / cache-hit 0.45 per 1M; tier 2 input 9 / output 27 / cache-hit 0.9 (exactly 2x tier 1). This is the dated -0813 variant's OWN card rate - it does NOT inherit the base deepseek-v4-pro 12/24 rate (that base figure is separately recorded). Card also shows batch-task and fine-tune flags; those describe Model Studio platform services, NOT Token Plan gateway routes (batch/fine-tuning 404 on the Token Plan gateway, proven 2026-08-04). LIMITED-TIME NIGHT PROMO (both Team & Personal, EN/CN overviews): 50% off Credits between 22:00-08:00 UTC+8, parallel to the qwen3.8-max night discount.",
+        "night_promo": {
+          "discount": "50% off Credits",
+          "window": "22:00 - 08:00 UTC+8",
+          "note": "Confirmed on EN/CN Team + Personal overview pages since 2026-08-15 doc snapshot."
+        },
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 4.5,
+        "output": 13.5,
+        "cache_hit": 0.45,
+        "source": "qianwenai.com marketplace card (deepseek-v4-pro-0813)",
+        "verified": "2026-08-18"
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "budget_max": 393216,
+        "reasoning_effort": {
+          "validation_enum": [
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max"
+          ],
+          "enum_note": "Inherited from base deepseek-v4-pro (2026-08-05 enumeration); the dated variant was not re-enumerated. Same family, acceptance assumed until probed."
+        }
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/deepseek-v4-pro-0813",
+        "cn": "https://www.qianwenai.com/models/deepseek-v4-pro-0813"
       }
     },
     {
@@ -386,10 +595,33 @@
         "max_tokens_range_validated": false
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 52,
+      "aa_url": "https://artificialanalysis.ai/models/deepseek-v4-flash",
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 1.0,
+          "output": 2.0,
+          "cache_hit": 0.2
+        },
+        "note": "CN card 2026-08-18: input 1 / output 2 / cache-hit 0.2 per 1M.",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 1.0,
+        "output": 2.0,
+        "cache_hit": 0.2,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-18"
+      },
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
         "budget_max": 393216
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/deepseek-v4-flash",
+        "cn": "https://www.qianwenai.com/models/deepseek-v4-flash"
       }
     },
     {
@@ -426,6 +658,8 @@
         "max_tokens_range_validated": false
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 52,
+      "aa_url": "https://artificialanalysis.ai/models/deepseek-v4-flash",
       "cost": {
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
@@ -458,6 +692,10 @@
         },
         "budget_max": 393216,
         "note": "First thinking records from the 2026-08-05 free enumeration: budget ceiling 393,216 (matches deepseek-v4-pro) and deepseek's characteristic no-none/no-minimal validation enum."
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/deepseek-v4-flash-0731",
+        "cn": "https://www.qianwenai.com/models/deepseek-v4-flash-0731"
       }
     },
     {
@@ -493,12 +731,35 @@
         "max_tokens_range_validated": false
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 25,
+      "aa_url": "https://artificialanalysis.ai/models/deepseek-v3-2",
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 2.0,
+          "output": 3.0,
+          "cache_hit": 0.4
+        },
+        "note": "CN card 2026-08-18: input 2 / output 3 / cache-hit 0.4 per 1M. Batch-file 1/1.5 per 1M exists on card (Model Studio, not Token Plan route).",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 2.0,
+        "output": 3.0,
+        "cache_hit": 0.4,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-18"
+      },
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
         "budget_max": null
       },
-      "retires": "2026-10-10"
+      "retires": "2026-10-10",
+      "card": {
+        "en": "https://www.qwencloud.com/models/deepseek-v3.2",
+        "cn": "https://www.qianwenai.com/models/deepseek-v3.2"
+      }
     },
     {
       "id": "kimi-k2.7-code",
@@ -535,10 +796,33 @@
         "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 43,
+      "aa_url": "https://artificialanalysis.ai/models/kimi-k2-7-code",
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 6.5,
+          "output": 27.0,
+          "cache_hit": 1.3
+        },
+        "note": "CN card 2026-08-18: input 6.5 / output 27 / cache-hit 1.3 per 1M; explicit-cache create 8.125 / hit 0.65.",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 6.5,
+        "output": 27.0,
+        "cache_hit": 1.3,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-18"
+      },
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
         "budget_max": 262144
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/kimi-k2.7-code",
+        "cn": "https://www.qianwenai.com/models/kimi-k2.7-code"
       }
     },
     {
@@ -576,10 +860,32 @@
         "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 45,
+      "aa_url": "https://artificialanalysis.ai/models/kimi-k2-6",
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 6.5,
+          "output": 27.0,
+          "cache_hit": 1.3
+        },
+        "note": "CN card 2026-08-18: input 6.5 / output 27 / cache-hit 1.3 per 1M; explicit-cache create 8.125 / hit 0.65. CN-only (no EN card).",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 6.5,
+        "output": 27.0,
+        "cache_hit": 1.3,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-18"
+      },
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
         "budget_max": null
+      },
+      "card": {
+        "cn": "https://www.qianwenai.com/models/kimi-k2.6"
       }
     },
     {
@@ -617,10 +923,32 @@
         "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 36,
+      "aa_url": "https://artificialanalysis.ai/models/kimi-k2-5",
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 4.0,
+          "output": 21.0,
+          "cache_hit": 0.8
+        },
+        "note": "CN card 2026-08-18: input 4 / output 21 / cache-hit 0.8 per 1M; explicit-cache create 5 / hit 0.4. CN-only (no EN card).",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 4.0,
+        "output": 21.0,
+        "cache_hit": 0.8,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-18"
+      },
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
         "budget_max": null
+      },
+      "card": {
+        "cn": "https://www.qianwenai.com/models/kimi-k2.5"
       }
     },
     {
@@ -657,6 +985,25 @@
         "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 53,
+      "aa_url": "https://artificialanalysis.ai/models/glm-5-2",
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 8.0,
+          "output": 28.0,
+          "cache_hit": 2.0
+        },
+        "note": "CN card 2026-08-18: input 8 / output 28 / cache-hit 2 per 1M.",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 8.0,
+        "output": 28.0,
+        "cache_hit": 2.0,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-18"
+      },
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
@@ -677,6 +1024,10 @@
           "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
         },
         "budget_max": 131072
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/glm-5.2",
+        "cn": "https://www.qianwenai.com/models/glm-5.2"
       }
     },
     {
@@ -712,10 +1063,33 @@
         "max_tokens_range_validated": false
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 41,
+      "aa_url": "https://artificialanalysis.ai/models/glm-5-1",
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 6.0,
+          "output": 24.0,
+          "cache_hit": 1.2
+        },
+        "note": "CN card 2026-08-18: input 6 / output 24 / cache-hit 1.2 per 1M; explicit-cache create 7.5 / hit 0.6.",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 6.0,
+        "output": 24.0,
+        "cache_hit": 1.2,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-18"
+      },
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
         "budget_max": 131072
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/glm-5.1",
+        "cn": "https://www.qianwenai.com/models/glm-5.1"
       }
     },
     {
@@ -751,10 +1125,32 @@
         "max_tokens_range_validated": false
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 41,
+      "aa_url": "https://artificialanalysis.ai/models/glm-5",
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 4.0,
+          "output": 18.0,
+          "cache_hit": 0.8
+        },
+        "note": "CN card 2026-08-18: input 4 / output 18 / cache-hit 0.8 per 1M. CN-only (no EN card).",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 4.0,
+        "output": 18.0,
+        "cache_hit": 0.8,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-18"
+      },
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
         "budget_max": 131072
+      },
+      "card": {
+        "cn": "https://www.qianwenai.com/models/glm-5"
       }
     },
     {
@@ -790,10 +1186,32 @@
         "max_tokens_range_validated": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 34,
+      "aa_url": "https://artificialanalysis.ai/models/minimax-m2-5",
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 2.1,
+          "output": 8.4,
+          "cache_hit": 0.42
+        },
+        "note": "CN card 2026-08-18: input 2.1 / output 8.4 / cache-hit 0.42 per 1M. CN-only (no EN card).",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 2.1,
+        "output": 8.4,
+        "cache_hit": 0.42,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-18"
+      },
       "thinking": {
         "mode": "always_on",
         "can_disable": false,
         "budget_max": 38912
+      },
+      "card": {
+        "cn": "https://www.qianwenai.com/models/MiniMax-M2.5"
       }
     },
     {
@@ -806,6 +1224,11 @@
       ],
       "released": "2026-07-14",
       "status": "active",
+      "limit": {
+        "context": null,
+        "output": null,
+        "note": "Streaming TTS, character-metered (no token context window). RPM 180."
+      },
       "modalities": {
         "input": [
           "text"
@@ -837,6 +1260,10 @@
         "output": null,
         "source": "qianwenai.com marketplace card",
         "verified": "2026-08-05"
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/qwen-audio-3.0-tts-plus",
+        "cn": "https://www.qianwenai.com/models/qwen-audio-3.0-tts-plus"
       }
     },
     {
@@ -848,6 +1275,11 @@
         "personal"
       ],
       "status": "active",
+      "limit": {
+        "context": null,
+        "output": null,
+        "note": "Realtime streaming audio dialog (no fixed token context window). Per-token priced."
+      },
       "modalities": {
         "input": [
           "audio",
@@ -870,8 +1302,25 @@
       },
       "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/inference (DashScope WebSocket protocol; set dashscope.base_websocket_api_url per the vendor's Token Plan multimodal best-practices page). VERIFIED 2026-08-14 by handshake probe (probe-plan-routes.py --ws): HTTP 101 on both regions, auth enforced at handshake (bad key -> 401 InvalidApiKey), zero token cost. Task-level probe run 2026-08-14: this model is not served on the inference path at all ('url error, please check url'); the realtime routes /api-ws/v1/realtime and /api-ws/v1/realtime-inference exist and handshake, but the protocol is client-initiated and a session was not attempted. Realtime routes discovered 2026-08-14: wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/realtime and /api-ws/v1/realtime-inference (101 + auth; the generic /api-ws/v1/inference path rejects this model with 'url error').",
       "cost": {
-        "status": "not published, not probed",
-        "published": false
+        "status": "published per-token pricing, CN-denominated sheet (realtime audio)",
+        "per_1m_rmb": {
+          "input": 5.0,
+          "output": 40.0
+        },
+        "note": "Realtime voice card 2026-08-18: TEXT input 5 / TEXT output 40; AUDIO input 40; text+audio output 150 per 1M (output text not billed when audio present). surface is DashScope webSocket realtime, not the compatible-mode chat route.",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 5.0,
+        "output": 40.0,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-18",
+        "audio_input_per_1m": 40,
+        "audio_output_textplusaudio_per_1m": 150
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/qwen-audio-3.0-realtime-plus",
+        "cn": "https://www.qianwenai.com/models/qwen-audio-3.0-realtime-plus"
       }
     },
     {
@@ -901,7 +1350,24 @@
         "attachment": false,
         "structured_output": "none"
       },
-      "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed"
+      "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed",
+      "cost": {
+        "status": "published, per-image",
+        "source": "qianwenai.com + qwencloud.com marketplace cards",
+        "verified": "2026-08-18",
+        "currency": "RMB",
+        "unit": "per_image",
+        "input": 0.2,
+        "output": null,
+        "limits": {
+          "rpm": 120
+        },
+        "note": "\u56fe\u7247\u751f\u6210 \u00a50.2/\u5f20 (per image); RPM 120."
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/qwen-image-2.0",
+        "cn": "https://www.qianwenai.com/models/qwen-image-2.0"
+      }
     },
     {
       "id": "qwen-image-2.0-pro",
@@ -930,7 +1396,24 @@
         "attachment": false,
         "structured_output": "none"
       },
-      "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed"
+      "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed",
+      "cost": {
+        "status": "published, per-image",
+        "source": "qianwenai.com + qwencloud.com marketplace cards",
+        "verified": "2026-08-18",
+        "currency": "RMB",
+        "unit": "per_image",
+        "input": 0.5,
+        "output": null,
+        "limits": {
+          "rpm": 2
+        },
+        "note": "\u56fe\u7247\u751f\u6210 \u00a50.5/\u5f20 (per image); RPM 2."
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/qwen-image-2.0-pro",
+        "cn": "https://www.qianwenai.com/models/qwen-image-2.0-pro"
+      }
     },
     {
       "id": "wan2.7-image",
@@ -960,7 +1443,25 @@
         "attachment": false,
         "structured_output": "none"
       },
-      "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed"
+      "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed",
+      "cost": {
+        "status": "published, per-image",
+        "source": "qianwenai.com + qwencloud.com marketplace cards",
+        "verified": "2026-08-18",
+        "currency": "RMB",
+        "unit": "per_image",
+        "input": 0.2,
+        "output": null,
+        "limits": {
+          "rpm": 300,
+          "concurrency": 5
+        },
+        "note": "\u56fe\u7247\u751f\u6210 \u00a50.2/\u5f20 (per image); RPM 300."
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/wan2.7-image",
+        "cn": "https://www.qianwenai.com/models/wan2.7-image"
+      }
     },
     {
       "id": "wan2.7-image-pro",
@@ -990,7 +1491,25 @@
         "attachment": false,
         "structured_output": "none"
       },
-      "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed"
+      "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed",
+      "cost": {
+        "status": "published, per-image",
+        "source": "qianwenai.com + qwencloud.com marketplace cards",
+        "verified": "2026-08-18",
+        "currency": "RMB",
+        "unit": "per_image",
+        "input": 0.5,
+        "output": null,
+        "limits": {
+          "rpm": 300,
+          "concurrency": 5
+        },
+        "note": "\u56fe\u7247\u751f\u6210 \u00a50.5/\u5f20 (per image); RPM 300."
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/wan2.7-image-pro",
+        "cn": "https://www.qianwenai.com/models/wan2.7-image-pro"
+      }
     },
     {
       "id": "happyhorse-1.1-t2v",
@@ -1020,7 +1539,41 @@
         "attachment": false,
         "structured_output": "none"
       },
-      "endpoint": "/api/v1/services/aigc/video-generation/video-synthesis (async, X-DashScope-Async: enable, poll /api/v1/tasks/{task_id})"
+      "endpoint": "/api/v1/services/aigc/video-generation/video-synthesis (async, X-DashScope-Async: enable, poll /api/v1/tasks/{task_id})",
+      "cost": {
+        "status": "published, per-second video (tiered by resolution)",
+        "source": "qianwenai.com + qwencloud.com marketplace cards",
+        "verified": "2026-08-18",
+        "currency": "RMB",
+        "unit": "per_second_video",
+        "rates": {
+          "480p": {
+            "list": 0.45,
+            "promo": 0.27,
+            "promo_note": "\u9650\u65f66\u6298 (CN)"
+          },
+          "720p": {
+            "list": 0.9,
+            "promo": 0.54,
+            "promo_note": "\u9650\u65f66\u6298 (CN)"
+          },
+          "1080p": {
+            "list": 1.2,
+            "promo": 0.72,
+            "promo_note": "\u9650\u65f66\u6298 (CN)"
+          }
+        },
+        "limits": {
+          "concurrency": 5,
+          "async_queue": 500,
+          "rpm": 300
+        },
+        "note": "CN card: \u89c6\u9891\u751f\u6210 480P \u00a50.45/s(6\u6298\u00a50.27), 720P \u00a50.9/s(6\u6298\u00a50.54), 1080P \u00a51.2/s(6\u6298\u00a50.72). EN card: 480P $0.07\u21920.042/s, 720P $0.14\u21920.084/s, 1080P $0.18\u21920.108/s (40% off). Same rate structure across i2v/r2v/t2v."
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/happyhorse-1.1-t2v",
+        "cn": "https://www.qianwenai.com/models/happyhorse-1.1-t2v"
+      }
     },
     {
       "id": "happyhorse-1.1-i2v",
@@ -1051,7 +1604,41 @@
         "attachment": true,
         "structured_output": "none"
       },
-      "endpoint": "/api/v1/services/aigc/video-generation/video-synthesis (async, X-DashScope-Async: enable, poll /api/v1/tasks/{task_id})"
+      "endpoint": "/api/v1/services/aigc/video-generation/video-synthesis (async, X-DashScope-Async: enable, poll /api/v1/tasks/{task_id})",
+      "cost": {
+        "status": "published, per-second video (tiered by resolution)",
+        "source": "qianwenai.com + qwencloud.com marketplace cards",
+        "verified": "2026-08-18",
+        "currency": "RMB",
+        "unit": "per_second_video",
+        "rates": {
+          "480p": {
+            "list": 0.45,
+            "promo": 0.27,
+            "promo_note": "\u9650\u65f66\u6298 (CN)"
+          },
+          "720p": {
+            "list": 0.9,
+            "promo": 0.54,
+            "promo_note": "\u9650\u65f66\u6298 (CN)"
+          },
+          "1080p": {
+            "list": 1.2,
+            "promo": 0.72,
+            "promo_note": "\u9650\u65f66\u6298 (CN)"
+          }
+        },
+        "limits": {
+          "concurrency": 5,
+          "async_queue": 500,
+          "rpm": 300
+        },
+        "note": "CN card: \u89c6\u9891\u751f\u6210 480P \u00a50.45/s(6\u6298\u00a50.27), 720P \u00a50.9/s(6\u6298\u00a50.54), 1080P \u00a51.2/s(6\u6298\u00a50.72). EN card: 480P $0.07\u21920.042/s, 720P $0.14\u21920.084/s, 1080P $0.18\u21920.108/s (40% off). Same rate structure across i2v/r2v/t2v."
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/happyhorse-1.1-i2v",
+        "cn": "https://www.qianwenai.com/models/happyhorse-1.1-i2v"
+      }
     },
     {
       "id": "happyhorse-1.1-r2v",
@@ -1082,7 +1669,41 @@
         "attachment": true,
         "structured_output": "none"
       },
-      "endpoint": "/api/v1/services/aigc/video-generation/video-synthesis (async, X-DashScope-Async: enable, poll /api/v1/tasks/{task_id})"
+      "endpoint": "/api/v1/services/aigc/video-generation/video-synthesis (async, X-DashScope-Async: enable, poll /api/v1/tasks/{task_id})",
+      "cost": {
+        "status": "published, per-second video (tiered by resolution)",
+        "source": "qianwenai.com + qwencloud.com marketplace cards",
+        "verified": "2026-08-18",
+        "currency": "RMB",
+        "unit": "per_second_video",
+        "rates": {
+          "480p": {
+            "list": 0.45,
+            "promo": 0.27,
+            "promo_note": "\u9650\u65f66\u6298 (CN)"
+          },
+          "720p": {
+            "list": 0.9,
+            "promo": 0.54,
+            "promo_note": "\u9650\u65f66\u6298 (CN)"
+          },
+          "1080p": {
+            "list": 1.2,
+            "promo": 0.72,
+            "promo_note": "\u9650\u65f66\u6298 (CN)"
+          }
+        },
+        "limits": {
+          "concurrency": 5,
+          "async_queue": 500,
+          "rpm": 300
+        },
+        "note": "CN card: \u89c6\u9891\u751f\u6210 480P \u00a50.45/s(6\u6298\u00a50.27), 720P \u00a50.9/s(6\u6298\u00a50.54), 1080P \u00a51.2/s(6\u6298\u00a50.72). EN card: 480P $0.07\u21920.042/s, 720P $0.14\u21920.084/s, 1080P $0.18\u21920.108/s (40% off). Same rate structure across i2v/r2v/t2v."
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/happyhorse-1.1-r2v",
+        "cn": "https://www.qianwenai.com/models/happyhorse-1.1-r2v"
+      }
     }
   ]
 }
