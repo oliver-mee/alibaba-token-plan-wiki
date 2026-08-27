@@ -372,6 +372,11 @@
       "aa_intelligence": 32,
       "aa_url": "https://artificialanalysis.ai/models/qwen3-6-35b-a3b",
       "status_note": "Token Plan id IS the open-weights qwen3.6-35b-a3b; AA tracks the 35b-a3b weights identity",
+      "aliases": [
+        "qwen3.6-35b-a3b",
+        "qwen3.6-flash-2026-04-16"
+      ],
+      "underlying_identity": "qwen3.6-35b-a3b",
       "cost": {
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
@@ -518,6 +523,10 @@
       "aa_intelligence": 53,
       "aa_url": "https://artificialanalysis.ai/models/deepseek-v4-pro",
       "status_note": "Servable by exact id (HTTP 200, probed 2026-08-18) but deliberately NOT surfaced on the gateway /models listing. Unlike 'retired' it must stay in downstream catalogues (it is callable); unlike 'active' it is excluded from the check-drift expected /models set (else it would false-alarm as removed every run). Treat /models gain as real drift when it eventually lists. | deepseek-v4-pro-0813 is the dated 2026-08-13 release; AA tracks it as the current deepseek-v4-pro id",
+      "aliases": [
+        "deepseek-v4-pro"
+      ],
+      "underlying_identity": "deepseek-v4-pro",
       "cost": {
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
@@ -664,6 +673,10 @@
       "aa_intelligence": 52,
       "aa_url": "https://artificialanalysis.ai/models/deepseek-v4-flash",
       "status_note": "deepseek-v4-flash-0731 is the dated 2026-08-01 release; AA tracks it as the current deepseek-v4-flash id",
+      "aliases": [
+        "deepseek-v4-flash"
+      ],
+      "underlying_identity": "deepseek-v4-flash",
       "cost": {
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
