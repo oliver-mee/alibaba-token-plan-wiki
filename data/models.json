@@ -147,6 +147,7 @@
       "endpoint": "/compatible-mode/v1/chat/completions",
       "aa_intelligence": 47,
       "aa_url": "https://artificialanalysis.ai/models/qwen3-7-max",
+      "status_note": "AA Intelligence Index page marks this model deprecated/superseded (by qwen3.8-max) as of 2026-08-18; gateway still serves it (status active here).",
       "cost": {
         "status": "published per-token pricing, CN-denominated sheet (limited-time 50% off promo active)",
         "per_1m_rmb": {
@@ -306,6 +307,7 @@
       "endpoint": "/compatible-mode/v1/chat/completions",
       "aa_intelligence": 40,
       "aa_url": "https://artificialanalysis.ai/models/qwen3-6-plus",
+      "status_note": "AA marks deprecated (superseded by qwen3.7-plus) as of 2026-08-18; gateway still serves it.",
       "cost": {
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
@@ -369,6 +371,7 @@
       "endpoint": "/compatible-mode/v1/chat/completions",
       "aa_intelligence": 32,
       "aa_url": "https://artificialanalysis.ai/models/qwen3-6-35b-a3b",
+      "status_note": "Token Plan id IS the open-weights qwen3.6-35b-a3b; AA tracks the 35b-a3b weights identity",
       "cost": {
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
@@ -514,7 +517,7 @@
       "endpoint": "/compatible-mode/v1/chat/completions",
       "aa_intelligence": 53,
       "aa_url": "https://artificialanalysis.ai/models/deepseek-v4-pro",
-      "status_note": "Servable by exact id (HTTP 200, probed 2026-08-18) but deliberately NOT surfaced on the gateway /models listing. Unlike 'retired' it must stay in downstream catalogues (it is callable); unlike 'active' it is excluded from the check-drift expected /models set (else it would false-alarm as removed every run). Treat /models gain as real drift when it eventually lists.",
+      "status_note": "Servable by exact id (HTTP 200, probed 2026-08-18) but deliberately NOT surfaced on the gateway /models listing. Unlike 'retired' it must stay in downstream catalogues (it is callable); unlike 'active' it is excluded from the check-drift expected /models set (else it would false-alarm as removed every run). Treat /models gain as real drift when it eventually lists. | deepseek-v4-pro-0813 is the dated 2026-08-13 release; AA tracks it as the current deepseek-v4-pro id",
       "cost": {
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
@@ -660,6 +663,7 @@
       "endpoint": "/compatible-mode/v1/chat/completions",
       "aa_intelligence": 52,
       "aa_url": "https://artificialanalysis.ai/models/deepseek-v4-flash",
+      "status_note": "deepseek-v4-flash-0731 is the dated 2026-08-01 release; AA tracks it as the current deepseek-v4-flash id",
       "cost": {
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
@@ -733,6 +737,7 @@
       "endpoint": "/compatible-mode/v1/chat/completions",
       "aa_intelligence": 25,
       "aa_url": "https://artificialanalysis.ai/models/deepseek-v3-2",
+      "status_note": "AA marks deprecated (superseded by deepseek-v4 pro family) as of 2026-08-18; gateway still serves it.",
       "cost": {
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
@@ -862,6 +867,7 @@
       "endpoint": "/compatible-mode/v1/chat/completions",
       "aa_intelligence": 45,
       "aa_url": "https://artificialanalysis.ai/models/kimi-k2-6",
+      "status_note": "AA marks deprecated (superseded by kimi-k3) as of 2026-08-18; gateway still serves it.",
       "cost": {
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
@@ -925,6 +931,7 @@
       "endpoint": "/compatible-mode/v1/chat/completions",
       "aa_intelligence": 36,
       "aa_url": "https://artificialanalysis.ai/models/kimi-k2-5",
+      "status_note": "AA marks deprecated (superseded by kimi-k2.6) as of 2026-08-18; gateway still serves it.",
       "cost": {
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
@@ -1065,6 +1072,7 @@
       "endpoint": "/compatible-mode/v1/chat/completions",
       "aa_intelligence": 41,
       "aa_url": "https://artificialanalysis.ai/models/glm-5-1",
+      "status_note": "AA marks deprecated (superseded by glm-5.2) as of 2026-08-18; gateway still serves it.",
       "cost": {
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
@@ -1127,6 +1135,7 @@
       "endpoint": "/compatible-mode/v1/chat/completions",
       "aa_intelligence": 41,
       "aa_url": "https://artificialanalysis.ai/models/glm-5",
+      "status_note": "AA marks deprecated (superseded by glm-5.1) as of 2026-08-18; gateway still serves it.",
       "cost": {
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
@@ -1188,6 +1197,7 @@
       "endpoint": "/compatible-mode/v1/chat/completions",
       "aa_intelligence": 34,
       "aa_url": "https://artificialanalysis.ai/models/minimax-m2-5",
+      "status_note": "AA marks deprecated (superseded by MiniMax-M2.7) as of 2026-08-18; gateway still serves it.",
       "cost": {
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
