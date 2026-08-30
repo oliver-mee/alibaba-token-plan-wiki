@@ -1,12 +1,12 @@
 {
-  "updated": "2026-08-18",
+  "updated": "2026-08-30",
   "note": "Measured against the live gateway. More accurate than the vendor console.",
   "tiers": {
     "team": {
-      "chat_models": 17
+      "chat_models": 18
     },
     "personal": {
-      "chat_models": 8
+      "chat_models": 9
     }
   },
   "endpoints": {
@@ -109,6 +109,70 @@
       "card": {
         "en": "https://www.qwencloud.com/models/qwen3.8-max",
         "cn": "https://www.qianwenai.com/models/qwen3.8-max"
+      }
+    },
+    {
+      "id": "qwen3.8-flash",
+      "vendor": "Qwen",
+      "kind": "chat",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-08-26",
+      "status": "active",
+      "limit": {
+        "context": 1000000,
+        "output": 131072
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": true,
+        "structured_output": "json_schema",
+        "responses_api": true,
+        "logprobs": false,
+        "vision_tool_result": true,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": false
+      },
+      "endpoint": "/compatible-mode/v1/chat/completions",
+      "cost": {
+        "status": "published per-token pricing, CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 0.8,
+          "output": 2.7,
+          "cache_hit": 0.1
+        },
+        "note": "CN card (qianwenai.com, 2026-08-30, authoritative per the marketplace-card rule): input CNY0.8/M, output CNY2.7/M, cache-hit CNY0.1/M, explicit-cache create CNY1.25/M / read CNY0.1/M. EN twin (qwencloud.com): $0.15 / $0.47 / $0.016 / $0.2 / $0.016 \u2014 EN is ~40% dearer at FX; the CN sheet is what meters Token Plan credits. Card shows batch + fine-tune flags \u2014 those describe Model Studio platform services, NOT Token Plan gateway routes (batch/fine-tuning routes 404 on the Global gateway, proven 2026-08-04).",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 0.8,
+        "output": 2.7,
+        "cache_hit": 0.1,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-08-30"
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "budget_max": 262144,
+        "note": "Card-documented: thinking max 983K input tokens / 131K output, max reasoning tokens 262K. Levels NOT enumerated or probed yet (spend gate) \u2014 inherited from qwen3.8 family pattern, not measured."
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/qwen3.8-flash",
+        "cn": "https://www.qianwenai.com/models/qwen3.8-flash"
       }
     },
     {
