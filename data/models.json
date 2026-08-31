@@ -168,7 +168,8 @@
         "mode": "hybrid",
         "can_disable": true,
         "budget_max": 262144,
-        "note": "Card-documented: thinking max 983K input tokens / 131K output, max reasoning tokens 262K. Levels NOT enumerated or probed yet (spend gate) \u2014 inherited from qwen3.8 family pattern, not measured."
+        "note": "Card-documented: thinking max 983K input tokens / 131K output, max reasoning tokens 262K. Levels NOT enumerated or probed yet (spend gate) \u2014 inherited from qwen3.8 family pattern, not measured.",
+        "effort": true
       },
       "card": {
         "en": "https://www.qwencloud.com/models/qwen3.8-flash",
