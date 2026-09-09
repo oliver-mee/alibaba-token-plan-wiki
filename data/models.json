@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-30",
+  "updated": "2026-09-09",
   "note": "Measured against the live gateway. More accurate than the vendor console.",
   "tiers": {
     "team": {
@@ -36,6 +36,18 @@
       "status": "active",
       "limit": {
         "context": 1000000,
+        "input": 991000,
+        "input_note": "CN marketplace card display: 991K maximum input; display-rounded value.",
+        "by_mode": {
+          "standard": {
+            "input": 991000,
+            "input_display": "991K"
+          },
+          "thinking": {
+            "input": 983000,
+            "input_display": "983K"
+          }
+        },
         "output": 131072
       },
       "modalities": {
@@ -63,6 +75,22 @@
       "aa_intelligence": 58,
       "aa_url": "https://artificialanalysis.ai/models/qwen3-8-max",
       "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit_and_explicit",
+          "currency": "RMB",
+          "implicit_read": 1.5,
+          "explicit_create": 15,
+          "explicit_read": 1,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-04"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-09"
+        },
         "status": "published per-token pricing (GA), CN-denominated sheet",
         "per_1m_rmb": {
           "input": 12,
@@ -88,7 +116,7 @@
           ],
           "documented": [
             "low",
-            "high",
+            "medium",
             "xhigh"
           ],
           "default": "xhigh",
@@ -102,9 +130,22 @@
             "xhigh",
             "max"
           ],
-          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
+          "doc_note": "Vendor OpenAI-chat API reference, accessed 2026-09-01: Qwen3.8 options low/medium/xhigh, default xhigh; mutually exclusive with thinking_budget; automatic mapping low=4096, medium=16384, xhigh=262144; when neither is set, default thinking_budget=131072. Standard high/max aliases map to xhigh."
         },
-        "budget_max": 262144
+        "budget_max": 262144,
+        "budget_default": 131072,
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": true,
+        "mutually_exclusive_note": "Vendor OpenAI-chat API reference, accessed 2026-09-01: reasoning_effort and thinking_budget are mutually exclusive.",
+        "preserve_thinking": {
+          "default": true,
+          "verified": "2026-09-09",
+          "source": "openai-chat reference 2026-09-09: qwen3.8-max defaults preserve_thinking=true; send historical reasoning_content back in the reasoning_content field, never concatenated into content",
+          "integration_note": "check Hermes plugin / clients replay reasoning blocks correctly (added to follow-ups)"
+        }
       },
       "card": {
         "en": "https://www.qwencloud.com/models/qwen3.8-max",
@@ -123,6 +164,18 @@
       "status": "active",
       "limit": {
         "context": 1000000,
+        "input": 991000,
+        "input_note": "CN marketplace card display: 991K maximum input; display-rounded value.",
+        "by_mode": {
+          "standard": {
+            "input": 991000,
+            "input_display": "991K"
+          },
+          "thinking": {
+            "input": 983000,
+            "input_display": "983K"
+          }
+        },
         "output": 131072
       },
       "modalities": {
@@ -148,6 +201,28 @@
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit_and_explicit",
+          "currency": "RMB",
+          "implicit_read": 0.1,
+          "explicit_create": 1.25,
+          "explicit_read": 0.1,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-30"
+        },
+        "batch": {
+          "currency": "RMB",
+          "input": 0.4,
+          "output": 1.35,
+          "unit": "per_1m_tokens",
+          "scope": "Batch File",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-09-02",
+          "promotion_note": "Batch Chat temporarily shown at 50% off on the CN card; Batch File values above are the published card rates.",
+          "state": "known"
+        },
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
           "input": 0.8,
@@ -169,7 +244,22 @@
         "can_disable": true,
         "budget_max": 262144,
         "note": "Card-documented: thinking max 983K input tokens / 131K output, max reasoning tokens 262K. Levels NOT enumerated or probed yet (spend gate) \u2014 inherited from qwen3.8 family pattern, not measured.",
-        "effort": true
+        "effort": true,
+        "reasoning_effort": {
+          "documented": [
+            "low",
+            "medium",
+            "xhigh"
+          ],
+          "default": "xhigh",
+          "doc_note": "Vendor OpenAI-chat API reference, accessed 2026-09-01: Qwen3.8 options low/medium/xhigh, default xhigh; mutually exclusive with thinking_budget; automatic mapping low=4096, medium=16384, xhigh=262144; when neither is set, default thinking_budget=131072. Standard high/max aliases map to xhigh."
+        },
+        "budget_default": 131072,
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": true,
+        "mutually_exclusive_note": "Vendor OpenAI-chat API reference, accessed 2026-09-01: reasoning_effort and thinking_budget are mutually exclusive."
       },
       "card": {
         "en": "https://www.qwencloud.com/models/qwen3.8-flash",
@@ -188,7 +278,44 @@
       "status": "active",
       "limit": {
         "context": 1000000,
-        "output": 131072
+        "input": 991000,
+        "input_note": "EN marketplace card (accessed 2026-09-07): maximum input 991K; maximum input in thinking mode 983K. The card pricing-band label is not being used as a context limit.",
+        "by_mode": {
+          "standard": {
+            "input": 991000,
+            "input_display": "991K",
+            "output": 131072,
+            "output_display": "131K",
+            "source": "https://www.qwencloud.com/models/qwen3.7-max",
+            "accessed": "2026-09-07",
+            "scope": "published marketplace card"
+          },
+          "thinking": {
+            "input": 983000,
+            "input_display": "983K",
+            "output": 131072,
+            "output_display": "131K",
+            "source": "https://www.qwencloud.com/models/qwen3.7-max",
+            "accessed": "2026-09-07",
+            "scope": "published marketplace card"
+          }
+        },
+        "output": 131072,
+        "input_state": {
+          "state": "known",
+          "source": "https://www.qwencloud.com/models/qwen3.7-max",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        },
+        "card_evidence": {
+          "max_input_display": "991K",
+          "max_input_thinking_display": "983K",
+          "max_output_display": "131K",
+          "context_display": "1M",
+          "source": "https://www.qwencloud.com/models/qwen3.7-max",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        }
       },
       "modalities": {
         "input": [
@@ -214,6 +341,20 @@
       "aa_url": "https://artificialanalysis.ai/models/qwen3-7-max",
       "status_note": "AA Intelligence Index page marks this model deprecated/superseded (by qwen3.8-max) as of 2026-08-18; gateway still serves it (status active here).",
       "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 2.4,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-18"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-09"
+        },
         "status": "published per-token pricing, CN-denominated sheet (limited-time 50% off promo active)",
         "per_1m_rmb": {
           "input": 12.0,
@@ -247,8 +388,15 @@
             "high",
             "xhigh"
           ],
-          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
-        }
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
+          "unpublished": true,
+          "doc_note": "Vendor publishes no reasoning_effort levels for this model (API reference, accessed 2026-08-31); toggle and/or thinking_budget only."
+        },
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "budget_default": 262144
       },
       "card": {
         "en": "https://www.qwencloud.com/models/qwen3.7-max",
@@ -267,7 +415,45 @@
       "status": "active",
       "limit": {
         "context": 1000000,
-        "output": 131072
+        "input": 991000,
+        "input_note": "CN marketplace card (accessed 2026-09-07): maximum input 991K; maximum input in thinking mode 983K. The card pricing-band label input<=256K is not being used as a context limit.",
+        "by_mode": {
+          "standard": {
+            "input": 991000,
+            "input_display": "991K",
+            "output": 131072,
+            "output_display": "131K",
+            "source": "https://www.qianwenai.com/models/qwen3.7-plus",
+            "accessed": "2026-09-07",
+            "scope": "published marketplace card"
+          },
+          "thinking": {
+            "input": 983000,
+            "input_display": "983K",
+            "output": 131072,
+            "output_display": "131K",
+            "source": "https://www.qianwenai.com/models/qwen3.7-plus",
+            "accessed": "2026-09-07",
+            "scope": "published marketplace card"
+          }
+        },
+        "output": 131072,
+        "input_state": {
+          "state": "known",
+          "source": "https://www.qianwenai.com/models/qwen3.7-plus",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        },
+        "card_evidence": {
+          "max_input_display": "991K",
+          "max_input_thinking_display": "983K",
+          "max_output_display": "131K",
+          "max_reasoning_display": "262K",
+          "context_display": "1M",
+          "source": "https://www.qianwenai.com/models/qwen3.7-plus",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        }
       },
       "modalities": {
         "input": [
@@ -294,6 +480,20 @@
       "aa_intelligence": 39,
       "aa_url": "https://artificialanalysis.ai/models/qwen3-7-plus",
       "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 0.4,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-18"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-09"
+        },
         "status": "published per-token pricing, CN-denominated sheet (limited-time 8\u6298 promo active)",
         "per_1m_rmb": {
           "input": 2.0,
@@ -327,8 +527,18 @@
             "high",
             "xhigh"
           ],
-          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
-        }
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
+          "unpublished": true,
+          "doc_note": "Vendor publishes no reasoning_effort levels for this model (API reference, accessed 2026-08-31); toggle and/or thinking_budget only."
+        },
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "budget_default": 262144,
+        "budget_default_note": "CN card max reasoning chain 262K; current API reference says the default thinking_budget is the model maximum chain-of-thought length.",
+        "budget_default_source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+        "budget_default_accessed": "2026-09-07"
       },
       "card": {
         "en": "https://www.qwencloud.com/models/qwen3.7-plus",
@@ -346,7 +556,47 @@
       "status": "active",
       "limit": {
         "context": 1000000,
-        "output": 65536
+        "input": 991000,
+        "input_note": "CN marketplace card (accessed 2026-09-07): maximum input 991K; maximum input in thinking mode 983K. The card pricing-band label input<=256K is not being used as a context limit.",
+        "by_mode": {
+          "standard": {
+            "input": 991000,
+            "input_display": "991K",
+            "output": 65536,
+            "output_display": "65K",
+            "source": "https://www.qianwenai.com/models/qwen3.6-plus",
+            "accessed": "2026-09-07",
+            "scope": "published marketplace card"
+          },
+          "thinking": {
+            "input": 983000,
+            "input_display": "983K",
+            "output": 65536,
+            "output_display": "65K",
+            "reasoning": 81920,
+            "reasoning_display": "81K",
+            "source": "https://www.qianwenai.com/models/qwen3.6-plus",
+            "accessed": "2026-09-07",
+            "scope": "published marketplace card"
+          }
+        },
+        "output": 65536,
+        "input_state": {
+          "state": "known",
+          "source": "https://www.qianwenai.com/models/qwen3.6-plus",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        },
+        "card_evidence": {
+          "max_input_display": "991K",
+          "max_input_thinking_display": "983K",
+          "max_output_display": "65K",
+          "max_reasoning_display": "81K",
+          "context_display": "1M",
+          "source": "https://www.qianwenai.com/models/qwen3.6-plus",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        }
       },
       "modalities": {
         "input": [
@@ -374,6 +624,39 @@
       "aa_url": "https://artificialanalysis.ai/models/qwen3-6-plus",
       "status_note": "AA marks deprecated (superseded by qwen3.7-plus) as of 2026-08-18; gateway still serves it.",
       "cost": {
+        "cache": {
+          "currency": "RMB",
+          "explicit_create": 2.5,
+          "explicit_read": 0.2,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-18",
+          "implicit_cache_hit": "not published",
+          "state": "known"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "The card's Batch File rate is for Model Studio, not the Token Plan route. Published Model Studio batch rates are retained as card evidence; Token Plan applicability remains not_applicable.",
+          "card_evidence": {
+            "currency": "RMB",
+            "batch_file": {
+              "input": 1.0,
+              "output": 6.0,
+              "unit": "per_1m_tokens"
+            },
+            "batch_chat": {
+              "input_list": 2.0,
+              "output_list": 12.0,
+              "promotion": "50% off",
+              "effective_input": 1.0,
+              "effective_output": 6.0,
+              "unit": "per_1m_tokens"
+            },
+            "source": "https://www.qianwenai.com/models/qwen3.6-plus",
+            "accessed": "2026-09-07",
+            "scope": "Model Studio marketplace card"
+          }
+        },
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
           "input": 2.0,
@@ -391,7 +674,19 @@
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
-        "budget_max": 131072
+        "budget_max": 131072,
+        "reasoning_effort": {
+          "unpublished": true,
+          "doc_note": "Vendor publishes no reasoning_effort levels for this model (API reference, accessed 2026-08-31); toggle and/or thinking_budget only."
+        },
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "budget_default": 81920,
+        "budget_default_note": "CN card max reasoning chain 81K; current API reference says the default thinking_budget is the model maximum chain-of-thought length.",
+        "budget_default_source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+        "budget_default_accessed": "2026-09-07"
       },
       "card": {
         "en": "https://www.qwencloud.com/models/qwen3.6-plus",
@@ -410,6 +705,22 @@
       "status": "active",
       "limit": {
         "context": 1000000,
+        "input": 991000,
+        "input_note": "CN marketplace card display: 991K maximum input; display-rounded value.",
+        "by_mode": {
+          "standard": {
+            "input": 991000,
+            "input_display": "991K",
+            "output": 65536
+          },
+          "thinking": {
+            "input": 983000,
+            "input_display": "983K",
+            "output": 65536,
+            "reasoning": 81920,
+            "reasoning_display": "81K"
+          }
+        },
         "output": 65536
       },
       "modalities": {
@@ -443,6 +754,42 @@
       ],
       "underlying_identity": "qwen3.6-35b-a3b",
       "cost": {
+        "cache": {
+          "currency": "RMB",
+          "explicit_create": 1.5,
+          "explicit_read": 0.12,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-18",
+          "implicit_cache_hit": "not published",
+          "state": "known"
+        },
+        "batch": {
+          "currency": "RMB",
+          "input": 0.6,
+          "output": 3.6,
+          "unit": "per_1m_tokens",
+          "scope": "Batch File",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-18",
+          "state": "known",
+          "card_evidence": {
+            "currency": "RMB",
+            "batch_file": {
+              "input": 0.6,
+              "output": 3.6,
+              "unit": "per_1m_tokens"
+            },
+            "batch_chat": {
+              "input": 1.2,
+              "output": 7.2,
+              "unit": "per_1m_tokens"
+            },
+            "source": "https://www.qianwenai.com/models/qwen3.6-flash",
+            "accessed": "2026-09-07",
+            "scope": "Model Studio marketplace card"
+          }
+        },
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
           "input": 1.2,
@@ -470,8 +817,18 @@
             "high",
             "xhigh"
           ],
-          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
-        }
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
+          "unpublished": true,
+          "doc_note": "Vendor publishes no reasoning_effort levels for this model (API reference, accessed 2026-08-31); toggle and/or thinking_budget only."
+        },
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "budget_default": 131072,
+        "budget_default_note": "CN card max reasoning chain 131K; current API reference says the default thinking_budget is the model maximum chain-of-thought length.",
+        "budget_default_source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+        "budget_default_accessed": "2026-09-07"
       },
       "card": {
         "en": "https://www.qwencloud.com/models/qwen3.6-flash",
@@ -490,7 +847,31 @@
       "status": "active",
       "limit": {
         "context": 1000000,
-        "output": 384000
+        "output": 393216,
+        "input": 1000000,
+        "input_note": "Maximum input from the checked Model Studio marketplace/spec capture; this is a published/card value and is not asserted as a gateway-enforced boundary.",
+        "by_mode": {
+          "standard": {
+            "output": 393216,
+            "output_display": "384K"
+          },
+          "thinking": {
+            "output": 393216,
+            "output_display": "384K",
+            "note": "output and chain-of-thought share ONE budget"
+          },
+          "source": "docs.qwencloud.com/developer-guides/getting-started/text-generation-models (accessed 2026-09-09): \"DeepSeek V4 models share a 384k total budget across output and thinking\"",
+          "accessed": "2026-09-09"
+        },
+        "card_evidence": {
+          "max_input_display": "1M",
+          "max_output_display": "393K",
+          "context_display": "1M",
+          "source": "https://www.qianwenai.com/models/deepseek-v4-pro",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        },
+        "note": "limit.output 393216 = \"384k *\" shared output+CoT budget (text-generation-models, 2026-09-09); binary-K display-unit trap \u2014 decimal 384000 readings superseded."
       },
       "modalities": {
         "input": [
@@ -515,6 +896,20 @@
       "aa_intelligence": 53,
       "aa_url": "https://artificialanalysis.ai/models/deepseek-v4-pro",
       "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 1.0,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-18"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-09"
+        },
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
           "input": 12.0,
@@ -543,8 +938,18 @@
             "xhigh",
             "max"
           ],
-          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
-        }
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
+          "documented": [
+            "high",
+            "max"
+          ],
+          "doc_note": "Vendor OpenAI-chat API reference, accessed 2026-08-31 (docs.qwencloud.com/api-reference/chat/openai-chat). DeepSeek-V4/GLM contract: options high/max; low and medium map to high, xhigh maps to max."
+        },
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "budget_default": 393216
       },
       "card": {
         "en": "https://www.qwencloud.com/models/deepseek-v4-pro",
@@ -563,7 +968,43 @@
       "status": "unlisted",
       "limit": {
         "context": 1000000,
-        "output": 384000
+        "output": 393216,
+        "input": 1000000,
+        "input_note": "Maximum input from the checked Model Studio marketplace/spec capture; this is a published/card value and is not asserted as a gateway-enforced boundary.",
+        "by_mode": {
+          "standard": {
+            "input": 1000000,
+            "input_display": "1M",
+            "output": 393216,
+            "output_display": "393K",
+            "source": "https://www.qianwenai.com/models/deepseek-v4-pro-0813",
+            "accessed": "2026-09-07",
+            "scope": "published marketplace card"
+          },
+          "thinking": {
+            "input": 1000000,
+            "input_display": "1M",
+            "output": 393216,
+            "output_display": "393K",
+            "reasoning": 393216,
+            "reasoning_display": "393K",
+            "source": "https://www.qianwenai.com/models/deepseek-v4-pro-0813",
+            "accessed": "2026-09-07",
+            "scope": "published marketplace card"
+          }
+        },
+        "card_evidence": {
+          "max_input_display": "1M",
+          "max_output_display": "393K",
+          "max_input_thinking_display": "1M",
+          "max_output_thinking_display": "393K",
+          "max_reasoning_display": "393K",
+          "context_display": "1M",
+          "source": "https://www.qianwenai.com/models/deepseek-v4-pro-0813",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        },
+        "note": "limit.output 393216 per shared-384K-budget doc note 2026-09-09 (was decimal 384000)."
       },
       "modalities": {
         "input": [
@@ -593,6 +1034,20 @@
       ],
       "underlying_identity": "deepseek-v4-pro",
       "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 0.45,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card (deepseek-v4-pro-0813)",
+          "verified": "2026-08-18"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-09"
+        },
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
           "input": 4.5,
@@ -631,8 +1086,20 @@
             "xhigh",
             "max"
           ],
-          "enum_note": "Inherited from base deepseek-v4-pro (2026-08-05 enumeration); the dated variant was not re-enumerated. Same family, acceptance assumed until probed."
-        }
+          "enum_note": "Inherited from base deepseek-v4-pro (2026-08-05 enumeration); the dated variant was not re-enumerated. Same family, acceptance assumed until probed.",
+          "documented": [
+            "low",
+            "high",
+            "max"
+          ],
+          "default": "high",
+          "doc_note": "Vendor OpenAI-chat API reference, accessed 2026-08-31 (docs.qwencloud.com/api-reference/chat/openai-chat). Dated-variant contract: default high; valid low/high/max; medium and xhigh map to high. NOTE: models.dev row carries high/max only (its comment matches the older doc wording)."
+        },
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "budget_default": 393216
       },
       "card": {
         "en": "https://www.qwencloud.com/models/deepseek-v4-pro-0813",
@@ -650,7 +1117,31 @@
       "status": "active",
       "limit": {
         "context": 1000000,
-        "output": 384000
+        "output": 393216,
+        "input": 1000000,
+        "input_note": "Maximum input from the checked Model Studio marketplace/spec capture; this is a published/card value and is not asserted as a gateway-enforced boundary.",
+        "by_mode": {
+          "standard": {
+            "output": 393216,
+            "output_display": "384K"
+          },
+          "thinking": {
+            "output": 393216,
+            "output_display": "384K",
+            "note": "output and chain-of-thought share ONE budget"
+          },
+          "source": "docs.qwencloud.com/developer-guides/getting-started/text-generation-models (accessed 2026-09-09): \"DeepSeek V4 models share a 384k total budget across output and thinking\"",
+          "accessed": "2026-09-09"
+        },
+        "card_evidence": {
+          "max_input_display": "1M",
+          "max_output_display": "393K",
+          "context_display": "1M",
+          "source": "https://www.qianwenai.com/models/deepseek-v4-flash",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        },
+        "note": "limit.output 393216 per shared-384K-budget doc note 2026-09-09."
       },
       "modalities": {
         "input": [
@@ -675,6 +1166,20 @@
       "aa_intelligence": 52,
       "aa_url": "https://artificialanalysis.ai/models/deepseek-v4-flash",
       "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 0.2,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-18"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-09"
+        },
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
           "input": 1.0,
@@ -694,7 +1199,19 @@
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
-        "budget_max": 393216
+        "budget_max": 393216,
+        "reasoning_effort": {
+          "documented": [
+            "high",
+            "max"
+          ],
+          "doc_note": "Vendor OpenAI-chat API reference, accessed 2026-08-31 (docs.qwencloud.com/api-reference/chat/openai-chat). DeepSeek-V4/GLM contract: options high/max; low and medium map to high, xhigh maps to max."
+        },
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "budget_default": 393216
       },
       "card": {
         "en": "https://www.qwencloud.com/models/deepseek-v4-flash",
@@ -713,7 +1230,31 @@
       "status": "active",
       "limit": {
         "context": 1000000,
-        "output": 393216
+        "output": 393216,
+        "input": 1000000,
+        "input_note": "Maximum input from the checked Model Studio marketplace/spec capture; this is a published/card value and is not asserted as a gateway-enforced boundary.",
+        "by_mode": {
+          "standard": {
+            "output": 393216,
+            "output_display": "384K"
+          },
+          "thinking": {
+            "output": 393216,
+            "output_display": "384K",
+            "note": "output and chain-of-thought share ONE budget"
+          },
+          "source": "docs.qwencloud.com/developer-guides/getting-started/text-generation-models (accessed 2026-09-09): \"DeepSeek V4 models share a 384k total budget across output and thinking\"",
+          "accessed": "2026-09-09"
+        },
+        "card_evidence": {
+          "max_input_display": "1M",
+          "max_output_display": "393K",
+          "context_display": "1M",
+          "source": "https://www.qianwenai.com/models/deepseek-v4-flash-0731",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        },
+        "note": "limit.output 393216 shared output+CoT budget (doc note 2026-09-09; already binary-K)."
       },
       "modalities": {
         "input": [
@@ -743,6 +1284,20 @@
       ],
       "underlying_identity": "deepseek-v4-flash",
       "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 0.2,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-05"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-09"
+        },
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
           "input": 1,
@@ -770,10 +1325,22 @@
             "xhigh",
             "max"
           ],
-          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
+          "documented": [
+            "low",
+            "high",
+            "max"
+          ],
+          "default": "high",
+          "doc_note": "Vendor OpenAI-chat API reference, accessed 2026-08-31 (docs.qwencloud.com/api-reference/chat/openai-chat). Dated-variant contract: default high; valid low/high/max; medium and xhigh map to high. NOTE: models.dev row carries high/max only (its comment matches the older doc wording)."
         },
         "budget_max": 393216,
-        "note": "First thinking records from the 2026-08-05 free enumeration: budget ceiling 393,216 (matches deepseek-v4-pro) and deepseek's characteristic no-none/no-minimal validation enum."
+        "note": "First thinking records from the 2026-08-05 free enumeration: budget ceiling 393,216 (matches deepseek-v4-pro) and deepseek's characteristic no-none/no-minimal validation enum.",
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "budget_default": 393216
       },
       "card": {
         "en": "https://www.qwencloud.com/models/deepseek-v4-flash-0731",
@@ -791,7 +1358,32 @@
       "status": "active",
       "limit": {
         "context": 131072,
-        "output": 65536
+        "output": 65536,
+        "input": 96000,
+        "input_note": "Maximum input from the checked Model Studio marketplace/spec capture; this is a published/card value and is not asserted as a gateway-enforced boundary.",
+        "by_mode": {
+          "standard": {
+            "output": 65536,
+            "output_display": "64K"
+          },
+          "thinking": {
+            "output": 65536,
+            "output_display": "64K",
+            "reasoning": 32768,
+            "reasoning_display": "32K"
+          },
+          "source": "text-generation-models All-models table, accessed 2026-09-09; gateway output ceiling 65536 agreed (CN card \u00a5-page same values)",
+          "accessed": "2026-09-09"
+        },
+        "card_evidence": {
+          "max_input_display": "98K",
+          "max_output_display": "65K",
+          "context_display": "131K",
+          "source": "https://www.qianwenai.com/models/deepseek-v3.2",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        },
+        "note": "limit.output 65536: doc table 64k + CN card 65K agree; gateway does not range-check max_tokens on this id (probe 2026-09-09)."
       },
       "modalities": {
         "input": [
@@ -817,6 +1409,20 @@
       "aa_url": "https://artificialanalysis.ai/models/deepseek-v3-2",
       "status_note": "AA marks deprecated (superseded by deepseek-v4 pro family) as of 2026-08-18; gateway still serves it.",
       "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 0.4,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-18"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-09"
+        },
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
           "input": 2.0,
@@ -836,7 +1442,16 @@
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
-        "budget_max": null
+        "budget_max": 32768,
+        "reasoning_effort": {
+          "unpublished": true,
+          "doc_note": "Vendor text-generation model list, accessed 2026-09-01: deepseek-v3.2 has a 32K thinking budget; the OpenAI-chat API reference publishes no reasoning_effort levels for this model."
+        },
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "budget_default": 32768
       },
       "retires": "2026-10-10",
       "card": {
@@ -855,7 +1470,22 @@
       "status": "active",
       "limit": {
         "context": 262144,
-        "output": 262144
+        "output": 262144,
+        "input": 224000,
+        "input_note": "Maximum input from the checked Model Studio marketplace/spec capture; this is a published/card value and is not asserted as a gateway-enforced boundary.",
+        "by_mode": {
+          "state": "unknown",
+          "reason": "No separate ordinary-vs-thinking limit was published for this row in the checked card/spec source; no approved gateway probe was run. Re-checked 2026-09-09: CN card and text-generation-models table publish no separate thinking-mode limits for the Kimi rows."
+        },
+        "card_evidence": {
+          "max_input_display": "229K",
+          "max_output_display": "16K",
+          "context_display": "262K",
+          "source": "https://www.qianwenai.com/models/kimi-k2.7-code",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        },
+        "note": "CONFLICT kept open: gateway output_ceiling 262144 (probes 2026-08-14/2026-09-09) vs CN card \u6700\u5927\u8f93\u51fa 16K (2026-09-09). Gateway value recorded here; card may quote a non-thinking mode. limit.input 224000 row vs card 229K \u2014 display-unit ambiguity unresolved. by_mode not published."
       },
       "modalities": {
         "input": [
@@ -882,6 +1512,20 @@
       "aa_intelligence": 43,
       "aa_url": "https://artificialanalysis.ai/models/kimi-k2-7-code",
       "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 1.3,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-18"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-09"
+        },
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
           "input": 6.5,
@@ -901,7 +1545,16 @@
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
-        "budget_max": 262144
+        "budget_max": 262144,
+        "reasoning_effort": {
+          "unpublished": true,
+          "doc_note": "Vendor publishes no reasoning_effort levels for this model (API reference, accessed 2026-08-31); toggle and/or thinking_budget only."
+        },
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "budget_default": 262144
       },
       "card": {
         "en": "https://www.qwencloud.com/models/kimi-k2.7-code",
@@ -919,7 +1572,22 @@
       "status": "active",
       "limit": {
         "context": 262144,
-        "output": 262144
+        "output": 262144,
+        "input": 224000,
+        "input_note": "Maximum input from the checked Model Studio marketplace/spec capture; this is a published/card value and is not asserted as a gateway-enforced boundary.",
+        "by_mode": {
+          "state": "unknown",
+          "reason": "No separate ordinary-vs-thinking limit was published for this row in the checked card/spec source; no approved gateway probe was run. Re-checked 2026-09-09: CN card and text-generation-models table publish no separate thinking-mode limits for the Kimi rows."
+        },
+        "card_evidence": {
+          "max_input_display": "229K",
+          "max_output_display": "16K",
+          "context_display": "262K",
+          "source": "https://www.qianwenai.com/models/kimi-k2.6",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        },
+        "note": "CONFLICT kept open: gateway output_ceiling 262144 (probes 2026-08-14/2026-09-09) vs CN card \u6700\u5927\u8f93\u51fa 16K (2026-09-09). Gateway value recorded here; card may quote a non-thinking mode. limit.input 224000 row vs card 229K \u2014 display-unit ambiguity unresolved. by_mode not published."
       },
       "modalities": {
         "input": [
@@ -947,6 +1615,20 @@
       "aa_url": "https://artificialanalysis.ai/models/kimi-k2-6",
       "status_note": "AA marks deprecated (superseded by kimi-k3) as of 2026-08-18; gateway still serves it.",
       "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 1.3,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-18"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-09"
+        },
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
           "input": 6.5,
@@ -966,7 +1648,23 @@
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
-        "budget_max": null
+        "budget_max": null,
+        "reasoning_effort": {
+          "unpublished": true,
+          "doc_note": "Vendor publishes no reasoning_effort levels for this model (API reference, accessed 2026-08-31); toggle and/or thinking_budget only."
+        },
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "budget_default": {
+          "state": "unknown",
+          "reason": "budget_max unknown (see above) so the \"default = max CoT\" rule cannot pin it. Re-checked 2026-09-09."
+        },
+        "budget_max_state": {
+          "state": "unknown",
+          "reason": "The checked vendor sources do not publish a numeric maximum thinking budget for this row; no approved boundary probe was run."
+        }
       },
       "card": {
         "cn": "https://www.qianwenai.com/models/kimi-k2.6"
@@ -983,7 +1681,22 @@
       "status": "active",
       "limit": {
         "context": 262144,
-        "output": 98304
+        "output": 98304,
+        "input": 224000,
+        "input_note": "Maximum input from the checked Model Studio marketplace/spec capture; this is a published/card value and is not asserted as a gateway-enforced boundary.",
+        "by_mode": {
+          "state": "unknown",
+          "reason": "No separate ordinary-vs-thinking limit was published for this row in the checked card/spec source; no approved gateway probe was run. Re-checked 2026-09-09: CN card and text-generation-models table publish no separate thinking-mode limits for the Kimi rows."
+        },
+        "card_evidence": {
+          "max_input_display": "229K",
+          "max_output_display": "16K",
+          "context_display": "262K",
+          "source": "https://www.qianwenai.com/models/kimi-k2.5",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        },
+        "note": "CONFLICT kept open: gateway output_ceiling 98304 (probes 2026-08-14/2026-09-09) vs CN card \u6700\u5927\u8f93\u51fa 16K (2026-09-09). Gateway value recorded here; card may quote a non-thinking mode. limit.input 224000 row vs card 229K \u2014 display-unit ambiguity unresolved. by_mode not published."
       },
       "modalities": {
         "input": [
@@ -1011,6 +1724,20 @@
       "aa_url": "https://artificialanalysis.ai/models/kimi-k2-5",
       "status_note": "AA marks deprecated (superseded by kimi-k2.6) as of 2026-08-18; gateway still serves it.",
       "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 0.8,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-18"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-09"
+        },
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
           "input": 4.0,
@@ -1030,7 +1757,23 @@
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
-        "budget_max": null
+        "budget_max": null,
+        "reasoning_effort": {
+          "unpublished": true,
+          "doc_note": "Vendor publishes no reasoning_effort levels for this model (API reference, accessed 2026-08-31); toggle and/or thinking_budget only."
+        },
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "budget_default": {
+          "state": "unknown",
+          "reason": "budget_max unknown (see above) so the \"default = max CoT\" rule cannot pin it. Re-checked 2026-09-09."
+        },
+        "budget_max_state": {
+          "state": "unknown",
+          "reason": "The checked vendor sources do not publish a numeric maximum thinking budget for this row; no approved boundary probe was run."
+        }
       },
       "card": {
         "cn": "https://www.qianwenai.com/models/kimi-k2.5"
@@ -1048,7 +1791,42 @@
       "status": "active",
       "limit": {
         "context": 1000000,
-        "output": 131072
+        "output": 131072,
+        "input": 1000000,
+        "input_note": "Maximum input from the checked Model Studio marketplace/spec capture; this is a published/card value and is not asserted as a gateway-enforced boundary.",
+        "by_mode": {
+          "standard": {
+            "input": 1000000,
+            "input_display": "1M",
+            "output": 131072,
+            "output_display": "131K",
+            "source": "https://www.qianwenai.com/models/glm-5.2",
+            "accessed": "2026-09-07",
+            "scope": "published marketplace card"
+          },
+          "thinking": {
+            "input": 1000000,
+            "input_display": "1M",
+            "output": 131072,
+            "output_display": "131K",
+            "reasoning": 131072,
+            "reasoning_display": "131K",
+            "source": "https://www.qianwenai.com/models/glm-5.2",
+            "accessed": "2026-09-07",
+            "scope": "published marketplace card"
+          }
+        },
+        "card_evidence": {
+          "max_input_display": "1M",
+          "max_output_display": "131K",
+          "max_input_thinking_display": "1M",
+          "max_output_thinking_display": "131K",
+          "max_reasoning_display": "131K",
+          "context_display": "1M",
+          "source": "https://www.qianwenai.com/models/glm-5.2",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        }
       },
       "modalities": {
         "input": [
@@ -1073,6 +1851,20 @@
       "aa_intelligence": 53,
       "aa_url": "https://artificialanalysis.ai/models/glm-5-2",
       "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 2.0,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-18"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-09"
+        },
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
           "input": 8.0,
@@ -1106,9 +1898,22 @@
             "xhigh",
             "max"
           ],
-          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings."
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
+          "documented": [
+            "high",
+            "max"
+          ],
+          "doc_note": "Vendor OpenAI-chat API reference, accessed 2026-08-31 (docs.qwencloud.com/api-reference/chat/openai-chat). DeepSeek-V4/GLM contract: options high/max; low and medium map to high, xhigh maps to max."
         },
-        "budget_max": 131072
+        "budget_max": 131072,
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "budget_default": 131072,
+        "budget_default_note": "CN card max reasoning chain 131K; current API reference says the default thinking_budget is the model maximum chain-of-thought length.",
+        "budget_default_source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+        "budget_default_accessed": "2026-09-07"
       },
       "card": {
         "en": "https://www.qwencloud.com/models/glm-5.2",
@@ -1126,7 +1931,39 @@
       "status": "active",
       "limit": {
         "context": 202752,
-        "output": 128000
+        "output": 128000,
+        "input": 202000,
+        "input_note": "Maximum input from the checked Model Studio marketplace/spec capture; this is a published/card value and is not asserted as a gateway-enforced boundary.",
+        "by_mode": {
+          "standard": {
+            "input": 202000,
+            "input_display": "202K",
+            "output": 131072,
+            "output_display": "131K",
+            "source": "https://www.qianwenai.com/models/glm-5.1",
+            "accessed": "2026-09-07",
+            "scope": "published marketplace card"
+          },
+          "thinking": {
+            "input": 169000,
+            "input_display": "169K",
+            "output": 131072,
+            "output_display": "131K",
+            "source": "https://www.qianwenai.com/models/glm-5.1",
+            "accessed": "2026-09-07",
+            "scope": "published marketplace card"
+          }
+        },
+        "card_evidence": {
+          "max_input_display": "202K",
+          "max_output_display": "131K",
+          "max_input_thinking_display": "169K",
+          "max_output_thinking_display": "131K",
+          "context_display": "202K",
+          "source": "https://www.qianwenai.com/models/glm-5.1",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        }
       },
       "modalities": {
         "input": [
@@ -1152,6 +1989,20 @@
       "aa_url": "https://artificialanalysis.ai/models/glm-5-1",
       "status_note": "AA marks deprecated (superseded by glm-5.2) as of 2026-08-18; gateway still serves it.",
       "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 1.2,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-18"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-09"
+        },
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
           "input": 6.0,
@@ -1171,7 +2022,19 @@
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
-        "budget_max": 131072
+        "budget_max": 131072,
+        "reasoning_effort": {
+          "documented": [
+            "high",
+            "max"
+          ],
+          "doc_note": "Vendor OpenAI-chat API reference, accessed 2026-08-31 (docs.qwencloud.com/api-reference/chat/openai-chat). DeepSeek-V4/GLM contract: options high/max; low and medium map to high, xhigh maps to max."
+        },
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "budget_default": 131072
       },
       "card": {
         "en": "https://www.qwencloud.com/models/glm-5.1",
@@ -1189,7 +2052,42 @@
       "status": "active",
       "limit": {
         "context": 202752,
-        "output": 16384
+        "output": 16384,
+        "input": 166000,
+        "input_note": "Maximum input from the checked Model Studio marketplace/spec capture; this is a published/card value and is not asserted as a gateway-enforced boundary.",
+        "by_mode": {
+          "standard": {
+            "input": 169000,
+            "input_display": "169K",
+            "output": 16384,
+            "output_display": "16K",
+            "source": "https://www.qianwenai.com/models/glm-5",
+            "accessed": "2026-09-07",
+            "scope": "published marketplace card"
+          },
+          "thinking": {
+            "input": 169000,
+            "input_display": "169K",
+            "output": 16384,
+            "output_display": "16K",
+            "reasoning": 32000,
+            "reasoning_display": "32K",
+            "source": "https://www.qianwenai.com/models/glm-5",
+            "accessed": "2026-09-07",
+            "scope": "published marketplace card"
+          }
+        },
+        "card_evidence": {
+          "max_input_display": "169K",
+          "max_output_display": "16K",
+          "max_input_thinking_display": "169K",
+          "max_output_thinking_display": "16K",
+          "max_reasoning_display": "32K",
+          "context_display": "202K",
+          "source": "https://www.qianwenai.com/models/glm-5",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        }
       },
       "modalities": {
         "input": [
@@ -1215,6 +2113,20 @@
       "aa_url": "https://artificialanalysis.ai/models/glm-5",
       "status_note": "AA marks deprecated (superseded by glm-5.1) as of 2026-08-18; gateway still serves it.",
       "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 0.8,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-18"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-09"
+        },
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
           "input": 4.0,
@@ -1234,7 +2146,22 @@
       "thinking": {
         "mode": "hybrid",
         "can_disable": true,
-        "budget_max": 131072
+        "budget_max": 131072,
+        "reasoning_effort": {
+          "documented": [
+            "high",
+            "max"
+          ],
+          "doc_note": "Vendor OpenAI-chat API reference, accessed 2026-08-31 (docs.qwencloud.com/api-reference/chat/openai-chat). DeepSeek-V4/GLM contract: options high/max; low and medium map to high, xhigh maps to max."
+        },
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "budget_default": 32768,
+        "budget_default_note": "CN card max reasoning chain 32K; current API reference says the default thinking_budget is the model maximum chain-of-thought length.",
+        "budget_default_source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+        "budget_default_accessed": "2026-09-07"
       },
       "card": {
         "cn": "https://www.qianwenai.com/models/glm-5"
@@ -1251,7 +2178,21 @@
       "status": "active",
       "limit": {
         "context": 196608,
-        "output": 32768
+        "output": 32768,
+        "input": 192000,
+        "input_note": "Maximum input from the checked Model Studio marketplace/spec capture; this is a published/card value and is not asserted as a gateway-enforced boundary.",
+        "by_mode": {
+          "state": "not_applicable",
+          "reason": "MiniMax-M2.5 is always-on thinking; the ordinary-vs-thinking split does not apply."
+        },
+        "card_evidence": {
+          "max_input_display": "196K",
+          "max_output_display": "32K",
+          "context_display": "204K",
+          "source": "https://www.qianwenai.com/models/MiniMax-M2.5",
+          "accessed": "2026-09-07",
+          "scope": "published marketplace card"
+        }
       },
       "modalities": {
         "input": [
@@ -1277,6 +2218,20 @@
       "aa_url": "https://artificialanalysis.ai/models/minimax-m2-5",
       "status_note": "AA marks deprecated (superseded by MiniMax-M2.7) as of 2026-08-18; gateway still serves it.",
       "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 0.42,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-08-18"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-09"
+        },
         "status": "published per-token pricing, CN-denominated sheet",
         "per_1m_rmb": {
           "input": 2.1,
@@ -1296,7 +2251,25 @@
       "thinking": {
         "mode": "always_on",
         "can_disable": false,
-        "budget_max": 38912
+        "budget_max": 38912,
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "budget_default": 38912,
+        "reasoning_effort": {
+          "accepted": [
+            "none",
+            "minimum",
+            "low",
+            "medium",
+            "high",
+            "xhigh"
+          ],
+          "verification": "gateway validation enum 2026-09-09 (zero-cost thinking_levels probe, global/team)",
+          "note": "Vendor reference still publishes no levels for MiniMax (unpublished:true stands for DOC evidence), but the gateway accepts this set \u2014 and uniquely uses 'minimum' where every other row maps 'minimal'. Plugin code must not assume 'minimal'.",
+          "state": "known"
+        }
       },
       "card": {
         "cn": "https://www.qianwenai.com/models/MiniMax-M2.5"
@@ -1315,7 +2288,15 @@
       "limit": {
         "context": null,
         "output": null,
-        "note": "Streaming TTS, character-metered (no token context window). RPM 180."
+        "note": "Character-metered streaming TTS; vendor cards (accessed 2026-08-31, qwencloud.com + qianwenai.com): $0.2 / CNY1.4 per 10,000 characters, RPM 180, no token limits published.",
+        "input_state": {
+          "state": "not_applicable",
+          "reason": "This media/service row has no published token maximum-input field; its metering and operational limits are recorded separately."
+        },
+        "by_mode": {
+          "state": "not_applicable",
+          "reason": "Thinking-mode input/output limits do not apply to this non-chat media/service row."
+        }
       },
       "modalities": {
         "input": [
@@ -1336,8 +2317,21 @@
         "task_runs_on_gateway": false
       },
       "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/inference (DashScope WebSocket protocol; set dashscope.base_websocket_api_url per the vendor's Token Plan multimodal best-practices page). VERIFIED 2026-08-14 by handshake probe (probe-plan-routes.py --ws): HTTP 101 on both regions, auth enforced at handshake (bad key -> 401 InvalidApiKey), zero token cost. Task-level probe run 2026-08-14: the handshake and run-task are accepted (task-started) and the engine then fails with '[cosyvoice:] Engine error [411]', for every voice tried including an invalid one, so the model is addressable but NOT runnable.",
-      "status_note": "Listed on /models both tiers, but synthesis is broken vendor-side as of 2026-08-14: every key (Personal, Team, Team-with-quota) gets '[cosyvoice:]Engine error [411]' after task-started on the documented WebSocket surface, reproduced with the official SDK. Advertised but not currently servable.",
+      "status_note": {
+        "state": "known",
+        "value": "runnable",
+        "verified": "2026-09-08",
+        "note": "First end-to-end audio: 23,078-byte mp3 via SpeechSynthesizer on wss token-plan /api-ws/v1/inference, voice longanlingxin, primary Team seat (Oliver-approved probe 2026-09-08). The 2026-08-14 \"engine broken\" verdict was WRONG: new voice-list docs state a voice outside the model list returns exactly [cosyvoice:]Engine error [411] \u2014 all Aug voices (longxiaochun/Cherry/Chelsie) were off-list for this model, so the \"invalid voice\" control proved nothing. plus voices: longanlingxin, longanlufeng (Chinese/English); 500+ clone-derived base voices qwen-audio-3.0-tts-plus-<suffix> (Excel on developer-guides/speech/voice-list, accessed 2026-09-08)."
+      },
       "cost": {
+        "cache": {
+          "state": "not_applicable",
+          "reason": "The checked card meters this media model by characters, audio tokens, images, or video seconds rather than prompt-cache tokens."
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "The model is a media/realtime service; no Token Plan chat batch-pricing field applies. Any image/video/audio metering remains in the main cost block."
+        },
         "status": "published, character-metered",
         "per_10k_chars_rmb": 1.4,
         "note": "Marketplace card 2026-08-05: \u00a51.4 per \u4e07\u5b57\u7b26 (10k characters), RPM 180. Character-metered, not token-metered.",
@@ -1364,9 +2358,27 @@
       ],
       "status": "active",
       "limit": {
-        "context": null,
-        "output": null,
-        "note": "Realtime streaming audio dialog (no fixed token context window). Per-token priced."
+        "context": 40960,
+        "output": 8192,
+        "note": "Vendor marketplace card, accessed 2026-08-31 (qwencloud.com/models/qwen-audio-3.0-realtime-plus): context 40K, max input 16K, max output 8K, TPM 100K, RPM 60. Card also lists thinking limits (16K in / 8K out, max reasoning 1K); realtime thinking contract unprobed (spend gate). 1024-based values stored (40K=40960 etc.) per same-vendor models.dev precedent.",
+        "input": 16384,
+        "input_state": {
+          "state": "known",
+          "source": "qianwenai.com marketplace card",
+          "accessed": "2026-08-31",
+          "scope": "published realtime card",
+          "note": "Realtime card publishes maximum token input 16K; stored value is 16384."
+        },
+        "by_mode": {
+          "state": "not_applicable",
+          "reason": "Thinking-mode input/output limits do not apply to this non-chat media/service row."
+        },
+        "audio_context": {
+          "turns_max": 50,
+          "turns_default": 20,
+          "duration_max_seconds": 300,
+          "source": "qwen-audio-realtime guide accessed 2026-09-09"
+        }
       },
       "modalities": {
         "input": [
@@ -1388,8 +2400,22 @@
         "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all \u2014 every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate.",
         "task_runs_on_gateway": false
       },
-      "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/inference (DashScope WebSocket protocol; set dashscope.base_websocket_api_url per the vendor's Token Plan multimodal best-practices page). VERIFIED 2026-08-14 by handshake probe (probe-plan-routes.py --ws): HTTP 101 on both regions, auth enforced at handshake (bad key -> 401 InvalidApiKey), zero token cost. Task-level probe run 2026-08-14: this model is not served on the inference path at all ('url error, please check url'); the realtime routes /api-ws/v1/realtime and /api-ws/v1/realtime-inference exist and handshake, but the protocol is client-initiated and a session was not attempted. Realtime routes discovered 2026-08-14: wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/realtime and /api-ws/v1/realtime-inference (101 + auth; the generic /api-ws/v1/inference path rejects this model with 'url error').",
+      "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/realtime (route handshakes 101, auth enforced; generic /inference path rejects this id with \"url error\" \u2014 it is NOT an inference-path model). Vendor Realtime API overview (accessed 2026-09-09) lists Token Plan: Supported for WebSocket/AOQ/WebRTC on this model. Runnability still unproven at task level.",
+      "status_note": {
+        "state": "known",
+        "value": "addressable, docs-entitled, task-unproven",
+        "verified": "2026-09-09",
+        "note": "The 2026-08-14 \"no unsolicited frame in 12s\" observation is protocol-consistent, NOT a failure: Qwen-Audio realtime is client-speaks-first (session.update -> input_audio_buffer.append; server answers response.audio.delta). A correct client hello has not yet been sent. Re-probe = tiny synthetic PCM clip; needs approval."
+      },
       "cost": {
+        "cache": {
+          "state": "not_applicable",
+          "reason": "The checked card meters this media model by characters, audio tokens, images, or video seconds rather than prompt-cache tokens."
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "The model is a media/realtime service; no Token Plan chat batch-pricing field applies. Any image/video/audio metering remains in the main cost block."
+        },
         "status": "published per-token pricing, CN-denominated sheet (realtime audio)",
         "per_1m_rmb": {
           "input": 5.0,
@@ -1421,12 +2447,22 @@
       "released": "2026-03-03",
       "status": "active",
       "limit": {
-        "context": 8192,
-        "output": null
+        "context": null,
+        "output": null,
+        "input": 1000,
+        "input_state": {
+          "state": "not_applicable",
+          "reason": "This media/service row has no published token maximum-input field; its metering and operational limits are recorded separately."
+        },
+        "by_mode": {
+          "state": "not_applicable",
+          "reason": "Thinking-mode input/output limits do not apply to this non-chat media/service row."
+        }
       },
       "modalities": {
         "input": [
-          "text"
+          "text",
+          "image"
         ],
         "output": [
           "image"
@@ -1440,6 +2476,14 @@
       },
       "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed",
       "cost": {
+        "cache": {
+          "state": "not_applicable",
+          "reason": "The checked card meters this media model by characters, audio tokens, images, or video seconds rather than prompt-cache tokens."
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "The model is a media/realtime service; no Token Plan chat batch-pricing field applies. Any image/video/audio metering remains in the main cost block."
+        },
         "status": "published, per-image",
         "source": "qianwenai.com + qwencloud.com marketplace cards",
         "verified": "2026-08-18",
@@ -1467,12 +2511,22 @@
       "released": "2026-03-03",
       "status": "active",
       "limit": {
-        "context": 8192,
-        "output": null
+        "context": null,
+        "output": null,
+        "input": 1000,
+        "input_state": {
+          "state": "not_applicable",
+          "reason": "This media/service row has no published token maximum-input field; its metering and operational limits are recorded separately."
+        },
+        "by_mode": {
+          "state": "not_applicable",
+          "reason": "Thinking-mode input/output limits do not apply to this non-chat media/service row."
+        }
       },
       "modalities": {
         "input": [
-          "text"
+          "text",
+          "image"
         ],
         "output": [
           "image"
@@ -1486,6 +2540,14 @@
       },
       "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed",
       "cost": {
+        "cache": {
+          "state": "not_applicable",
+          "reason": "The checked card meters this media model by characters, audio tokens, images, or video seconds rather than prompt-cache tokens."
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "The model is a media/realtime service; no Token Plan chat batch-pricing field applies. Any image/video/audio metering remains in the main cost block."
+        },
         "status": "published, per-image",
         "source": "qianwenai.com + qwencloud.com marketplace cards",
         "verified": "2026-08-18",
@@ -1514,11 +2576,20 @@
       "released": "2026-05-29",
       "status": "active",
       "limit": {
-        "context": 8192,
-        "output": null
+        "context": null,
+        "output": null,
+        "input_state": {
+          "state": "not_applicable",
+          "reason": "This media/service row has no published token maximum-input field; its metering and operational limits are recorded separately."
+        },
+        "by_mode": {
+          "state": "not_applicable",
+          "reason": "Thinking-mode input/output limits do not apply to this non-chat media/service row."
+        }
       },
       "modalities": {
         "input": [
+          "image",
           "text"
         ],
         "output": [
@@ -1533,6 +2604,14 @@
       },
       "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed",
       "cost": {
+        "cache": {
+          "state": "not_applicable",
+          "reason": "The checked card meters this media model by characters, audio tokens, images, or video seconds rather than prompt-cache tokens."
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "The model is a media/realtime service; no Token Plan chat batch-pricing field applies. Any image/video/audio metering remains in the main cost block."
+        },
         "status": "published, per-image",
         "source": "qianwenai.com + qwencloud.com marketplace cards",
         "verified": "2026-08-18",
@@ -1562,11 +2641,20 @@
       "released": "2026-05-29",
       "status": "active",
       "limit": {
-        "context": 8192,
-        "output": null
+        "context": null,
+        "output": null,
+        "input_state": {
+          "state": "not_applicable",
+          "reason": "This media/service row has no published token maximum-input field; its metering and operational limits are recorded separately."
+        },
+        "by_mode": {
+          "state": "not_applicable",
+          "reason": "Thinking-mode input/output limits do not apply to this non-chat media/service row."
+        }
       },
       "modalities": {
         "input": [
+          "image",
           "text"
         ],
         "output": [
@@ -1581,6 +2669,14 @@
       },
       "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed",
       "cost": {
+        "cache": {
+          "state": "not_applicable",
+          "reason": "The checked card meters this media model by characters, audio tokens, images, or video seconds rather than prompt-cache tokens."
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "The model is a media/realtime service; no Token Plan chat batch-pricing field applies. Any image/video/audio metering remains in the main cost block."
+        },
         "status": "published, per-image",
         "source": "qianwenai.com + qwencloud.com marketplace cards",
         "verified": "2026-08-18",
@@ -1611,7 +2707,15 @@
       "status": "active",
       "limit": {
         "context": null,
-        "output": null
+        "output": null,
+        "input_state": {
+          "state": "not_applicable",
+          "reason": "This media/service row has no published token maximum-input field; its metering and operational limits are recorded separately."
+        },
+        "by_mode": {
+          "state": "not_applicable",
+          "reason": "Thinking-mode input/output limits do not apply to this non-chat media/service row."
+        }
       },
       "modalities": {
         "input": [
@@ -1629,6 +2733,14 @@
       },
       "endpoint": "/api/v1/services/aigc/video-generation/video-synthesis (async, X-DashScope-Async: enable, poll /api/v1/tasks/{task_id})",
       "cost": {
+        "cache": {
+          "state": "not_applicable",
+          "reason": "The checked card meters this media model by characters, audio tokens, images, or video seconds rather than prompt-cache tokens."
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "The model is a media/realtime service; no Token Plan chat batch-pricing field applies. Any image/video/audio metering remains in the main cost block."
+        },
         "status": "published, per-second video (tiered by resolution)",
         "source": "qianwenai.com + qwencloud.com marketplace cards",
         "verified": "2026-08-18",
@@ -1675,7 +2787,15 @@
       "status": "active",
       "limit": {
         "context": null,
-        "output": null
+        "output": null,
+        "input_state": {
+          "state": "not_applicable",
+          "reason": "This media/service row has no published token maximum-input field; its metering and operational limits are recorded separately."
+        },
+        "by_mode": {
+          "state": "not_applicable",
+          "reason": "Thinking-mode input/output limits do not apply to this non-chat media/service row."
+        }
       },
       "modalities": {
         "input": [
@@ -1694,6 +2814,14 @@
       },
       "endpoint": "/api/v1/services/aigc/video-generation/video-synthesis (async, X-DashScope-Async: enable, poll /api/v1/tasks/{task_id})",
       "cost": {
+        "cache": {
+          "state": "not_applicable",
+          "reason": "The checked card meters this media model by characters, audio tokens, images, or video seconds rather than prompt-cache tokens."
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "The model is a media/realtime service; no Token Plan chat batch-pricing field applies. Any image/video/audio metering remains in the main cost block."
+        },
         "status": "published, per-second video (tiered by resolution)",
         "source": "qianwenai.com + qwencloud.com marketplace cards",
         "verified": "2026-08-18",
@@ -1740,7 +2868,15 @@
       "status": "active",
       "limit": {
         "context": null,
-        "output": null
+        "output": null,
+        "input_state": {
+          "state": "not_applicable",
+          "reason": "This media/service row has no published token maximum-input field; its metering and operational limits are recorded separately."
+        },
+        "by_mode": {
+          "state": "not_applicable",
+          "reason": "Thinking-mode input/output limits do not apply to this non-chat media/service row."
+        }
       },
       "modalities": {
         "input": [
@@ -1759,6 +2895,14 @@
       },
       "endpoint": "/api/v1/services/aigc/video-generation/video-synthesis (async, X-DashScope-Async: enable, poll /api/v1/tasks/{task_id})",
       "cost": {
+        "cache": {
+          "state": "not_applicable",
+          "reason": "The checked card meters this media model by characters, audio tokens, images, or video seconds rather than prompt-cache tokens."
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "The model is a media/realtime service; no Token Plan chat batch-pricing field applies. Any image/video/audio metering remains in the main cost block."
+        },
         "status": "published, per-second video (tiered by resolution)",
         "source": "qianwenai.com + qwencloud.com marketplace cards",
         "verified": "2026-08-18",
