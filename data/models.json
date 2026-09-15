@@ -1519,7 +1519,7 @@
           "unpublished": true
         },
         "budget_max": 393216,
-        "budget_max_note": "thinking_budget accepted at 100 (2026-09-15). Ceiling mirrors the card's published CoT maximum (393K), not a measured rejection point.",
+        "budget_max_note": "thinking_budget accepted at 100, 393,216 AND 458,752 (2026-09-15) - the gateway enforces no rejection point, so 393,216 mirrors the card's published CoT ceiling, not a measured boundary.",
         "default": true,
         "returned_field": "reasoning_content",
         "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
@@ -2952,7 +2952,7 @@
           "async_queue": 500,
           "rpm": 300
         },
-        "note": "CN card: \u89c6\u9891\u751f\u6210 480P \u00a50.45/s(6\u6298\u00a50.27), 720P \u00a50.9/s(6\u6298\u00a50.54), 1080P \u00a51.2/s(6\u6298\u00a50.72). EN card: 480P $0.07\u21920.042/s, 720P $0.14\u21920.084/s, 1080P $0.18\u21920.108/s (40% off). Same rate structure across i2v/r2v/t2v.",
+        "note": "CN card 2026-08-18 (promo since ended, see campaign_promo): \u89c6\u9891\u751f\u6210 480P \u00a50.45/s(6\u6298\u00a50.27), 720P \u00a50.9/s(6\u6298\u00a50.54), 1080P \u00a51.2/s(6\u6298\u00a50.72). EN card: 480P $0.07\u21920.042/s, 720P $0.14\u21920.084/s, 1080P $0.18\u21920.108/s (40% off). Same rate structure across i2v/r2v/t2v.",
         "campaign_promo": {
           "kind": "limited-time 6\u6298",
           "state": "ended",
@@ -3043,7 +3043,7 @@
           "async_queue": 500,
           "rpm": 300
         },
-        "note": "CN card: \u89c6\u9891\u751f\u6210 480P \u00a50.45/s(6\u6298\u00a50.27), 720P \u00a50.9/s(6\u6298\u00a50.54), 1080P \u00a51.2/s(6\u6298\u00a50.72). EN card: 480P $0.07\u21920.042/s, 720P $0.14\u21920.084/s, 1080P $0.18\u21920.108/s (40% off). Same rate structure across i2v/r2v/t2v.",
+        "note": "CN card 2026-08-18 (promo since ended, see campaign_promo): \u89c6\u9891\u751f\u6210 480P \u00a50.45/s(6\u6298\u00a50.27), 720P \u00a50.9/s(6\u6298\u00a50.54), 1080P \u00a51.2/s(6\u6298\u00a50.72). EN card: 480P $0.07\u21920.042/s, 720P $0.14\u21920.084/s, 1080P $0.18\u21920.108/s (40% off). Same rate structure across i2v/r2v/t2v.",
         "campaign_promo": {
           "kind": "limited-time 6\u6298",
           "state": "ended",
@@ -3134,7 +3134,7 @@
           "async_queue": 500,
           "rpm": 300
         },
-        "note": "CN card: \u89c6\u9891\u751f\u6210 480P \u00a50.45/s(6\u6298\u00a50.27), 720P \u00a50.9/s(6\u6298\u00a50.54), 1080P \u00a51.2/s(6\u6298\u00a50.72). EN card: 480P $0.07\u21920.042/s, 720P $0.14\u21920.084/s, 1080P $0.18\u21920.108/s (40% off). Same rate structure across i2v/r2v/t2v.",
+        "note": "CN card 2026-08-18 (promo since ended, see campaign_promo): \u89c6\u9891\u751f\u6210 480P \u00a50.45/s(6\u6298\u00a50.27), 720P \u00a50.9/s(6\u6298\u00a50.54), 1080P \u00a51.2/s(6\u6298\u00a50.72). EN card: 480P $0.07\u21920.042/s, 720P $0.14\u21920.084/s, 1080P $0.18\u21920.108/s (40% off). Same rate structure across i2v/r2v/t2v.",
         "campaign_promo": {
           "kind": "limited-time 6\u6298",
           "state": "ended",
