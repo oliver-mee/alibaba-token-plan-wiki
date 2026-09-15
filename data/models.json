@@ -1,12 +1,12 @@
 {
-  "updated": "2026-09-09",
+  "updated": "2026-09-15",
   "note": "Measured against the live gateway. More accurate than the vendor console.",
   "tiers": {
     "team": {
-      "chat_models": 18
+      "chat_models": 19
     },
     "personal": {
-      "chat_models": 9
+      "chat_models": 10
     }
   },
   "endpoints": {
@@ -105,7 +105,20 @@
         "output": 36,
         "cache_hit": 1.5,
         "source": "qianwenai.com marketplace card",
-        "verified": "2026-08-04"
+        "verified": "2026-08-04",
+        "night_promo": {
+          "discount": "50% off Credits",
+          "window": "22:00 - 08:00 UTC+8",
+          "tiers": [
+            "personal"
+          ],
+          "reverified": "2026-09-15",
+          "note": "Listed under \u9650\u65f6\u591c\u95f4\u4e94\u6298 in the Personal overview (EN + CN) on 2026-09-15. NOT on the Team night list: the Team overview names only deepseek-v4-pro-0813, deepseek-v4-flash-0731 and deepseek-v4.1-flash. So this discount is Personal-tier only, and a Team seat does not get it."
+        },
+        "promo_audit": {
+          "checked": "2026-09-15",
+          "verdict": "added: night 5\u6298 confirmed on 2026-09-15 but Personal-tier only (absent from the Team list)"
+        }
       },
       "thinking": {
         "mode": "hybrid",
@@ -130,7 +143,7 @@
             "xhigh",
             "max"
           ],
-          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour  -  the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
           "doc_note": "Vendor OpenAI-chat API reference, accessed 2026-09-01: Qwen3.8 options low/medium/xhigh, default xhigh; mutually exclusive with thinking_budget; automatic mapping low=4096, medium=16384, xhigh=262144; when neither is set, default thinking_budget=131072. Standard high/max aliases map to xhigh."
         },
         "budget_max": 262144,
@@ -229,7 +242,7 @@
           "output": 2.7,
           "cache_hit": 0.1
         },
-        "note": "CN card (qianwenai.com, 2026-08-30, authoritative per the marketplace-card rule): input CNY0.8/M, output CNY2.7/M, cache-hit CNY0.1/M, explicit-cache create CNY1.25/M / read CNY0.1/M. EN twin (qwencloud.com): $0.15 / $0.47 / $0.016 / $0.2 / $0.016 \u2014 EN is ~40% dearer at FX; the CN sheet is what meters Token Plan credits. Card shows batch + fine-tune flags \u2014 those describe Model Studio platform services, NOT Token Plan gateway routes (batch/fine-tuning routes 404 on the Global gateway, proven 2026-08-04).",
+        "note": "CN card (qianwenai.com, 2026-08-30, authoritative per the marketplace-card rule): input CNY0.8/M, output CNY2.7/M, cache-hit CNY0.1/M, explicit-cache create CNY1.25/M / read CNY0.1/M. EN twin (qwencloud.com): $0.15 / $0.47 / $0.016 / $0.2 / $0.016  -  EN is ~40% dearer at FX; the CN sheet is what meters Token Plan credits. Card shows batch + fine-tune flags  -  those describe Model Studio platform services, NOT Token Plan gateway routes (batch/fine-tuning routes 404 on the Global gateway, proven 2026-08-04).",
         "published": true,
         "currency": "RMB",
         "unit": "per_1m_tokens",
@@ -243,7 +256,7 @@
         "mode": "hybrid",
         "can_disable": true,
         "budget_max": 262144,
-        "note": "Card-documented: thinking max 983K input tokens / 131K output, max reasoning tokens 262K. Levels NOT enumerated or probed yet (spend gate) \u2014 inherited from qwen3.8 family pattern, not measured.",
+        "note": "Card-documented: thinking max 983K input tokens / 131K output, max reasoning tokens 262K. Levels NOT enumerated or probed yet (spend gate)  -  inherited from qwen3.8 family pattern, not measured.",
         "effort": true,
         "reasoning_effort": {
           "documented": [
@@ -355,13 +368,13 @@
           "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
           "verified": "2026-09-09"
         },
-        "status": "published per-token pricing, CN-denominated sheet (limited-time 50% off promo active)",
+        "status": "published per-token pricing, CN-denominated sheet (50% campaign promo ENDED)",
         "per_1m_rmb": {
           "input": 12.0,
           "output": 36.0,
           "cache_hit": 2.4
         },
-        "note": "CN card 2026-08-18: base input 12 / output 36 / cache-hit 2.4 per 1M. LIMITED-TIME 50% OFF active: input 6 / output 18 / cache 1.2 (card shows original+discounted). Parallel to qwen3.8-max night promo framing.",
+        "note": "CN card 2026-09-15 re-check: input \u00a512/M, output \u00a536/M, cache-hit \u00a52.4/M, shown as plain rates with NO strikethrough and NO \u9650\u65f6 tag. The 50% campaign recorded from 2026-08-18 has ENDED and the base rate is now what the card shows. The only \u9650\u65f6 5\u6298 left on this card is the Batch Chat row (\u00a512->\u00a56, \u00a536->\u00a518), which is Model Studio batch scope and not plan-callable (see cost.batch). Historical: 2026-08-18 card showed 6/18/1.2 discounted against 12/36/2.4.",
         "published": true,
         "currency": "RMB",
         "unit": "per_1m_tokens",
@@ -370,9 +383,16 @@
         "cache_hit": 2.4,
         "source": "qianwenai.com marketplace card",
         "verified": "2026-08-18",
-        "night/campaign_promo": {
+        "campaign_promo": {
           "kind": "limited-time 50% off",
-          "note": "Card shows original and discounted rate; effective 6/18/1.2 per 1M once promo ends this resets to 12/36/2.4"
+          "state": "ended",
+          "window": "observed active 2026-08-18",
+          "reverified": "2026-09-15",
+          "note": "Card now shows only the base rates with no discount markup, so the campaign is over. Effective rates revert to 12/36/2.4 per 1M."
+        },
+        "promo_audit": {
+          "checked": "2026-09-15",
+          "verdict": "ended: card re-checked 2026-09-15 shows \u00a512/\u00a536/\u00a52.4 with no \u9650\u65f6/5\u6298 markup; the campaign recorded 2026-08-18 is over"
         }
       },
       "thinking": {
@@ -388,7 +408,7 @@
             "high",
             "xhigh"
           ],
-          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour  -  the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
           "unpublished": true,
           "doc_note": "Vendor publishes no reasoning_effort levels for this model (API reference, accessed 2026-08-31); toggle and/or thinking_budget only."
         },
@@ -500,7 +520,7 @@
           "output": 8.0,
           "cache_hit": 0.4
         },
-        "note": "CN card 2026-08-18: base input 2 / output 8 / cache-hit 0.4 per 1M. LIMITED-TIME 80% promo active: input 1.6 / output 6.4 / cache 0.32.",
+        "note": "CN card 2026-09-15 re-check: \u9650\u65f68\u6298 STILL ACTIVE. Input \u00a52->\u00a51.6, output \u00a58->\u00a56.4, cache-hit \u00a50.4->\u00a50.32, explicit-cache \u00a52.5->\u00a52 / \u00a50.2->\u00a50.16, all shown struck-through against the list price. per_1m_rmb holds the BASE (list) rates by house convention; the promo figures live in campaign_promo. The Batch Chat 5\u6298 and Batch File rows on this card are Model Studio scope, not plan-callable.",
         "published": true,
         "currency": "RMB",
         "unit": "per_1m_tokens",
@@ -511,7 +531,18 @@
         "verified": "2026-08-18",
         "campaign_promo": {
           "kind": "limited-time 8\u6298",
-          "note": "Effective 1.6/6.4/0.32 per 1M during promo; base 2/8/0.4 afterwards"
+          "state": "active",
+          "reverified": "2026-09-15",
+          "effective_per_1m_rmb": {
+            "input": 1.6,
+            "output": 6.4,
+            "cache_hit": 0.32
+          },
+          "note": "Confirmed live on the card 2026-09-15: 1.6/6.4/0.32 per 1M while the promo runs, 2/8/0.4 list."
+        },
+        "promo_audit": {
+          "checked": "2026-09-15",
+          "verdict": "still active: card re-checked 2026-09-15 shows \u9650\u65f68\u6298 struck through on every rate"
         }
       },
       "thinking": {
@@ -527,7 +558,7 @@
             "high",
             "xhigh"
           ],
-          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour  -  the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
           "unpublished": true,
           "doc_note": "Vendor publishes no reasoning_effort levels for this model (API reference, accessed 2026-08-31); toggle and/or thinking_budget only."
         },
@@ -817,7 +848,7 @@
             "high",
             "xhigh"
           ],
-          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour  -  the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
           "unpublished": true,
           "doc_note": "Vendor publishes no reasoning_effort levels for this model (API reference, accessed 2026-08-31); toggle and/or thinking_budget only."
         },
@@ -871,7 +902,7 @@
           "accessed": "2026-09-07",
           "scope": "published marketplace card"
         },
-        "note": "limit.output 393216 = \"384k *\" shared output+CoT budget (text-generation-models, 2026-09-09); binary-K display-unit trap \u2014 decimal 384000 readings superseded."
+        "note": "limit.output 393216 = \"384k *\" shared output+CoT budget (text-generation-models, 2026-09-09); binary-K display-unit trap  -  decimal 384000 readings superseded."
       },
       "modalities": {
         "input": [
@@ -938,7 +969,7 @@
             "xhigh",
             "max"
           ],
-          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour  -  the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
           "documented": [
             "high",
             "max"
@@ -1194,7 +1225,11 @@
         "output": 2.0,
         "cache_hit": 0.2,
         "source": "qianwenai.com marketplace card",
-        "verified": "2026-08-18"
+        "verified": "2026-08-18",
+        "promo_audit": {
+          "checked": "2026-09-15",
+          "verdict": "none: the 2026-09-15 night 5\u6298 list is exactly qwen3.8-max (Personal only), deepseek-v4-pro-0813, deepseek-v4-flash-0731, deepseek-v4.1-flash. The non-dated deepseek-v4-flash is NOT on it, and no card promo applies."
+        }
       },
       "thinking": {
         "mode": "hybrid",
@@ -1304,7 +1339,7 @@
           "output": 2,
           "cache_hit": 0.2
         },
-        "note": "Marketplace card 2026-08-05: input \u00a51/M, output \u00a52/M, cache-hit \u00a50.2/M (=100/200/20 credits per 1M). Card also shows batch-task and fine-tune flags \u2014 those describe Model Studio platform services, NOT Token Plan gateway routes (batch/fine-tuning routes 404 on the Token Plan gateway, proven 2026-08-04).",
+        "note": "Marketplace card 2026-08-05: input \u00a51/M, output \u00a52/M, cache-hit \u00a50.2/M (=100/200/20 credits per 1M). Card also shows batch-task and fine-tune flags  -  those describe Model Studio platform services, NOT Token Plan gateway routes (batch/fine-tuning routes 404 on the Token Plan gateway, proven 2026-08-04).",
         "published": true,
         "currency": "RMB",
         "unit": "per_1m_tokens",
@@ -1312,7 +1347,21 @@
         "output": 2,
         "cache_hit": 0.2,
         "source": "qianwenai.com marketplace card",
-        "verified": "2026-08-05"
+        "verified": "2026-08-05",
+        "night_promo": {
+          "discount": "50% off Credits",
+          "window": "22:00 - 08:00 UTC+8",
+          "tiers": [
+            "personal",
+            "team"
+          ],
+          "reverified": "2026-09-15",
+          "note": "Named in the \u9650\u65f6\u591c\u95f4\u4e94\u6298 / Limited-time night discount list on all four overview captures on 2026-09-15. This id is a first-party DeepSeek label on the shared docs; the plan lists it and the gateway serves it."
+        },
+        "promo_audit": {
+          "checked": "2026-09-15",
+          "verdict": "added: night 5\u6298 confirmed on 2026-09-15 for Personal and Team"
+        }
       },
       "thinking": {
         "mode": "hybrid",
@@ -1325,7 +1374,7 @@
             "xhigh",
             "max"
           ],
-          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour  -  the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
           "documented": [
             "low",
             "high",
@@ -1345,6 +1394,141 @@
       "card": {
         "en": "https://www.qwencloud.com/models/deepseek-v4-flash-0731",
         "cn": "https://www.qianwenai.com/models/deepseek-v4-flash-0731"
+      }
+    },
+    {
+      "id": "deepseek-v4.1-flash",
+      "vendor": "DeepSeek",
+      "kind": "chat",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-09-10",
+      "status": "active",
+      "limit": {
+        "context": 1000000,
+        "input": 1000000,
+        "input_note": "CN marketplace card display: maximum input 1M; a published card value, not asserted as a gateway-enforced boundary.",
+        "by_mode": {
+          "standard": {
+            "output": 393216,
+            "output_display": "384K"
+          },
+          "thinking": {
+            "output": 393216,
+            "output_display": "384K",
+            "note": "output and chain-of-thought share ONE budget (card: max output 393K, max chain 393K)"
+          },
+          "source": "https://www.qianwenai.com/models/deepseek-v4.1-flash (accessed 2026-09-15)",
+          "accessed": "2026-09-15"
+        },
+        "card_evidence": {
+          "max_input_display": "1M",
+          "max_output_display": "393K",
+          "max_input_thinking_display": "1M",
+          "max_output_thinking_display": "393K",
+          "context_display": "1M",
+          "max_cot_display": "393K",
+          "source": "https://www.qianwenai.com/models/deepseek-v4.1-flash",
+          "accessed": "2026-09-15",
+          "scope": "published marketplace card"
+        },
+        "note": "max_tokens did NOT bound output on this id (probed 2026-09-15): 393,216 and 393,217 both return 200, so the card ceiling is not gateway-enforced and limit.output is kept as a card figure only."
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": true,
+        "structured_output": "json_object",
+        "responses_api": true,
+        "logprobs": false,
+        "vision_tool_result": true,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": false
+      },
+      "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 40,
+      "aa_url": "https://artificialanalysis.ai/models/deepseek-v4-1-flash",
+      "aliases": [],
+      "underlying_identity": "deepseek-v4.1-flash",
+      "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 0.1,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-09-15"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-09"
+        },
+        "status": "published per-token pricing, CN-denominated sheet (night 5\u6298 active on Personal and Team)",
+        "per_1m_rmb": {
+          "input": 1,
+          "output": 4,
+          "cache_hit": 0.1
+        },
+        "note": "CN card 2026-09-15: input \u00a51/M, output \u00a54/M, cache-hit \u00a50.1/M. EN twin agrees at $0.15/$0.6/$0.015, no CN/EN divergence. The card carries an explicit \u95f2\u65f6/\u5fd9\u65f6 (off-peak 22:00-08:00 UTC+8 / peak) toggle; the \u00a51/\u00a54/\u00a50.1 figures above are the card's default view, and the plan-level Credits half-price night discount is recorded separately in night_promo. Output is 2x deepseek-v4-flash's \u00a52 while input is identical at \u00a51.",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 1,
+        "output": 4,
+        "cache_hit": 0.1,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-09-15",
+        "night_promo": {
+          "discount": "50% off Credits",
+          "window": "22:00 - 08:00 UTC+8",
+          "tiers": [
+            "personal",
+            "team"
+          ],
+          "note": "On the \u9650\u65f6\u591c\u95f4\u4e94\u6298 / Limited-time night discount list in all four overview captures on 2026-09-15 (EN + CN, Personal + Team) and the four cloud-* mirrors, added the same day the id appeared. Credits-side discount, separate from the card's peak/off-peak rate toggle."
+        }
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "reasoning_effort": {
+          "validation_enum": [
+            "minimal",
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max",
+            "ultra"
+          ],
+          "enum_note": "Gateway validation message names exactly these seven levels (2026-09-15, zero-cost invalid-value probe on the Token Plan gateway). Broader than the sibling dated variants: minimal and ultra are new to this id.",
+          "doc_note": "Vendor DeepSeek user guide accessed 2026-09-15 passes reasoning_effort through as a standard OpenAI parameter but publishes NO level list for v4.1-flash; the seven validation-enum values are gateway-accepted only (2026-09-15 invalid-value probe), and 'ultra'/'minimal' are new vs the dated siblings. Sibling dated variants (v4-flash-0731) document default high, but that is NOT asserted for this id.",
+          "unpublished": true
+        },
+        "budget_max": 393216,
+        "budget_max_note": "thinking_budget accepted at 100 (2026-09-15). Ceiling mirrors the card's published CoT maximum (393K), not a measured rejection point.",
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "mutually_exclusive_note": "Probe 2026-09-15 (global/personal SG): reasoning_effort='minimal' AND thinking_budget=100 in the SAME request returns 200 with 27 completion tokens. This id accepts both controls together, unlike the qwen3.8 family - so exclusivity must not be forced for deepseek-v4.1."
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/deepseek-v4.1-flash",
+        "cn": "https://www.qianwenai.com/models/deepseek-v4.1-flash"
       }
     },
     {
@@ -1485,7 +1669,7 @@
           "accessed": "2026-09-07",
           "scope": "published marketplace card"
         },
-        "note": "CONFLICT kept open: gateway output_ceiling 262144 (probes 2026-08-14/2026-09-09) vs CN card \u6700\u5927\u8f93\u51fa 16K (2026-09-09). Gateway value recorded here; card may quote a non-thinking mode. limit.input 224000 row vs card 229K \u2014 display-unit ambiguity unresolved. by_mode not published."
+        "note": "CONFLICT kept open: gateway output_ceiling 262144 (probes 2026-08-14/2026-09-09) vs CN card \u6700\u5927\u8f93\u51fa 16K (2026-09-09). Gateway value recorded here; card may quote a non-thinking mode. limit.input 224000 row vs card 229K  -  display-unit ambiguity unresolved. by_mode not published."
       },
       "modalities": {
         "input": [
@@ -1587,7 +1771,7 @@
           "accessed": "2026-09-07",
           "scope": "published marketplace card"
         },
-        "note": "CONFLICT kept open: gateway output_ceiling 262144 (probes 2026-08-14/2026-09-09) vs CN card \u6700\u5927\u8f93\u51fa 16K (2026-09-09). Gateway value recorded here; card may quote a non-thinking mode. limit.input 224000 row vs card 229K \u2014 display-unit ambiguity unresolved. by_mode not published."
+        "note": "CONFLICT kept open: gateway output_ceiling 262144 (probes 2026-08-14/2026-09-09) vs CN card \u6700\u5927\u8f93\u51fa 16K (2026-09-09). Gateway value recorded here; card may quote a non-thinking mode. limit.input 224000 row vs card 229K  -  display-unit ambiguity unresolved. by_mode not published."
       },
       "modalities": {
         "input": [
@@ -1696,7 +1880,7 @@
           "accessed": "2026-09-07",
           "scope": "published marketplace card"
         },
-        "note": "CONFLICT kept open: gateway output_ceiling 98304 (probes 2026-08-14/2026-09-09) vs CN card \u6700\u5927\u8f93\u51fa 16K (2026-09-09). Gateway value recorded here; card may quote a non-thinking mode. limit.input 224000 row vs card 229K \u2014 display-unit ambiguity unresolved. by_mode not published."
+        "note": "CONFLICT kept open: gateway output_ceiling 98304 (probes 2026-08-14/2026-09-09) vs CN card \u6700\u5927\u8f93\u51fa 16K (2026-09-09). Gateway value recorded here; card may quote a non-thinking mode. limit.input 224000 row vs card 229K  -  display-unit ambiguity unresolved. by_mode not published."
       },
       "modalities": {
         "input": [
@@ -1898,7 +2082,7 @@
             "xhigh",
             "max"
           ],
-          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour \u2014 the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
+          "enum_note": "Gateway validation acceptance enumerated 2026-08-05 via zero-cost invalid-value probe. Acceptance, not behaviour  -  the lists are partly a generic superset (2026-07-24 sweep); per-model differences here match July's behavioural findings.",
           "documented": [
             "high",
             "max"
@@ -2267,7 +2451,7 @@
             "xhigh"
           ],
           "verification": "gateway validation enum 2026-09-09 (zero-cost thinking_levels probe, global/team)",
-          "note": "Vendor reference still publishes no levels for MiniMax (unpublished:true stands for DOC evidence), but the gateway accepts this set \u2014 and uniquely uses 'minimum' where every other row maps 'minimal'. Plugin code must not assume 'minimal'.",
+          "note": "Vendor reference still publishes no levels for MiniMax (unpublished:true stands for DOC evidence), but the gateway accepts this set  -  and uniquely uses 'minimum' where every other row maps 'minimal'. Plugin code must not assume 'minimal'.",
           "state": "known"
         }
       },
@@ -2313,7 +2497,7 @@
         "structured_output": "none",
         "responses_api": false,
         "logprobs": false,
-        "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all \u2014 every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate.",
+        "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all  -  every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate.",
         "task_runs_on_gateway": false
       },
       "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/inference (DashScope WebSocket protocol; set dashscope.base_websocket_api_url per the vendor's Token Plan multimodal best-practices page). VERIFIED 2026-08-14 by handshake probe (probe-plan-routes.py --ws): HTTP 101 on both regions, auth enforced at handshake (bad key -> 401 InvalidApiKey), zero token cost. Task-level probe run 2026-08-14: the handshake and run-task are accepted (task-started) and the engine then fails with '[cosyvoice:] Engine error [411]', for every voice tried including an invalid one, so the model is addressable but NOT runnable.",
@@ -2321,7 +2505,7 @@
         "state": "known",
         "value": "runnable",
         "verified": "2026-09-08",
-        "note": "First end-to-end audio: 23,078-byte mp3 via SpeechSynthesizer on wss token-plan /api-ws/v1/inference, voice longanlingxin, primary Team seat (Oliver-approved probe 2026-09-08). The 2026-08-14 \"engine broken\" verdict was WRONG: new voice-list docs state a voice outside the model list returns exactly [cosyvoice:]Engine error [411] \u2014 all Aug voices (longxiaochun/Cherry/Chelsie) were off-list for this model, so the \"invalid voice\" control proved nothing. plus voices: longanlingxin, longanlufeng (Chinese/English); 500+ clone-derived base voices qwen-audio-3.0-tts-plus-<suffix> (Excel on developer-guides/speech/voice-list, accessed 2026-09-08)."
+        "note": "First end-to-end audio: 23,078-byte mp3 via SpeechSynthesizer on wss token-plan /api-ws/v1/inference, voice longanlingxin, primary Team seat (Oliver-approved probe 2026-09-08). The 2026-08-14 \"engine broken\" verdict was WRONG: new voice-list docs state a voice outside the model list returns exactly [cosyvoice:]Engine error [411]  -  all Aug voices (longxiaochun/Cherry/Chelsie) were off-list for this model, so the \"invalid voice\" control proved nothing. plus voices: longanlingxin, longanlufeng (Chinese/English); 500+ clone-derived base voices qwen-audio-3.0-tts-plus-<suffix> (Excel on developer-guides/speech/voice-list, accessed 2026-09-08)."
       },
       "cost": {
         "cache": {
@@ -2397,10 +2581,10 @@
         "structured_output": "none",
         "responses_api": false,
         "logprobs": false,
-        "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all \u2014 every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate.",
+        "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all  -  every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate.",
         "task_runs_on_gateway": false
       },
-      "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/realtime (route handshakes 101, auth enforced; generic /inference path rejects this id with \"url error\" \u2014 it is NOT an inference-path model). Vendor Realtime API overview (accessed 2026-09-09) lists Token Plan: Supported for WebSocket/AOQ/WebRTC on this model. Runnability still unproven at task level.",
+      "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/realtime (route handshakes 101, auth enforced; generic /inference path rejects this id with \"url error\"  -  it is NOT an inference-path model). Vendor Realtime API overview (accessed 2026-09-09) lists Token Plan: Supported for WebSocket/AOQ/WebRTC on this model. Runnability still unproven at task level.",
       "status_note": {
         "state": "known",
         "value": "addressable, docs-entitled, task-unproven",
@@ -2474,7 +2658,7 @@
         "attachment": false,
         "structured_output": "none"
       },
-      "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed",
+      "endpoint": "unverified  -  listed on /models but the generation endpoint has not been probed",
       "cost": {
         "cache": {
           "state": "not_applicable",
@@ -2538,7 +2722,7 @@
         "attachment": false,
         "structured_output": "none"
       },
-      "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed",
+      "endpoint": "unverified  -  listed on /models but the generation endpoint has not been probed",
       "cost": {
         "cache": {
           "state": "not_applicable",
@@ -2602,7 +2786,7 @@
         "attachment": false,
         "structured_output": "none"
       },
-      "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed",
+      "endpoint": "unverified  -  listed on /models but the generation endpoint has not been probed",
       "cost": {
         "cache": {
           "state": "not_applicable",
@@ -2667,7 +2851,7 @@
         "attachment": false,
         "structured_output": "none"
       },
-      "endpoint": "unverified \u2014 listed on /models but the generation endpoint has not been probed",
+      "endpoint": "unverified  -  listed on /models but the generation endpoint has not been probed",
       "cost": {
         "cache": {
           "state": "not_applicable",
@@ -2749,18 +2933,18 @@
         "rates": {
           "480p": {
             "list": 0.45,
-            "promo": 0.27,
-            "promo_note": "\u9650\u65f66\u6298 (CN)"
+            "list_was_promo": 0.27,
+            "promo_state": "ended"
           },
           "720p": {
             "list": 0.9,
-            "promo": 0.54,
-            "promo_note": "\u9650\u65f66\u6298 (CN)"
+            "list_was_promo": 0.54,
+            "promo_state": "ended"
           },
           "1080p": {
             "list": 1.2,
-            "promo": 0.72,
-            "promo_note": "\u9650\u65f66\u6298 (CN)"
+            "list_was_promo": 0.72,
+            "promo_state": "ended"
           }
         },
         "limits": {
@@ -2768,7 +2952,17 @@
           "async_queue": 500,
           "rpm": 300
         },
-        "note": "CN card: \u89c6\u9891\u751f\u6210 480P \u00a50.45/s(6\u6298\u00a50.27), 720P \u00a50.9/s(6\u6298\u00a50.54), 1080P \u00a51.2/s(6\u6298\u00a50.72). EN card: 480P $0.07\u21920.042/s, 720P $0.14\u21920.084/s, 1080P $0.18\u21920.108/s (40% off). Same rate structure across i2v/r2v/t2v."
+        "note": "CN card: \u89c6\u9891\u751f\u6210 480P \u00a50.45/s(6\u6298\u00a50.27), 720P \u00a50.9/s(6\u6298\u00a50.54), 1080P \u00a51.2/s(6\u6298\u00a50.72). EN card: 480P $0.07\u21920.042/s, 720P $0.14\u21920.084/s, 1080P $0.18\u21920.108/s (40% off). Same rate structure across i2v/r2v/t2v.",
+        "campaign_promo": {
+          "kind": "limited-time 6\u6298",
+          "state": "ended",
+          "reverified": "2026-09-15",
+          "note": "CN card 2026-09-15 shows the list rate only (e.g. \u00a50.45/s at 480P) with no \u9650\u65f6 6\u6298 strikethrough, so the launch discount recorded 2026-08-18 is over. Rates kept at list values."
+        },
+        "promo_audit": {
+          "checked": "2026-09-15",
+          "verdict": "ended: card re-checked 2026-09-15 lists \u00a5/second with no \u9650\u65f6 6\u6298 markup"
+        }
       },
       "card": {
         "en": "https://www.qwencloud.com/models/happyhorse-1.1-t2v",
@@ -2830,18 +3024,18 @@
         "rates": {
           "480p": {
             "list": 0.45,
-            "promo": 0.27,
-            "promo_note": "\u9650\u65f66\u6298 (CN)"
+            "list_was_promo": 0.27,
+            "promo_state": "ended"
           },
           "720p": {
             "list": 0.9,
-            "promo": 0.54,
-            "promo_note": "\u9650\u65f66\u6298 (CN)"
+            "list_was_promo": 0.54,
+            "promo_state": "ended"
           },
           "1080p": {
             "list": 1.2,
-            "promo": 0.72,
-            "promo_note": "\u9650\u65f66\u6298 (CN)"
+            "list_was_promo": 0.72,
+            "promo_state": "ended"
           }
         },
         "limits": {
@@ -2849,7 +3043,17 @@
           "async_queue": 500,
           "rpm": 300
         },
-        "note": "CN card: \u89c6\u9891\u751f\u6210 480P \u00a50.45/s(6\u6298\u00a50.27), 720P \u00a50.9/s(6\u6298\u00a50.54), 1080P \u00a51.2/s(6\u6298\u00a50.72). EN card: 480P $0.07\u21920.042/s, 720P $0.14\u21920.084/s, 1080P $0.18\u21920.108/s (40% off). Same rate structure across i2v/r2v/t2v."
+        "note": "CN card: \u89c6\u9891\u751f\u6210 480P \u00a50.45/s(6\u6298\u00a50.27), 720P \u00a50.9/s(6\u6298\u00a50.54), 1080P \u00a51.2/s(6\u6298\u00a50.72). EN card: 480P $0.07\u21920.042/s, 720P $0.14\u21920.084/s, 1080P $0.18\u21920.108/s (40% off). Same rate structure across i2v/r2v/t2v.",
+        "campaign_promo": {
+          "kind": "limited-time 6\u6298",
+          "state": "ended",
+          "reverified": "2026-09-15",
+          "note": "CN card 2026-09-15 shows the list rate only (e.g. \u00a50.45/s at 480P) with no \u9650\u65f6 6\u6298 strikethrough, so the launch discount recorded 2026-08-18 is over. Rates kept at list values."
+        },
+        "promo_audit": {
+          "checked": "2026-09-15",
+          "verdict": "ended: card re-checked 2026-09-15 lists \u00a5/second with no \u9650\u65f6 6\u6298 markup"
+        }
       },
       "card": {
         "en": "https://www.qwencloud.com/models/happyhorse-1.1-i2v",
@@ -2911,18 +3115,18 @@
         "rates": {
           "480p": {
             "list": 0.45,
-            "promo": 0.27,
-            "promo_note": "\u9650\u65f66\u6298 (CN)"
+            "list_was_promo": 0.27,
+            "promo_state": "ended"
           },
           "720p": {
             "list": 0.9,
-            "promo": 0.54,
-            "promo_note": "\u9650\u65f66\u6298 (CN)"
+            "list_was_promo": 0.54,
+            "promo_state": "ended"
           },
           "1080p": {
             "list": 1.2,
-            "promo": 0.72,
-            "promo_note": "\u9650\u65f66\u6298 (CN)"
+            "list_was_promo": 0.72,
+            "promo_state": "ended"
           }
         },
         "limits": {
@@ -2930,7 +3134,17 @@
           "async_queue": 500,
           "rpm": 300
         },
-        "note": "CN card: \u89c6\u9891\u751f\u6210 480P \u00a50.45/s(6\u6298\u00a50.27), 720P \u00a50.9/s(6\u6298\u00a50.54), 1080P \u00a51.2/s(6\u6298\u00a50.72). EN card: 480P $0.07\u21920.042/s, 720P $0.14\u21920.084/s, 1080P $0.18\u21920.108/s (40% off). Same rate structure across i2v/r2v/t2v."
+        "note": "CN card: \u89c6\u9891\u751f\u6210 480P \u00a50.45/s(6\u6298\u00a50.27), 720P \u00a50.9/s(6\u6298\u00a50.54), 1080P \u00a51.2/s(6\u6298\u00a50.72). EN card: 480P $0.07\u21920.042/s, 720P $0.14\u21920.084/s, 1080P $0.18\u21920.108/s (40% off). Same rate structure across i2v/r2v/t2v.",
+        "campaign_promo": {
+          "kind": "limited-time 6\u6298",
+          "state": "ended",
+          "reverified": "2026-09-15",
+          "note": "CN card 2026-09-15 shows the list rate only (e.g. \u00a50.45/s at 480P) with no \u9650\u65f6 6\u6298 strikethrough, so the launch discount recorded 2026-08-18 is over. Rates kept at list values."
+        },
+        "promo_audit": {
+          "checked": "2026-09-15",
+          "verdict": "ended: card re-checked 2026-09-15 lists \u00a5/second with no \u9650\u65f6 6\u6298 markup"
+        }
       },
       "card": {
         "en": "https://www.qwencloud.com/models/happyhorse-1.1-r2v",
