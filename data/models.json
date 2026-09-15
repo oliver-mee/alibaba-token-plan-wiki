@@ -1514,9 +1514,14 @@
             "max",
             "ultra"
           ],
-          "enum_note": "Gateway validation message names exactly these seven levels (2026-09-15, zero-cost invalid-value probe on the Token Plan gateway). Broader than the sibling dated variants: minimal and ultra are new to this id.",
-          "doc_note": "Vendor DeepSeek user guide accessed 2026-09-15 passes reasoning_effort through as a standard OpenAI parameter but publishes NO level list for v4.1-flash; the seven validation-enum values are gateway-accepted only (2026-09-15 invalid-value probe), and 'ultra'/'minimal' are new vs the dated siblings. Sibling dated variants (v4-flash-0731) document default high, but that is NOT asserted for this id.",
-          "unpublished": true
+          "enum_note": "Gateway validation message 2026-09-15 names exactly minimal, low, medium, high, xhigh, max, ultra - broader than the dated siblings' five-value enum; acceptance only, not behaviour. Integer effort ('50', {\"effort\":50}) REJECTED 2026-09-15: 'must be a String', then the string '50' is rejected against the enum.",
+          "doc_note": "Vendor OpenAI-chat API reference accessed 2026-09-15: the DeepSeek-V4 series documents high/max with low/medium mapping to high; the dated variants (v4-flash-0731, v4-pro-0813) document low/high/max default high. For deepseek-v4.1-flash specifically the reference publishes INTEGERS 1..100 as the reasoning_effort values. See conflicts: the Token Plan gateway rejects integers. models.dev sibling CN entry #7045 merged [low,high,max].",
+          "documented": [
+            "low",
+            "high",
+            "max"
+          ],
+          "default": "high"
         },
         "budget_max": 393216,
         "budget_max_note": "thinking_budget accepted at 100, 393,216 AND 458,752 (2026-09-15) - the gateway enforces no rejection point, so 393,216 mirrors the card's published CoT ceiling, not a measured boundary.",
