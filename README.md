@@ -19,6 +19,7 @@ catalogues can lag or disagree with runtime behaviour.
 | Resource | Purpose |
 |---|---|
 | [Machine-readable catalogue](data/models.json) | Sanitised current model, tier, modality, limit, and capability data |
+| [Project learnings](LEARNINGS.md) | What measuring against the live gateway has taught us about vendor pages, entitlements, and promotions |
 | [Interactive pricing chart](https://oliver-mee.github.io/alibaba-token-plan-wiki/) | Compare measured Token Plan credit costs |
 | [Credit-rate experiment](data/credit-rate-experiment.md) | Method and raw reasoning behind `1 credit = 0.01 RMB` |
 | [Mainland pricing reference](data/model-studio-pricing-cn.md) | Chinese Mainland model pricing |
@@ -27,7 +28,7 @@ catalogues can lag or disagree with runtime behaviour.
 
 ## Current catalogue
 
-As of 15 September 2026:
+As of 16 September 2026:
 
 - Team exposes 19 chat models; Personal exposes 10 (a strict subset).
 - `/models` lists 24 ids per Team key: 18 chat + 4 image + 1 TTS + 1 realtime
