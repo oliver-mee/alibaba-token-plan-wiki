@@ -19,6 +19,7 @@ catalogues can lag or disagree with runtime behaviour.
 | Resource | Purpose |
 |---|---|
 | [Machine-readable catalogue](data/models.json) | Sanitised current model, tier, modality, limit, and capability data |
+| [Project learnings](LEARNINGS.md) | Public lessons about evidence, entitlement, promotions, and catalogue hygiene |
 | [Interactive pricing chart](https://oliver-mee.github.io/alibaba-token-plan-wiki/) | Compare measured Token Plan credit costs |
 | [Credit-rate experiment](data/credit-rate-experiment.md) | Method and raw reasoning behind `1 credit = 0.01 RMB` |
 | [Mainland pricing reference](data/model-studio-pricing-cn.md) | Chinese Mainland model pricing |
