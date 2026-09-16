@@ -28,7 +28,7 @@
         "t2i_search": "web_search_image",
         "i2i_search": "image_search"
       },
-      "entitlement": "EN+CN docs now say built-in tools are available to ANY model supporting the Responses API (was: qwen3.7/3.8 series only); the deepseek-v4-flash-0731 not-yet-supported caveat was dropped from both Personal tables. Gateway evidence 2026-09-16: /responses serves deepseek-v4-pro, deepseek-v4-flash-0731, deepseek-v4.1-flash, qwen3.8-flash on Personal; bare deepseek-v4-flash is 403 on Personal (worked on Team 2026-08-14).",
+      "entitlement": "EN+CN docs now say built-in tools are available to any model supporting the Responses API (was: qwen3.7/3.8 series only); the deepseek-v4-flash-0731 not-yet-supported caveat was dropped from both Personal tables. Same-day probes re-confirmed existing records: deepseek-v4-flash-0731 and deepseek-v4.1-flash return HTTP 200 on Personal; the bare deepseek-v4-flash Personal 403 is a previously documented model/tier restriction, not a new route-level divergence.",
       "source": "doc episode 30 (2026-09-16) + same-day approved /responses probes"
     }
   },
