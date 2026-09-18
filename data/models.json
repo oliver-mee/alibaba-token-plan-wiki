@@ -1,12 +1,12 @@
 {
-  "updated": "2026-09-16",
+  "updated": "2026-09-18",
   "note": "Measured against the live gateway. More accurate than the vendor console.",
   "tiers": {
     "team": {
-      "chat_models": 19
+      "chat_models": 20
     },
     "personal": {
-      "chat_models": 10
+      "chat_models": 11
     }
   },
   "endpoints": {
@@ -2116,6 +2116,143 @@
       "card": {
         "en": "https://www.qwencloud.com/models/glm-5.2",
         "cn": "https://www.qianwenai.com/models/glm-5.2"
+      }
+    },
+    {
+      "id": "glm-5.3",
+      "vendor": "Zhipu",
+      "kind": "chat",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-08-14",
+      "status": "active",
+      "limit": {
+        "context": 1000000,
+        "output": 131072,
+        "input": 1000000,
+        "input_note": "Maximum input from the checked marketplace card; a published/card value, not asserted as a gateway-enforced boundary.",
+        "by_mode": {
+          "standard": {
+            "input": 1000000,
+            "input_display": "1M",
+            "output": 131072,
+            "output_display": "131K",
+            "source": "https://www.qianwenai.com/models/glm-5.3",
+            "accessed": "2026-09-18",
+            "scope": "published marketplace card"
+          },
+          "thinking": {
+            "input": 1000000,
+            "input_display": "1M",
+            "output": 131072,
+            "output_display": "131K",
+            "reasoning": 131072,
+            "reasoning_display": "131K",
+            "source": "https://www.qianwenai.com/models/glm-5.3",
+            "accessed": "2026-09-18",
+            "scope": "published marketplace card"
+          }
+        },
+        "card_evidence": {
+          "max_input_display": "1M",
+          "max_output_display": "131K",
+          "max_input_thinking_display": "1M",
+          "max_output_thinking_display": "131K",
+          "max_reasoning_display": "131K",
+          "context_display": "1M",
+          "source": "https://www.qianwenai.com/models/glm-5.3",
+          "accessed": "2026-09-18",
+          "scope": "published marketplace card"
+        }
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": false,
+        "structured_output": "json_schema",
+        "responses_api": true,
+        "logprobs": true,
+        "vision_tool_result": false,
+        "prompt_cache_key_accepted": true,
+        "max_tokens_range_validated": true
+      },
+      "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 44.9,
+      "aa_url": "https://artificialanalysis.ai/models/glm-5-3",
+      "cost": {
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 2.0,
+          "unit": "per_1m_tokens",
+          "source": "qianwenai.com marketplace card",
+          "verified": "2026-09-18"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). Card batch rows are Model-Studio-scope, not plan-callable.",
+          "verified": "2026-09-18"
+        },
+        "status": "published per-token pricing, CN-denominated sheet",
+        "per_1m_rmb": {
+          "input": 8.0,
+          "output": 28.0,
+          "cache_hit": 2.0
+        },
+        "note": "CN card 2026-09-18: input 8 / output 28 / cache-hit 2 per 1M. EN twin $1.4/$4.4/$0.28 - identical rate to glm-5.2.",
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 8.0,
+        "output": 28.0,
+        "cache_hit": 2.0,
+        "source": "qianwenai.com marketplace card",
+        "verified": "2026-09-18"
+      },
+      "thinking": {
+        "mode": "always_on",
+        "can_disable": false,
+        "reasoning_effort": {
+          "accepted": [
+            "low",
+            "high",
+            "max"
+          ],
+          "enum_note": "Gateway validation enum probed 2026-09-18 (zero-cost thinking_levels probe, global/personal SG): exactly ['low','high','max']. Acceptance, not behaviour.",
+          "documented": [
+            "low",
+            "high",
+            "max"
+          ],
+          "default": "max",
+          "doc_note": "Z.ai GLM-5.3 guide + vendor OpenAI-chat reference (accessed 2026-09-18, carried in ep.32 triage): effort low/high/max, default max; thinking always-on - enable_thinking:false is a hard error (differs from glm-5.2, which can disable)."
+        },
+        "budget_max": 131072,
+        "budget_max_note": "Card max chain-of-thought 131K (accessed 2026-09-18); gateway output_ceiling probe 2026-09-18 confirms 131,072 as the max_tokens ceiling.",
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
+        "mutually_exclusive": false,
+        "mutually_exclusive_note": "reasoning_effort='low' accepted 2026-09-18 (global/personal SG). No thinking_budget pairing was probed; qwen3.8-family exclusivity does not extend to GLM rows per 2026-09-09 glm-5.2 evidence.",
+        "budget_default": 131072,
+        "budget_default_note": "Card max reasoning chain 131K; current API reference says the default thinking_budget is the model maximum chain-of-thought length.",
+        "budget_default_source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+        "budget_default_accessed": "2026-09-18"
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/glm-5.3",
+        "cn": "https://www.qianwenai.com/models/glm-5.3"
       }
     },
     {
