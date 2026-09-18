@@ -77,6 +77,10 @@ def build_body() -> str:
                           f"{kinds.get('tts', 0)} TTS + {kinds.get('realtime', 0)} "
                           f"realtime audio. The {videos} video models never appear "
                           "on `/models` (async endpoint)."))
+    else:
+        # Standalone clone without the knowledge base: the listing breakdown
+        # is skipped, never guessed from the public file (no region data there).
+        pass
 
     if unlisted:
         name = ", ".join(f"`{m}`" for m in unlisted)
