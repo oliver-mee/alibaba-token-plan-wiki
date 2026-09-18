@@ -24,9 +24,14 @@ catalogue-wide sweeps merely because a script supports them.
 
 ```bash
 python3 -m json.tool data/models.json >/dev/null
-python3 -m compileall -q probe-capabilities.py probe-credit-rate.py
+python3 scripts/sync-readme.py --check
+python3 -m compileall -q probe-capabilities.py probe-credit-rate.py scripts/sync-readme.py
 git diff --check
 ```
+
+The "Current catalogue" counts in README.md are generated from
+`data/models.json`: run `python3 scripts/sync-readme.py` after refreshing the
+catalogue instead of editing the numbers by hand.
 
 ## AI assistance
 
