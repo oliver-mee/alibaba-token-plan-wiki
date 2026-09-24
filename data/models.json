@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-18",
+  "updated": "2026-09-24",
   "note": "Measured against the live gateway. More accurate than the vendor console.",
   "tiers": {
     "team": {
@@ -10,12 +10,12 @@
     }
   },
   "endpoints": {
-    "global": "https://token-plan.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1",
-    "cn": "https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mode/v1"
+    "global": "https://token-plan.maas.qwencloudapi.com/compatible-mode/v1",
+    "cn": "https://token-plan.maas.qianwenaiapi.com/compatible-mode/v1"
   },
   "anthropic_endpoints": {
-    "global": "https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic",
-    "cn": "https://token-plan.cn-beijing.maas.aliyuncs.com/apps/anthropic"
+    "global": "https://token-plan.maas.qwencloudapi.com/apps/anthropic",
+    "cn": "https://token-plan.maas.qianwenaiapi.com/apps/anthropic"
   },
   "capability_notes": {
     "capability_scope": "Capability values in this file were measured against the OpenAI-compatible surface (/compatible-mode/v1) unless noted. structured_output here means response_format json_schema; thinking here means enable_thinking + reasoning_content. The Anthropic-compatible surface (/apps/anthropic) was SEPARATELY tested 2026-07-24 - see meta.anthropic_surface. It has no /models listing (404) but every model is callable by id. Matters for Claude Code users, who use that surface.",
@@ -2651,7 +2651,7 @@
         "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all  -  every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate.",
         "task_runs_on_gateway": false
       },
-      "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/inference (DashScope WebSocket protocol; set dashscope.base_websocket_api_url per the vendor's Token Plan multimodal best-practices page). VERIFIED 2026-08-14 by handshake probe (probe-plan-routes.py --ws): HTTP 101 on both regions, auth enforced at handshake (bad key -> 401 InvalidApiKey), zero token cost. Task-level probe run 2026-08-14: the handshake and run-task are accepted (task-started) and the engine then fails with '[cosyvoice:] Engine error [411]', for every voice tried including an invalid one, so the model is addressable but NOT runnable.",
+      "endpoint": "wss://token-plan.<region>.maas.qwencloudapi.com/api-ws/v1/inference (Global) and wss://token-plan.<region>.maas.qianwenaiapi.com/api-ws/v1/inference (CN) per the 2026-09-23 doc sweep (formerly token-plan.ap-southeast-1/cn-beijing.maas.aliyuncs.com; DashScope WebSocket handshake verified live on the OLD hosts 2026-08-14, auth enforced). set dashscope.base_websocket_api_url per the vendor's Token Plan multimodal page. Handshake on the new hosts NOT yet probed.",
       "status_note": {
         "state": "known",
         "value": "runnable",
@@ -2735,7 +2735,7 @@
         "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all  -  every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate.",
         "task_runs_on_gateway": false
       },
-      "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/realtime (route handshakes 101, auth enforced; generic /inference path rejects this id with \"url error\"  -  it is NOT an inference-path model). Vendor Realtime API overview (accessed 2026-09-09) lists Token Plan: Supported for WebSocket/AOQ/WebRTC on this model. Runnability still unproven at task level.",
+      "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/realtime (route handshakes 101, auth enforced; generic /inference path rejects this id with \"url error\" - it is NOT an inference-path model). 2026-09-23 doc sweep shows the realtime API page now publishing wss://maas.qwencloudapi.com/api-ws/v1/realtime (no token-plan subdomain; formerly dashscope-intl.aliyuncs.com) - Token Plan-specific realtime host for the new naming UNRESOLVED, re-probe before relying on it. Vendor Realtime API overview (accessed 2026-09-09) lists Token Plan: Supported for WebSocket/AOQ/WebRTC on this model. Runnability still unproven at task level.",
       "status_note": {
         "state": "known",
         "value": "addressable, docs-entitled, task-unproven",
@@ -3300,6 +3300,87 @@
       "card": {
         "en": "https://www.qwencloud.com/models/happyhorse-1.1-r2v",
         "cn": "https://www.qianwenai.com/models/happyhorse-1.1-r2v"
+      }
+    },
+    {
+      "id": "auto",
+      "vendor": "Qwen",
+      "kind": "router",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": null,
+      "status": "active",
+      "limit": {
+        "input": null,
+        "output": null,
+        "context": null,
+        "reason": "No fixed limits: inherits the selected model per request. No boundary probes run.",
+        "service_limits": {
+          "state": "unknown",
+          "note": "No dedicated RPM/TPM published for auto; quota is shared with the plan.",
+          "regions": {
+            "global": {
+              "state": "not_applicable",
+              "note": "Router has no own limit; selected-model limits apply."
+            },
+            "cn": {
+              "state": "not_applicable",
+              "note": "Router has no own limit; selected-model limits apply."
+            }
+          }
+        }
+      },
+      "modalities": {
+        "input": [
+          "text"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "vision": false,
+        "tool_call": true,
+        "structured_output": "none",
+        "reasoning": true,
+        "reasoning_note": "The router may or may not select a thinking model per request; no probe evidence either way.",
+        "thinking_budget": false,
+        "temperature": true,
+        "logprobs": false,
+        "speed_tok_per_sec": null,
+        "cache": false,
+        "max_tokens_range_validated": false,
+        "supports_responses_api": false,
+        "responses_api": false
+      },
+      "endpoint": "POST {base}/chat/completions like any chat model; the router forwards each request to the model it selects. Underlying-model surface contract is per-request and unprobed.",
+      "cost": {
+        "currency": "credits",
+        "credit_model": "metered",
+        "credit_scale": 1,
+        "source": "no marketplace card exists (qianwenai.com/models/auto 404, qwencloud.com/models/auto 404, checked 2026-09-23/24)",
+        "input": null,
+        "output": null,
+        "input_note": "Delegated: the router bills at the credit rate of the model it selects for each request; no published rate.",
+        "cache": {
+          "state": "unknown",
+          "note": "No card; per-request delegation makes a fixed cache rate undefined on this surface."
+        },
+        "batch": {
+          "state": "not_applicable",
+          "note": "No Token Plan batch route; Model Studio batch pages describe a different product."
+        },
+        "batch_scope": "token_plan_gateway",
+        "pricing_tiers": [],
+        "offpeak_discount": null
+      },
+      "card": {
+        "en": null,
+        "cn": null,
+        "state": "no_card",
+        "note": "Verified 2026-09-23 and 2026-09-24: no marketplace card exists for auto (qianwenai.com/models/auto 500/404, qwencloud.com/models/auto 404). Platform pseudo-model, not listed on the model marketplace."
       }
     }
   ]

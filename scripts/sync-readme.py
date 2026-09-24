@@ -75,8 +75,11 @@ def build_body() -> str:
         out.append(bullet(f"`/models` lists {len(live)} ids per Team key: "
                           f"{kinds.get('chat', 0)} chat + {kinds.get('image', 0)} image + "
                           f"{kinds.get('tts', 0)} TTS + {kinds.get('realtime', 0)} "
-                          f"realtime audio. The {videos} video models never appear "
-                          "on `/models` (async endpoint)."))
+                          f"realtime audio"
+                          + (f" + {kinds.get('router', 0)} platform router" if kinds.get('router') else "")
+                          + ". The {} video models never appear "
+                          "on `/models` (async endpoint).".format(videos)))
+
     else:
         # Standalone clone without the knowledge base: the listing breakdown
         # is skipped, never guessed from the public file (no region data there).

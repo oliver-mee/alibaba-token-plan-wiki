@@ -51,8 +51,8 @@ import sys
 import time
 import urllib.request
 
-BASE = "https://token-plan.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1"
-# CN region instead: https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mode/v1
+BASE = "https://token-plan.maas.qwencloudapi.com/compatible-mode/v1"
+# CN region instead: https://token-plan.maas.qianwenaiapi.com/compatible-mode/v1
 
 # CHINESE MAINLAND rates, USD per 1M tokens — the sheet the plan actually bills
 # against (data/model-studio-pricing-cn.md, 16 Jul 2026). Effective, post-discount.

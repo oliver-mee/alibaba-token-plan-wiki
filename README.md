@@ -29,12 +29,12 @@ catalogues can lag or disagree with runtime behaviour.
 ## Current catalogue
 
 <!-- BEGIN GENERATED:catalogue -->
-As of 18 September 2026:
+As of 24 September 2026:
 
 - Team exposes 20 chat models; Personal exposes 11 (a strict subset).
-- `/models` lists 25 ids per Team key: 19 chat + 4 image + 1 TTS + 1
-  realtime audio. The 3 video models never appear on `/models` (async
-  endpoint).
+- `/models` lists 26 ids per Team key: 19 chat + 4 image + 1 TTS + 1
+  realtime audio + 1 platform router. The 3 video models never appear on
+  `/models` (async endpoint).
 - One additional chat model (`deepseek-v4-pro-0813`) is servable by exact id
   but not surfaced on `/models`; the catalogue carries it as `unlisted`.
 - The exact counts move as models land.
@@ -58,8 +58,14 @@ tag or commit rather than silently copying an unversioned list.
 
 | Region | OpenAI-compatible base URL | Anthropic-compatible base URL |
 |---|---|---|
-| Global | `https://token-plan.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1` | `https://token-plan.ap-southeast-1.maas.aliyuncs.com/apps/anthropic` |
-| China | `https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mode/v1` | `https://token-plan.cn-beijing.maas.aliyuncs.com/apps/anthropic` |
+| Global | `https://token-plan.maas.qwencloudapi.com/compatible-mode/v1` | `https://token-plan.maas.qwencloudapi.com/apps/anthropic` |
+| China | `https://token-plan.maas.qianwenaiapi.com/compatible-mode/v1` | `https://token-plan.maas.qianwenaiapi.com/apps/anthropic` |
+
+As of 23 September 2026 the vendor's own Token Plan docs publish the hosts
+above. The previous region-scoped hosts
+(`token-plan.ap-southeast-1.maas.aliyuncs.com` and
+`token-plan.cn-beijing.maas.aliyuncs.com`) still serve, and inference regions
+are unchanged (Singapore for Global, Beijing for China).
 
 Token Plan keys are separate from DashScope pay-as-you-go and Alibaba Coding
 Plan credentials.

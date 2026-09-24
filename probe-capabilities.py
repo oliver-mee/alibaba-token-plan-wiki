@@ -13,8 +13,8 @@ Usage:
 """
 import json, os, sys, urllib.request, urllib.error
 
-BASE = "https://token-plan.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1"
-# CN region: https://token-plan.cn-beijing.maas.aliyuncs.com/compatible-mode/v1
+BASE = "https://token-plan.maas.qwencloudapi.com/compatible-mode/v1"
+# CN region: https://token-plan.maas.qianwenaiapi.com/compatible-mode/v1
 
 MODELS = ["deepseek-v4-pro", "deepseek-v4-flash", "deepseek-v3.2",
           "qwen3.7-max", "qwen3.7-plus", "qwen3.6-plus", "qwen3.6-flash",
