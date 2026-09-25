@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24",
+  "updated": "2026-09-25",
   "note": "Measured against the live gateway. More accurate than the vendor console.",
   "tiers": {
     "team": {
@@ -2656,7 +2656,7 @@
         "state": "known",
         "value": "runnable",
         "verified": "2026-09-08",
-        "note": "First end-to-end audio: 23,078-byte mp3 via SpeechSynthesizer on wss token-plan /api-ws/v1/inference, voice longanlingxin, primary Team seat (Oliver-approved probe 2026-09-08). The 2026-08-14 \"engine broken\" verdict was WRONG: new voice-list docs state a voice outside the model list returns exactly [cosyvoice:]Engine error [411]  -  all Aug voices (longxiaochun/Cherry/Chelsie) were off-list for this model, so the \"invalid voice\" control proved nothing. plus voices: longanlingxin, longanlufeng (Chinese/English); 500+ clone-derived base voices qwen-audio-3.0-tts-plus-<suffix> (Excel on developer-guides/speech/voice-list, accessed 2026-09-08)."
+        "note": "First end-to-end audio: 23,078-byte mp3 via SpeechSynthesizer on wss token-plan /api-ws/v1/inference, voice longanlingxin, primary Team seat (approved probe 2026-09-08). The 2026-08-14 \"engine broken\" verdict was WRONG: new voice-list docs state a voice outside the model list returns exactly [cosyvoice:]Engine error [411]  -  all Aug voices (longxiaochun/Cherry/Chelsie) were off-list for this model, so the \"invalid voice\" control proved nothing. plus voices: longanlingxin, longanlufeng (Chinese/English); 500+ clone-derived base voices qwen-audio-3.0-tts-plus-<suffix> (Excel on developer-guides/speech/voice-list, accessed 2026-09-08)."
       },
       "cost": {
         "cache": {
@@ -2735,12 +2735,12 @@
         "note": "documented/unprobed (2026-08-13): describes the OpenAI-compatible surface, where this model is NOT servable at all  -  every flag is false by construction. The DashScope realtime surface has its own contract, unprobed under the spend gate.",
         "task_runs_on_gateway": false
       },
-      "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/realtime (route handshakes 101, auth enforced; generic /inference path rejects this id with \"url error\" - it is NOT an inference-path model). 2026-09-23 doc sweep shows the realtime API page now publishing wss://maas.qwencloudapi.com/api-ws/v1/realtime (no token-plan subdomain; formerly dashscope-intl.aliyuncs.com) - Token Plan-specific realtime host for the new naming UNRESOLVED, re-probe before relying on it. Vendor Realtime API overview (accessed 2026-09-09) lists Token Plan: Supported for WebSocket/AOQ/WebRTC on this model. Runnability still unproven at task level.",
+      "endpoint": "wss://token-plan.<region>.maas.aliyuncs.com/api-ws/v1/realtime (route handshakes 101, auth enforced; generic /inference path rejects this id with \"url error\" - it is NOT an inference-path model). 2026-09-23 doc sweep shows the realtime API page now publishing wss://maas.qwencloudapi.com/api-ws/v1/realtime (no token-plan subdomain; formerly dashscope-intl.aliyuncs.com). RESOLVED 2026-09-24 (handshake only, zero spend): the Token Plan key handshakes 101 on wss://token-plan.maas.qwencloudapi.com (Global) and wss://token-plan.maas.qianwenaiapi.com (CN) for /api-ws/v1/realtime, /realtime-inference and /inference, bad-key control 401 on each. The vendor-published bare hosts wss://maas.qwencloudapi.com and wss://maas.qianwenaiapi.com REJECT the Token Plan key (401 InvalidApiKey) on all three paths - that page documents the pay-as-you-go product, not Token Plan. Old token-plan.<region>.maas.aliyuncs.com hosts still 101 (positive control); public dashscope hosts 401 (negative control). The realtime routes now reply to a model-less connect with 'Required parameter \"model\" missing from request.' - the route answers, but a 101 still proves route + auth gate only, not runnability. Vendor Realtime API overview (accessed 2026-09-09) lists Token Plan: Supported for WebSocket/AOQ/WebRTC on this model. Runnability still unproven at task level. RUNNABLE 2026-09-25: a real session on wss://token-plan.maas.qwencloudapi.com/api-ws/v1/realtime?model=qwen-audio-3.0-realtime-plus completed end to end (audio + transcript returned). The model MUST be passed as the ?model= query param.",
       "status_note": {
         "state": "known",
-        "value": "addressable, docs-entitled, task-unproven",
-        "verified": "2026-09-09",
-        "note": "The 2026-08-14 \"no unsolicited frame in 12s\" observation is protocol-consistent, NOT a failure: Qwen-Audio realtime is client-speaks-first (session.update -> input_audio_buffer.append; server answers response.audio.delta). A correct client hello has not yet been sent. Re-probe = tiny synthetic PCM clip; needs approval."
+        "value": "runnable (text turn -> audio+text reply, Global/Personal)",
+        "verified": "2026-09-25",
+        "note": "2026-09-25 session probe (Global/Personal seat): wss://token-plan.maas.qwencloudapi.com/api-ws/v1/realtime?model=qwen-audio-3.0-realtime-plus -> 101, session.created greeting, session.update (voice longanqian, turn_detection null) -> session.updated, conversation.item.create input_text + response.create -> response.done status completed with 46,080 bytes 24 kHz PCM (~1.0s) and transcript 'Hello!'. usage: input 332 text tokens, output 14 (2 text + 12 audio). Cost ~0.38 credits at the card rate (5 RMB/1M text in, 150 RMB/1M text+audio out). The 2026-08-14 silence was the missing ?model= query param: with it the server greets first with session.created. Protocol is OpenAI-realtime-shaped. CN not session-probed (subscription lapsed)."
       },
       "cost": {
         "cache": {
@@ -3330,7 +3330,8 @@
               "note": "Router has no own limit; selected-model limits apply."
             }
           }
-        }
+        },
+        "output_note": "No max_tokens validation cap: max_tokens=999999999 was accepted with HTTP 200 (2026-09-24), i.e. the router does not enforce a per-model ceiling at validation. Treat as unbounded client-side."
       },
       "modalities": {
         "input": [
@@ -3345,9 +3346,9 @@
         "tool_call": true,
         "structured_output": "none",
         "reasoning": true,
-        "reasoning_note": "The router may or may not select a thinking model per request; no probe evidence either way.",
+        "reasoning_note": "Probed 2026-09-24 (Global/Personal): thinking is ON by default - every completion carried reasoning_tokens equal to completion_tokens under a small max_tokens (finish=length, empty content). Accepts reasoning_effort with enum none|minimal|low|medium|high|xhigh|max (400 on an invalid value names it). thinking_budget REJECTED (400 'auto does not support parameter(s): thinking_budget').",
         "thinking_budget": false,
-        "temperature": true,
+        "temperature": false,
         "logprobs": false,
         "speed_tok_per_sec": null,
         "cache": false,
@@ -3355,7 +3356,7 @@
         "supports_responses_api": false,
         "responses_api": false
       },
-      "endpoint": "POST {base}/chat/completions like any chat model; the router forwards each request to the model it selects. Underlying-model surface contract is per-request and unprobed.",
+      "endpoint": "POST {base}/chat/completions like any chat model. The response `model` field echoes 'auto' (10/10 completions, 2026-09-24) - the underlying model is NOT named in-band. Rejects temperature and thinking_budget with a 400 (invalid_parameter_error). Underlying selection is not observable from the response body.",
       "cost": {
         "currency": "credits",
         "credit_model": "metered",
