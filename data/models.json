@@ -2773,6 +2773,62 @@
       }
     },
     {
+      "id": "qwen-audio-3.0-asr-flash",
+      "vendor": "Qwen",
+      "kind": "asr",
+      "tiers": [
+        "personal"
+      ],
+      "status": "unlisted",
+      "limit": {
+        "context": null,
+        "output": null,
+        "note": "Duration-limited, not token-limited: synchronous calls take audio under 5 minutes and 10 MB input (vendor ASR guide, 2026-09-25)."
+      },
+      "modalities": {
+        "input": [
+          "audio"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": false,
+        "tool_call": false,
+        "attachment": false,
+        "structured_output": "none",
+        "responses_api": false,
+        "logprobs": false,
+        "note": "Speech-to-text only; not servable on the OpenAI-compatible surface, so every chat capability is false by construction."
+      },
+      "endpoint": "POST https://token-plan.maas.qwencloudapi.com/api/v1/services/aigc/multimodal-generation/generation (Global) with header X-DashScope-SSE: disable and body {model, input.messages[0].content=[{type: input_audio, input_audio: {data: <audio URL or data URI>}}], parameters: {format, sample_rate}}; transcript at output.text (also output.output.sentence.text). NOT on /compatible-mode/v1 and NOT a streaming model: /api-ws/v1/inference, /api-ws/v1/realtime-inference and AOQ /api/v1/webrtc/{inference,realtime} all answer 'url error, please check url', /api-ws/v1/realtime upgrades and stays silent (2026-09-25).",
+      "status_note": {
+        "state": "known",
+        "value": "runnable (sync file ASR, Global/Personal), absent from /models",
+        "verified": "2026-09-25",
+        "note": "Servable by exact id on the DashScope multimodal-generation HTTP route but deliberately not surfaced on /models, the same unlisted class as deepseek-v4-pro-0813. Re-probe with one short synchronous call."
+      },
+      "cost": {
+        "published": false,
+        "status": "per-second rate for this id not found on the fetched ASR guide; marketplace card is JS-rendered and was not captured",
+        "unit": "per_second",
+        "note": "Duration-metered; the 2026-09-25 probe reported usage.duration 3 for a ~3 s clip. Credit rate unverified.",
+        "cache": {
+          "state": "not_applicable",
+          "reason": "Duration-metered speech recognition; no prompt-cache tokens."
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Synchronous file ASR; no Token Plan chat batch-pricing field applies."
+        }
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/qwen-audio-3.0-asr-flash",
+        "cn": "https://www.qianwenai.com/models/qwen-audio-3.0-asr-flash"
+      }
+    },
+    {
       "id": "qwen-image-2.0",
       "vendor": "Qwen",
       "kind": "image",
