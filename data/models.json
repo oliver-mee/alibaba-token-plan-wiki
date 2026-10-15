@@ -1,9 +1,9 @@
 {
-  "updated": "2026-09-25",
+  "updated": "2026-10-15",
   "note": "Measured against the live gateway. More accurate than the vendor console.",
   "tiers": {
     "team": {
-      "chat_models": 20
+      "chat_models": 18
     },
     "personal": {
       "chat_models": 11
@@ -1147,122 +1147,6 @@
       }
     },
     {
-      "id": "deepseek-v4-flash",
-      "vendor": "DeepSeek",
-      "kind": "chat",
-      "tiers": [
-        "team"
-      ],
-      "released": "2026-04-24",
-      "status": "active",
-      "limit": {
-        "context": 1000000,
-        "output": 393216,
-        "input": 1000000,
-        "input_note": "Maximum input from the checked Model Studio marketplace/spec capture; this is a published/card value and is not asserted as a gateway-enforced boundary.",
-        "by_mode": {
-          "standard": {
-            "output": 393216,
-            "output_display": "384K"
-          },
-          "thinking": {
-            "output": 393216,
-            "output_display": "384K",
-            "note": "output and chain-of-thought share ONE budget"
-          },
-          "source": "docs.qwencloud.com/developer-guides/getting-started/text-generation-models (accessed 2026-09-09): \"DeepSeek V4 models share a 384k total budget across output and thinking\"",
-          "accessed": "2026-09-09"
-        },
-        "card_evidence": {
-          "max_input_display": "1M",
-          "max_output_display": "393K",
-          "context_display": "1M",
-          "source": "https://www.qianwenai.com/models/deepseek-v4-flash",
-          "accessed": "2026-09-07",
-          "scope": "published marketplace card"
-        },
-        "note": "limit.output 393216 per shared-384K-budget doc note 2026-09-09."
-      },
-      "modalities": {
-        "input": [
-          "text"
-        ],
-        "output": [
-          "text"
-        ]
-      },
-      "capabilities": {
-        "reasoning": true,
-        "tool_call": true,
-        "attachment": false,
-        "structured_output": "json_schema",
-        "responses_api": true,
-        "logprobs": false,
-        "vision_tool_result": false,
-        "prompt_cache_key_accepted": true,
-        "max_tokens_range_validated": false
-      },
-      "endpoint": "/compatible-mode/v1/chat/completions",
-      "aa_intelligence": 34.5,
-      "aa_url": "https://artificialanalysis.ai/models/deepseek-v4-flash",
-      "cost": {
-        "cache": {
-          "state": "known",
-          "mode": "implicit",
-          "currency": "RMB",
-          "read": 0.2,
-          "unit": "per_1m_tokens",
-          "source": "qianwenai.com marketplace card",
-          "verified": "2026-08-18"
-        },
-        "batch": {
-          "state": "not_applicable",
-          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
-          "verified": "2026-09-09"
-        },
-        "status": "published per-token pricing, CN-denominated sheet",
-        "per_1m_rmb": {
-          "input": 1.0,
-          "output": 2.0,
-          "cache_hit": 0.2
-        },
-        "note": "CN card 2026-08-18: input 1 / output 2 / cache-hit 0.2 per 1M.",
-        "published": true,
-        "currency": "RMB",
-        "unit": "per_1m_tokens",
-        "input": 1.0,
-        "output": 2.0,
-        "cache_hit": 0.2,
-        "source": "qianwenai.com marketplace card",
-        "verified": "2026-08-18",
-        "promo_audit": {
-          "checked": "2026-09-15",
-          "verdict": "none: the 2026-09-15 night 5\u6298 list is exactly qwen3.8-max (Personal only), deepseek-v4-pro-0813, deepseek-v4-flash-0731, deepseek-v4.1-flash. The non-dated deepseek-v4-flash is NOT on it, and no card promo applies."
-        }
-      },
-      "thinking": {
-        "mode": "hybrid",
-        "can_disable": true,
-        "budget_max": 393216,
-        "reasoning_effort": {
-          "documented": [
-            "high",
-            "max"
-          ],
-          "doc_note": "Vendor OpenAI-chat API reference, accessed 2026-08-31 (docs.qwencloud.com/api-reference/chat/openai-chat). DeepSeek-V4/GLM contract: options high/max; low and medium map to high, xhigh maps to max."
-        },
-        "default": true,
-        "returned_field": "reasoning_content",
-        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
-        "mutually_exclusive": false,
-        "budget_default": 393216
-      },
-      "card": {
-        "en": "https://www.qwencloud.com/models/deepseek-v4-flash",
-        "cn": "https://www.qianwenai.com/models/deepseek-v4-flash"
-      }
-    },
-    {
       "id": "deepseek-v4-flash-0731",
       "vendor": "DeepSeek",
       "kind": "chat",
@@ -1543,118 +1427,6 @@
       "card": {
         "en": "https://www.qwencloud.com/models/deepseek-v4.1-flash",
         "cn": "https://www.qianwenai.com/models/deepseek-v4.1-flash"
-      }
-    },
-    {
-      "id": "deepseek-v3.2",
-      "vendor": "DeepSeek",
-      "kind": "chat",
-      "tiers": [
-        "team"
-      ],
-      "released": "2025-12-03",
-      "status": "active",
-      "limit": {
-        "context": 131072,
-        "output": 65536,
-        "input": 96000,
-        "input_note": "Maximum input from the checked Model Studio marketplace/spec capture; this is a published/card value and is not asserted as a gateway-enforced boundary.",
-        "by_mode": {
-          "standard": {
-            "output": 65536,
-            "output_display": "64K"
-          },
-          "thinking": {
-            "output": 65536,
-            "output_display": "64K",
-            "reasoning": 32768,
-            "reasoning_display": "32K"
-          },
-          "source": "text-generation-models All-models table, accessed 2026-09-09; gateway output ceiling 65536 agreed (CN card \u00a5-page same values)",
-          "accessed": "2026-09-09"
-        },
-        "card_evidence": {
-          "max_input_display": "98K",
-          "max_output_display": "65K",
-          "context_display": "131K",
-          "source": "https://www.qianwenai.com/models/deepseek-v3.2",
-          "accessed": "2026-09-07",
-          "scope": "published marketplace card"
-        },
-        "note": "limit.output 65536: doc table 64k + CN card 65K agree; gateway does not range-check max_tokens on this id (probe 2026-09-09)."
-      },
-      "modalities": {
-        "input": [
-          "text"
-        ],
-        "output": [
-          "text"
-        ]
-      },
-      "capabilities": {
-        "reasoning": true,
-        "tool_call": true,
-        "attachment": false,
-        "structured_output": "json_schema",
-        "responses_api": false,
-        "logprobs": false,
-        "vision_tool_result": false,
-        "prompt_cache_key_accepted": true,
-        "max_tokens_range_validated": false
-      },
-      "endpoint": "/compatible-mode/v1/chat/completions",
-      "aa_intelligence": 16.0,
-      "aa_url": "https://artificialanalysis.ai/models/deepseek-v3-2",
-      "status_note": "AA marks deprecated (superseded by deepseek-v4 pro family) as of 2026-08-18; gateway still serves it.",
-      "cost": {
-        "cache": {
-          "state": "known",
-          "mode": "implicit",
-          "currency": "RMB",
-          "read": 0.4,
-          "unit": "per_1m_tokens",
-          "source": "qianwenai.com marketplace card",
-          "verified": "2026-08-18"
-        },
-        "batch": {
-          "state": "not_applicable",
-          "reason": "Batch/file surfaces exist only on Model Studio PAYG: the Token Plan gateway has no /batches or /files route (empty-body 404s, probe-plan-routes, verified 2026-08-05/08-14). CN card batch rows (deepseek-v3.2 \u00a51/\u00a51.5 etc., card 2026-09-09) are Model-Studio-scope, not plan-callable.",
-          "verified": "2026-09-09"
-        },
-        "status": "published per-token pricing, CN-denominated sheet",
-        "per_1m_rmb": {
-          "input": 2.0,
-          "output": 3.0,
-          "cache_hit": 0.4
-        },
-        "note": "CN card 2026-08-18: input 2 / output 3 / cache-hit 0.4 per 1M. Batch-file 1/1.5 per 1M exists on card (Model Studio, not Token Plan route).",
-        "published": true,
-        "currency": "RMB",
-        "unit": "per_1m_tokens",
-        "input": 2.0,
-        "output": 3.0,
-        "cache_hit": 0.4,
-        "source": "qianwenai.com marketplace card",
-        "verified": "2026-08-18"
-      },
-      "thinking": {
-        "mode": "hybrid",
-        "can_disable": true,
-        "budget_max": 32768,
-        "reasoning_effort": {
-          "unpublished": true,
-          "doc_note": "Vendor text-generation model list, accessed 2026-09-01: deepseek-v3.2 has a 32K thinking budget; the OpenAI-chat API reference publishes no reasoning_effort levels for this model."
-        },
-        "default": true,
-        "returned_field": "reasoning_content",
-        "returned_field_scope": "OpenAI-compatible chat completions; Anthropic surface uses a thinking content block.",
-        "mutually_exclusive": false,
-        "budget_default": 32768
-      },
-      "retires": "2026-10-10",
-      "card": {
-        "en": "https://www.qwencloud.com/models/deepseek-v3.2",
-        "cn": "https://www.qianwenai.com/models/deepseek-v3.2"
       }
     },
     {
@@ -3438,6 +3210,111 @@
         "cn": null,
         "state": "no_card",
         "note": "Verified 2026-09-23 and 2026-09-24: no marketplace card exists for auto (qianwenai.com/models/auto 500/404, qwencloud.com/models/auto 404). Platform pseudo-model, not listed on the model marketplace."
+      }
+    },
+    {
+      "id": "wan3.0-video",
+      "vendor": "Alibaba",
+      "kind": "video",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-08-06",
+      "status": "active",
+      "limit": {
+        "context": null,
+        "output": null,
+        "input_state": {
+          "state": "not_applicable",
+          "reason": "This media/service row has no published token maximum-input field; its metering and operational limits are recorded separately."
+        },
+        "by_mode": {
+          "state": "not_applicable",
+          "reason": "Thinking-mode input/output limits do not apply to this non-chat media/service row."
+        },
+        "duration_seconds": 30
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "audio",
+          "video"
+        ],
+        "output": [
+          "video"
+        ]
+      },
+      "capabilities": {
+        "reasoning": false,
+        "tool_call": false,
+        "attachment": true,
+        "structured_output": "none"
+      },
+      "endpoint": "/api/v1/services/aigc/video-generation/video-synthesis (async, X-DashScope-Async: enable, poll /api/v1/tasks/{task_id})",
+      "cost": {
+        "cache": {
+          "state": "not_applicable",
+          "reason": "Video-second billing, not prompt-cache tokens."
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Async video tasks are not chat Batch API pricing."
+        },
+        "status": "published per-second marketplace rates; Token Plan deduction unmeasured",
+        "source": "https://www.qianwenai.com/models/wan3.0-video and https://www.qwencloud.com/models/wan3.0-video",
+        "verified": "2026-10-15",
+        "currency": "RMB",
+        "unit": "per_second_video",
+        "rates": {
+          "480p": {
+            "list": 0.3,
+            "promo": 0.21
+          },
+          "720p": {
+            "list": 0.6,
+            "promo": 0.42
+          },
+          "1080p": {
+            "list": 1.2,
+            "promo": 0.84
+          }
+        },
+        "regional_rates": {
+          "global": {
+            "currency": "USD",
+            "unit": "per_second_video",
+            "480p": {
+              "list": 0.05,
+              "promo": 0.035
+            },
+            "720p": {
+              "list": 0.1,
+              "promo": 0.07
+            },
+            "1080p": {
+              "list": 0.2,
+              "promo": 0.14
+            }
+          }
+        },
+        "limits": {
+          "rpm": 300,
+          "concurrency": 5,
+          "async_queue": 500
+        },
+        "campaign_promo": {
+          "state": "active",
+          "kind": "limited-time 30% off",
+          "verified": "2026-10-15",
+          "end": "unknown"
+        },
+        "note": "CN and Global card list/promotional rates preserved separately. Not a measured Token Plan credit coefficient. Input-video billing details depend on the documented request mode."
+      },
+      "card": {
+        "cn": "https://www.qianwenai.com/models/wan3.0-video",
+        "en": "https://www.qwencloud.com/models/wan3.0-video"
       }
     }
   ]
