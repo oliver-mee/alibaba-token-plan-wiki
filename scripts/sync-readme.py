@@ -65,20 +65,26 @@ def build_body() -> str:
         canon = json.loads(CANON.read_text())
         live = [m for m in canon["models"]
                 if "team" in m.get("tiers", []) and "global" in m.get("regions", [])
-                and m.get("status") == "active" and m["kind"] != "video"]
+                and m.get("status") == "active"
+                and (m["kind"] != "video" or m.get("discovery_listed") is True)]
         kinds: dict[str, int] = {}
         for m in live:
             kinds[m["kind"]] = kinds.get(m["kind"], 0) + 1
-        videos = sum(1 for m in canon["models"]
-                     if "team" in m.get("tiers", []) and "global" in m.get("regions", [])
-                     and m.get("status") == "active" and m["kind"] == "video")
-        out.append(bullet(f"`/models` lists {len(live)} ids per Team key: "
-                          f"{kinds.get('chat', 0)} chat + {kinds.get('image', 0)} image + "
-                          f"{kinds.get('tts', 0)} TTS + {kinds.get('realtime', 0)} "
-                          f"realtime audio"
-                          + (f" + {kinds.get('router', 0)} platform router" if kinds.get('router') else "")
-                          + ". The {} video models never appear "
-                          "on `/models` (async endpoint).".format(videos)))
+        unlisted_videos = sum(1 for m in canon["models"]
+                              if "team" in m.get("tiers", [])
+                              and "global" in m.get("regions", [])
+                              and m.get("status") == "active" and m["kind"] == "video"
+                              and m.get("discovery_listed") is not True)
+        labels = {"chat": "chat", "image": "image", "tts": "TTS",
+                  "realtime": "realtime audio", "router": "platform router",
+                  "video": "video", "asr": "ASR"}
+        breakdown = " + ".join(f"{count} {labels.get(kind, kind)}"
+                               for kind, count in kinds.items())
+        listing = f"`/models` lists {len(live)} ids per Team key: {breakdown}."
+        if unlisted_videos:
+            listing += (f" The {unlisted_videos} other active video models use async "
+                        "endpoints and are not expected in `/models`.")
+        out.append(bullet(listing))
 
     else:
         # Standalone clone without the knowledge base: the listing breakdown

@@ -29,14 +29,12 @@ catalogues can lag or disagree with runtime behaviour.
 ## Current catalogue
 
 <!-- BEGIN GENERATED:catalogue -->
-As of 15 October 2026:
+As of 20 October 2026:
 
-- Team exposes 18 chat models; Personal exposes 11 (a strict subset).
-- `/models` lists 24 ids per Team key: 17 chat + 4 image + 1 TTS + 1
-  realtime audio + 1 platform router. The 4 video models never appear on
-  `/models` (async endpoint).
-- One additional chat model (`deepseek-v4-pro-0813`) is servable by exact id
-  but not surfaced on `/models`; the catalogue carries it as `unlisted`.
+- Team exposes 19 chat models; Personal exposes 12 (a strict subset).
+- `/models` lists 27 ids per Team key: 19 chat + 1 TTS + 1 realtime audio +
+  4 image + 1 platform router + 1 video. The 3 other active video models use
+  async endpoints and are not expected in `/models`.
 - The exact counts move as models land.
   [`data/models.json`](data/models.json) carries the current list and its
   `updated` date; trust it over this prose.

@@ -1,12 +1,12 @@
 {
-  "updated": "2026-10-15",
+  "updated": "2026-10-20",
   "note": "Measured against the live gateway. More accurate than the vendor console.",
   "tiers": {
     "team": {
-      "chat_models": 18
+      "chat_models": 19
     },
     "personal": {
-      "chat_models": 11
+      "chat_models": 12
     }
   },
   "endpoints": {
@@ -1005,7 +1005,7 @@
         "personal"
       ],
       "released": "2026-08-13",
-      "status": "unlisted",
+      "status": "active",
       "limit": {
         "context": 1000000,
         "output": 393216,
@@ -1068,7 +1068,7 @@
       "endpoint": "/compatible-mode/v1/chat/completions",
       "aa_intelligence": 36.3,
       "aa_url": "https://artificialanalysis.ai/models/deepseek-v4-pro",
-      "status_note": "Servable by exact id (HTTP 200, probed 2026-08-18) but deliberately NOT surfaced on the gateway /models listing. Unlike 'retired' it must stay in downstream catalogues (it is callable); unlike 'active' it is excluded from the check-drift expected /models set (else it would false-alarm as removed every run). Treat /models gain as real drift when it eventually lists. | deepseek-v4-pro-0813 is the dated 2026-08-13 release; AA tracks it as the current deepseek-v4-pro id",
+      "status_note": "Listed again on Global Personal, Global Team and CN Team GET /models, verified 2026-10-20. Previously callable but unlisted; old absence observations in provenance are historical. No new inference or capability measurement in this listing refresh. AA tracks the dated 2026-08-13 build under deepseek-v4-pro.",
       "aliases": [
         "deepseek-v4-pro"
       ],
@@ -1427,6 +1427,171 @@
       "card": {
         "en": "https://www.qwencloud.com/models/deepseek-v4.1-flash",
         "cn": "https://www.qianwenai.com/models/deepseek-v4.1-flash"
+      }
+    },
+    {
+      "id": "deepseek-v4.1-flash-1017",
+      "vendor": "DeepSeek",
+      "kind": "chat",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-10-17",
+      "status": "active",
+      "limit": {
+        "context": 1000000,
+        "input": 1000000,
+        "output": 393216,
+        "input_note": "CN and EN marketplace cards, accessed 2026-10-20: input/context 1M. Published, not a gateway-enforced boundary.",
+        "by_mode": {
+          "standard": {
+            "output": 393216,
+            "output_display": "393K"
+          },
+          "thinking": {
+            "output": 393216,
+            "output_display": "393K",
+            "note": "Published shared answer+reasoning budget per OpenAI-chat API reference."
+          },
+          "source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+          "accessed": "2026-10-20"
+        },
+        "card_evidence": {
+          "max_input_display": "1M",
+          "max_output_display": "393K",
+          "max_cot_display": "393K",
+          "context_display": "1M",
+          "source": "https://www.qianwenai.com/models/deepseek-v4.1-flash-1017",
+          "accessed": "2026-10-20",
+          "scope": "published marketplace card"
+        },
+        "note": "393216 uses the existing catalogue binary-384K normalisation for the card display 393K and description 384K. Not a measured exact boundary. models.dev lab row uses 384000; retained as an explicit precision conflict."
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": true,
+        "structured_output": false,
+        "structured_output_json_object": {
+          "state": "unverified",
+          "reason": "Strict json_schema was rejected; json_object not tested on this dated id."
+        },
+        "responses_api": true,
+        "logprobs": false,
+        "vision_tool_result": true,
+        "prompt_cache_key_accepted": {
+          "state": "unverified",
+          "reason": "Not included in the bounded intake battery."
+        },
+        "max_tokens_range_validated": false
+      },
+      "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 45.0965048681912,
+      "aa_url": "https://artificialanalysis.ai/models/deepseek-v4-1-flash-1017",
+      "aa_evidence": {
+        "captured_at": "2026-10-20T01:42:23.858491+00:00",
+        "index_version_guess": null,
+        "resolution": "exact-slug",
+        "slug": "deepseek-v4-1-flash-1017",
+        "name": "DeepSeek V4.1 Flash 1017 (Max)",
+        "estimated": false,
+        "deprecated": false,
+        "eval_cost_usd_per_task": 0.2620484273114172,
+        "source": "https://artificialanalysis.ai/leaderboards/models",
+        "scope": "AA Max configuration. Not a measured Token Plan charge or proof of gateway reasoning-configuration parity. Current capture's index version is unknown; do not compare directly with historical stored scores."
+      },
+      "aliases": [],
+      "underlying_identity": "deepseek-v4.1-flash-1017",
+      "cost": {
+        "published": true,
+        "status": "published card rates; plan night promo documented, billing not remeasured",
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 1,
+        "output": 4,
+        "cache_hit": 0.1,
+        "per_1m_rmb": {
+          "input": 1,
+          "output": 4,
+          "cache_hit": 0.1
+        },
+        "source": "https://www.qianwenai.com/models/deepseek-v4.1-flash-1017",
+        "verified": "2026-10-20",
+        "cache": {
+          "state": "known",
+          "mode": "implicit",
+          "currency": "RMB",
+          "read": 0.1,
+          "unit": "per_1m_tokens",
+          "source": "https://www.qianwenai.com/models/deepseek-v4.1-flash-1017",
+          "verified": "2026-10-20"
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Marketplace Batch feature is platform scope; no Token Plan Batch route is established."
+        },
+        "regional_rates": {
+          "global": {
+            "currency": "USD",
+            "input": 0.15,
+            "output": 0.6,
+            "cache_hit": 0.015,
+            "unit": "per_1m_tokens",
+            "source": "https://www.qwencloud.com/models/deepseek-v4.1-flash-1017",
+            "verified": "2026-10-20"
+          }
+        },
+        "night_promo": {
+          "discount": "50% off Credits",
+          "window": "22:00 - 08:00 UTC+8",
+          "tiers": [
+            "personal",
+            "team"
+          ],
+          "reverified": "2026-10-20",
+          "note": "Id named in Personal and Team overview promo lists across EN/CN Oct20 captures. Separate from marketplace peak/offpeak toggle; no billing-coefficient measurement in this intake."
+        },
+        "note": "Own CN/EN cards fetched 2026-10-20, not inherited base rates. Same listed per-token prices as base V4.1 Flash; no claim of measured request charge."
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "Measured on OpenAI-compatible chat completions.",
+        "reasoning_effort": {
+          "documented": [
+            "low",
+            "high",
+            "max"
+          ],
+          "default": "high",
+          "doc_note": "https://docs.qwencloud.com/api-reference/chat/openai-chat accessed 2026-10-20 explicitly names this id: low/high/max, default high; minimal maps low, medium/xhigh map high, ultra maps max. Low tested successfully on Global Personal."
+        },
+        "budget_max": 393216,
+        "budget_max_note": "Card-normalised published CoT ceiling only, not probed as an enforced bound.",
+        "budget_default": {
+          "state": "unverified",
+          "reason": "No default-budget measurement made for this dated id."
+        },
+        "mutually_exclusive": {
+          "state": "unverified",
+          "reason": "Combined effort/budget not tested on this dated id."
+        }
+      },
+      "card": {
+        "cn": "https://www.qianwenai.com/models/deepseek-v4.1-flash-1017",
+        "en": "https://www.qwencloud.com/models/deepseek-v4.1-flash-1017"
       }
     },
     {
