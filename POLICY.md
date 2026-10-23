@@ -28,6 +28,6 @@ Captured 2026-10-23, with body updates observed October 21/22:
 - [EN overview](https://www.alibabacloud.com/help/en/model-studio/token-plan-overview), capture `cloud-en-token-plan-overview.txt`: Singapore notice, pack pricing and quota footnotes.
 - [EN Team FAQ](https://www.alibabacloud.com/help/en/model-studio/token-plan-team-faq), capture `cloud-en-token-plan-team-faq.txt`: dynamic concurrency and no downgrade.
 - [EN Team management](https://www.alibabacloud.com/help/en/model-studio/token-plan-team-management), capture `cloud-en-token-plan-team-management.txt`: member removal and shared-pack cap.
-- [CN Personal overview](https://platform.qianwenai.com/docs/token-plan/personal/overview) and [EN Personal overview](https://docs.qwencloud.com/token-plan/personal/overview): separately captured supported-tool lists.
+- [CN Personal overview](https://platform.qianwenai.com/docs/token-plan/personal/token-plan-personal-overview) and [EN Personal overview](https://docs.qwencloud.com/token-plan/personal/token-plan-personal-overview): separately captured supported-tool lists.
 
 These are vendor policy claims, not newly measured credit coefficients or account health. No paid inference was used for this update.
