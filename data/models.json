@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-20",
+  "updated": "2026-10-23",
   "note": "Measured against the live gateway. More accurate than the vendor console.",
   "tiers": {
     "team": {
@@ -2714,9 +2714,10 @@
       "vendor": "Qwen",
       "kind": "asr",
       "tiers": [
+        "team",
         "personal"
       ],
-      "status": "unlisted",
+      "status": "active",
       "limit": {
         "context": null,
         "output": null,
@@ -2742,15 +2743,15 @@
       "endpoint": "POST https://token-plan.maas.qwencloudapi.com/api/v1/services/aigc/multimodal-generation/generation (Global) with header X-DashScope-SSE: disable and body {model, input.messages[0].content=[{type: input_audio, input_audio: {data: <audio URL or data URI>}}], parameters: {format, sample_rate}}; transcript at output.text (also output.output.sentence.text). NOT on /compatible-mode/v1 and NOT a streaming model: /api-ws/v1/inference, /api-ws/v1/realtime-inference and AOQ /api/v1/webrtc/{inference,realtime} all answer 'url error, please check url', /api-ws/v1/realtime upgrades and stays silent (2026-09-25).",
       "status_note": {
         "state": "known",
-        "value": "runnable (sync file ASR, Global/Personal), absent from /models",
-        "verified": "2026-09-25",
-        "note": "Servable by exact id on the DashScope multimodal-generation HTTP route but deliberately not surfaced on /models, the same unlisted class as deepseek-v4-pro-0813. Re-probe with one short synchronous call."
+        "value": "listed on all keyed plans; CN Personal documented, not measured",
+        "verified": "2026-10-23",
+        "note": "Listing graduation is not new inference or billing evidence."
       },
       "cost": {
-        "published": false,
-        "status": "per-second rate for this id not found on the fetched ASR guide; marketplace card is JS-rendered and was not captured",
+        "published": true,
+        "status": "published marketplace rate; plan debit unmeasured",
         "unit": "per_second",
-        "note": "Duration-metered; the 2026-09-25 probe reported usage.duration 3 for a ~3 s clip. Credit rate unverified.",
+        "note": "Marketplace monetary rates, not measured Token Plan credit coefficients. Historical usage.duration=3.",
         "cache": {
           "state": "not_applicable",
           "reason": "Duration-metered speech recognition; no prompt-cache tokens."
@@ -2758,6 +2759,17 @@
         "batch": {
           "state": "not_applicable",
           "reason": "Synchronous file ASR; no Token Plan chat batch-pricing field applies."
+        },
+        "currency": "RMB",
+        "input": 0.00022,
+        "output": null,
+        "source": "https://www.qianwenai.com/models/qwen-audio-3.0-asr-flash",
+        "verified": "2026-10-23",
+        "global_price": {
+          "currency": "USD",
+          "unit": "per_second",
+          "input": 3.5e-05,
+          "source": "https://www.qwencloud.com/models/qwen-audio-3.0-asr-flash"
         }
       },
       "card": {
@@ -3021,6 +3033,75 @@
       "card": {
         "en": "https://www.qwencloud.com/models/wan2.7-image-pro",
         "cn": "https://www.qianwenai.com/models/wan2.7-image-pro"
+      }
+    },
+    {
+      "id": "qwen-image-3.0-pro",
+      "vendor": "Qwen",
+      "kind": "image",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-08-04",
+      "status": "active",
+      "limit": {
+        "context": null,
+        "input": 4500,
+        "output": null,
+        "note": "Own cards publish up to 4.5k input tokens, NOT a context window. Context/output token limits unknown; per-image metering."
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image"
+        ],
+        "output": [
+          "image"
+        ]
+      },
+      "capabilities": {
+        "reasoning": false,
+        "tool_call": false,
+        "attachment": false,
+        "structured_output": "none"
+      },
+      "endpoint": "Documented synchronous POST /api/v1/services/aigc/multimodal-generation/generation with input.messages text/image parts; Token Plan exact-ID generation/editing unverified, no paid probe authorised.",
+      "cost": {
+        "published": true,
+        "status": "published marketplace monetary rate; plan debit unmeasured",
+        "currency": "RMB",
+        "unit": "per_image",
+        "input": 0.02,
+        "output": 0.25,
+        "output_by_resolution": {
+          "1K": 0.25,
+          "2K": 0.5
+        },
+        "source": "https://www.qianwenai.com/models/qwen-image-3.0-pro",
+        "verified": "2026-10-23",
+        "global_price": {
+          "currency": "USD",
+          "unit": "per_image",
+          "input": 0.003,
+          "output_by_resolution": {
+            "1K": 0.04,
+            "2K": 0.075
+          },
+          "source": "https://www.qwencloud.com/models/qwen-image-3.0-pro"
+        },
+        "cache": {
+          "state": "not_applicable",
+          "reason": "Per-image billing, no prompt-cache token rate."
+        },
+        "batch": {
+          "state": "unknown",
+          "reason": "No separate batch price on cards."
+        }
+      },
+      "card": {
+        "en": "https://www.qwencloud.com/models/qwen-image-3.0-pro",
+        "cn": "https://www.qianwenai.com/models/qwen-image-3.0-pro"
       }
     },
     {

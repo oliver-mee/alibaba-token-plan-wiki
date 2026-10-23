@@ -1,5 +1,10 @@
 # Alibaba Token Plan Wiki
 
+[Current subscription and Credit Pack policy](POLICY.md), checked 2026-10-23.
+Qwen Image 3.0 Pro is already vendor-released and now listed on Token Plan.
+The file-ASR model is now listed too; dated inference evidence and current
+listing scope remain separate in the catalogue.
+
 Public, measured reference data for Alibaba Cloud and Qwen Cloud Token Plan.
 
 This repository covers:
@@ -29,12 +34,12 @@ catalogues can lag or disagree with runtime behaviour.
 ## Current catalogue
 
 <!-- BEGIN GENERATED:catalogue -->
-As of 20 October 2026:
+As of 23 October 2026:
 
 - Team exposes 19 chat models; Personal exposes 12 (a strict subset).
-- `/models` lists 27 ids per Team key: 19 chat + 1 TTS + 1 realtime audio +
-  4 image + 1 platform router + 1 video. The 3 other active video models use
-  async endpoints and are not expected in `/models`.
+- `/models` lists 29 ids per Team key: 19 chat + 1 TTS + 1 realtime audio +
+  1 ASR + 5 image + 1 platform router + 1 video. The 3 other active video
+  models use async endpoints and are not expected in `/models`.
 - The exact counts move as models land.
   [`data/models.json`](data/models.json) carries the current list and its
   `updated` date; trust it over this prose.
