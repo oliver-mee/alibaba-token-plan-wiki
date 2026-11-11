@@ -1,12 +1,12 @@
 {
-  "updated": "2026-10-23",
+  "updated": "2026-11-11",
   "note": "Measured against the live gateway. More accurate than the vendor console.",
   "tiers": {
     "team": {
-      "chat_models": 19
+      "chat_models": 20
     },
     "personal": {
-      "chat_models": 12
+      "chat_models": 13
     }
   },
   "endpoints": {
@@ -33,6 +33,112 @@
     }
   },
   "models": [
+    {
+      "id": "qwen4-max-preview",
+      "vendor": "Qwen",
+      "kind": "chat",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-11-11",
+      "status": "beta",
+      "limit": {
+        "context": 1000000,
+        "output": 393216,
+        "output_note": "Vendor docs on both regions, accessed 2026-11-11: maximum output 393,216 tokens, shared by thinking and the final answer. With thinking on, reasoning consumes the same budget, so an answer-only max_tokens sizing will truncate. Not gateway-measured: no max_tokens range probe is authorised.",
+        "context_note": "Vendor-published 1M context on both regions. Context windows are deliberately not brute-force probed.",
+        "output_budget_change": "Starting with this id, max_tokens is equivalent to max_completion_tokens and limits thinking + answer combined (vendor API-compatibility upgrade notice dated 2026-11-02). Qwen models released before qwen4-max-preview keep their previous behaviour."
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": true,
+        "structured_output": "json_schema",
+        "responses_api": true,
+        "builtin_tools": true
+      },
+      "endpoint": "/compatible-mode/v1/chat/completions",
+      "status_note": "Preview id, Token Plan ONLY (vendor: pay-as-you-go access is not supported, which is why no marketplace card exists on either qwencloud.com or qianwenai.com - both returned 404 on 2026-11-11). Vendor docs (EN docs.qwencloud.com + CN platform.qianwenai.com latest-model pages, accessed 2026-11-11): preview window 2026-11-11 10:00 to 2026-11-25 24:00 UTC+8, no changes during the window, model retired when it ends. Gateway GET /models carries it on global/team, global/personal and cn/team with created=1794362561 (2026-11-11T02:02:41Z = 10:02:41 +08:00), i.e. the advertised opening minute. Reconsidered for removal when it leaves /models; do not assume a GA successor id without evidence.",
+      "cost": {
+        "status": "no published per-token price; Token Plan preview promotion only",
+        "published": false,
+        "currency": "RMB",
+        "source": "Token Plan Personal and Team overview pages (EN + CN), accessed 2026-11-11",
+        "verified": "2026-11-11",
+        "card": {
+          "state": "not_available",
+          "reason": "Token Plan ONLY - pay-as-you-go is explicitly unsupported, and both marketplace URLs (qwencloud.com/models/qwen4-max-preview, qianwenai.com/models/qwen4-max-preview) returned 404 on 2026-11-11. There is no card to price."
+        },
+        "per_1m_rmb": {
+          "state": "unknown",
+          "reason": "The preview promotion is expressed as a fraction of a 'standard rate' that is not published anywhere we can reach (no card, no pricing-page row). Not derivable, and not inferred from qwen3.8-max."
+        },
+        "preview_promotion": {
+          "credits": "as low as 20% of the standard rate (5x the usage for the same Credits)",
+          "night_extra": "an additional 80% off between 22:00 and 08:00 UTC+8, i.e. 4% of the standard rate",
+          "window": "2026-11-11 10:00 - 2026-11-25 24:00 UTC+8",
+          "tiers": [
+            "personal",
+            "team"
+          ],
+          "tiers_note": "Stated identically in both the Personal and the Team overview (EN + CN mirrors), unlike the tier-specific night-discount bullets.",
+          "source": "en-token-plan-personal-overview / en-token-plan-team-overview bullets, capture .fresh-ep75",
+          "verified": "2026-11-11"
+        },
+        "cache": {
+          "state": "unknown",
+          "reason": "No card and no pricing-page row; cache pricing unpublished for this id."
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch/file surfaces exist only on Model Studio PAYG; the Token Plan gateway has no /batches or /files route (probe-plan-routes, verified 2026-08-05/08-14)."
+        },
+        "risk": "Both the promotion and the model expire on 2026-11-25. Do not build economics or a default selection on a 14-day preview, and do not assume a GA id will inherit either the rate or the discount."
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": null,
+        "can_disable_note": "unverified: docs state thinking is enabled by default and adjustable via reasoning_effort, and the vendor's Qwen3+ guidance is a per-request enable_thinking toggle, but enable_thinking:false has not been probed on this id (approval gate). Do not assume always-on, and do not ship a hardcoded enable_thinking.",
+        "reasoning_effort": {
+          "documented": [
+            "low",
+            "medium",
+            "xhigh"
+          ],
+          "default": "xhigh",
+          "accepted": [],
+          "doc_note": "Latest-model page + thinking page, accessed 2026-11-11: choose low, medium or xhigh (default xhigh); reasoning_effort and thinking_budget must not be set together. Gateway acceptance was not probed."
+        },
+        "budget_max": null,
+        "budget_note": "Vendor model table publishes 'Not specified upstream' for the qwen4-max-preview thinking budget; the 393,216 output ceiling is a shared thinking+answer budget, not a separately published thinking cap. Nothing probed.",
+        "budget_default": {
+          "state": "unknown",
+          "reason": "Vendor publishes no default thinking budget for this id (table: 'Not specified upstream')."
+        },
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "Vendor docs describe OpenAI-compatible reasoning_content; the Anthropic surface uses a thinking content block (documented compatibility, unprobed here).",
+        "preserve_thinking": {
+          "default": true,
+          "source": "Latest-model page, accessed 2026-11-11: Chat Completions enables preserve_thinking by default; return historical thinking in assistant messages' reasoning_content, never concatenated into content.",
+          "verified": "2026-11-11"
+        },
+        "mutually_exclusive": true,
+        "mutually_exclusive_note": "Vendor latest-model page, accessed 2026-11-11: do not set reasoning_effort and thinking_budget together."
+      },
+      "retires": "2026-11-25"
+    },
     {
       "id": "qwen3.8-max",
       "vendor": "Qwen",
@@ -116,13 +222,13 @@
         "source": "qianwenai.com marketplace card",
         "verified": "2026-08-04",
         "night_promo": {
-          "discount": "50% off Credits",
+          "discount": "60% off Credits",
           "window": "22:00 - 08:00 UTC+8",
           "tiers": [
             "personal"
           ],
-          "reverified": "2026-09-15",
-          "note": "Listed under \u9650\u65f6\u591c\u95f4\u4e94\u6298 in the Personal overview (EN + CN) on 2026-09-15. NOT on the Team night list: the Team overview names only deepseek-v4-pro-0813, deepseek-v4-flash-0731 and deepseek-v4.1-flash. So this discount is Personal-tier only, and a Team seat does not get it."
+          "reverified": "2026-11-11",
+          "note": "Personal overview (EN + CN) publishes 'Limited-time night discount (60% off)' for qwen3.8-max and qwen3.8-flash, 22:00-08:00 UTC+8. Re-verified 2026-11-11 against the 2026-11-08 baseline capture, where the same 60% bullet already stood; the earlier '50% off' record (2026-09-15) is superseded by the vendor's own wording. Still Personal-only: the Team overview night list names only deepseek-v4-pro-0813, deepseek-v4-flash-0731, deepseek-v4.1-flash and deepseek-v4.1-flash-1017 (50% off), so a Team seat gets no qwen3.8 night discount."
         },
         "promo_audit": {
           "checked": "2026-09-15",
