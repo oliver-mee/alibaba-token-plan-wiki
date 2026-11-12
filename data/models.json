@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-11",
+  "updated": "2026-11-12",
   "note": "Measured against the live gateway. More accurate than the vendor console.",
   "tiers": {
     "team": {
@@ -70,6 +70,9 @@
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
       "status_note": "Preview id, Token Plan ONLY (vendor: pay-as-you-go access is not supported, which is why no marketplace card exists on either qwencloud.com or qianwenai.com - both returned 404 on 2026-11-11). Vendor docs (EN docs.qwencloud.com + CN platform.qianwenai.com latest-model pages, accessed 2026-11-11): preview window 2026-11-11 10:00 to 2026-11-25 24:00 UTC+8, no changes during the window, model retired when it ends. Gateway GET /models carries it on global/team, global/personal and cn/team with created=1794362561 (2026-11-11T02:02:41Z = 10:02:41 +08:00), i.e. the advertised opening minute. Reconsidered for removal when it leaves /models; do not assume a GA successor id without evidence.",
+      "aliases": [
+        "qwen4.0-max-preview"
+      ],
       "cost": {
         "status": "no published per-token price; Token Plan preview promotion only",
         "published": false,
@@ -86,15 +89,16 @@
         },
         "preview_promotion": {
           "credits": "as low as 20% of the standard rate (5x the usage for the same Credits)",
-          "night_extra": "an additional 80% off between 22:00 and 08:00 UTC+8, i.e. 4% of the standard rate",
+          "night_extra": "an additional 60% off between 22:00 and 08:00 UTC+8, i.e. 8% of the standard rate",
+          "night_extra_correction": "The EN overview pages published '80% off, i.e. 4%' on release day 2026-11-11 and were corrected to '60% off, i.e. 8%' in the 2026-11-12 capture; the CN mirrors said '4\u6298\uff08\u5373\u539f\u6807\u51c6\u76840.8\u6298\uff09' = 60% off / 8% of standard from the start, and 0.8\u6298 x 2\u6298 is arithmetically consistent with it. The EN 80%/4% figure was the vendor's error, not a promotion change. Do not restate 4%.",
           "window": "2026-11-11 10:00 - 2026-11-25 24:00 UTC+8",
           "tiers": [
             "personal",
             "team"
           ],
-          "tiers_note": "Stated identically in both the Personal and the Team overview (EN + CN mirrors), unlike the tier-specific night-discount bullets.",
-          "source": "en-token-plan-personal-overview / en-token-plan-team-overview bullets, capture .fresh-ep75",
-          "verified": "2026-11-11"
+          "tiers_note": "Stated identically in both the Personal (now 'Individual' in EN docs) and the Team overview (EN + CN mirrors), unlike the tier-specific night-discount bullets.",
+          "source": "en-token-plan-personal-overview / en-token-plan-team-overview bullets, capture .fresh-ep75; night figure re-read from .fresh-ep76 (2026-11-12) and reconciled against cn-token-plan-personal-overview",
+          "verified": "2026-11-12"
         },
         "cache": {
           "state": "unknown",
