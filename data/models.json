@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-12",
+  "updated": "2026-11-13",
   "note": "Measured against the live gateway. More accurate than the vendor console.",
   "tiers": {
     "team": {
@@ -3530,8 +3530,10 @@
         "tool_call": true,
         "structured_output": "none",
         "reasoning": true,
-        "reasoning_note": "Probed 2026-09-24 (Global/Personal): thinking is ON by default - every completion carried reasoning_tokens equal to completion_tokens under a small max_tokens (finish=length, empty content). Accepts reasoning_effort with enum none|minimal|low|medium|high|xhigh|max (400 on an invalid value names it). thinking_budget REJECTED (400 'auto does not support parameter(s): thinking_budget').",
+        "reasoning_note": "Probed 2026-09-24 (Global/Personal): thinking is ON by default - every completion carried reasoning_tokens equal to completion_tokens under a small max_tokens (finish=length, empty content). Accepts reasoning_effort with enum none|minimal|low|medium|high|xhigh|max (400 on an invalid value names it). thinking_budget REJECTED (400 'auto does not support parameter(s): thinking_budget'). Vendor docs 2026-11-12 (captured 2026-11-13) name the same parameter plus its Anthropic-compat spelling as unsupported: 'does not support tool_choice, thinking.budget_tokens (Anthropic-compatible API), or thinking_budget (OpenAI-compatible API)'.",
         "thinking_budget": false,
+        "tool_choice": false,
+        "tool_choice_note": "Documented unsupported on the AUTO ROUTER (vendor Token Plan overview, all 8 EN/CN plan pages, doc date 2026-11-12, captured 2026-11-13): 'The auto model does not support tool_choice'. This is the PARAMETER being rejected, not the tool_choice:\"auto\" VALUE that chat models honour (see meta.openai_compatibility) - do not conflate the two. Docs-only: no probe has been run, so tool USE on the router is unaffected (capabilities.tool_call remains true from the 2026-09-24 probe); only forcing a tool choice is documented as unavailable.",
         "temperature": false,
         "logprobs": false,
         "speed_tok_per_sec": null,
