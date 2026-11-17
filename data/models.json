@@ -1,12 +1,12 @@
 {
-  "updated": "2026-11-13",
+  "updated": "2026-11-17",
   "note": "Measured against the live gateway. More accurate than the vendor console.",
   "tiers": {
     "team": {
-      "chat_models": 20
+      "chat_models": 21
     },
     "personal": {
-      "chat_models": 13
+      "chat_models": 14
     }
   },
   "endpoints": {
@@ -33,6 +33,187 @@
     }
   },
   "models": [
+    {
+      "id": "qwen4-max",
+      "vendor": "Qwen",
+      "kind": "chat",
+      "tiers": [
+        "team",
+        "personal"
+      ],
+      "released": "2026-11-16",
+      "status": "active",
+      "limit": {
+        "context": 1000000,
+        "context_note": "Vendor latest-model page (accessed 2026-11-17): context length 1,000,000 tokens. Both marketplace cards publish '\u4e0a\u4e0b\u6587 1M / Context 1M'. Context windows are deliberately not brute-force probed.",
+        "input": 991808,
+        "input_note": "Maximum input, non-thinking mode: 991,808 tokens (cards display 991K; the latest-model page publishes the exact figure).",
+        "output": 131072,
+        "output_note": "Maximum output with thinking OFF is 131,072. With thinking ON, max_tokens/max_completion_tokens caps thinking PLUS the final answer at 262,144 (see by_mode), so an answer-only max_tokens sizing truncates. Vendor-published, not gateway-probed: no max_tokens range probe is authorised.",
+        "by_mode": {
+          "standard": {
+            "input": 991808,
+            "input_display": "991K",
+            "output": 131072
+          },
+          "thinking": {
+            "input": 983616,
+            "input_display": "983K",
+            "output": 262144,
+            "output_display": "262K",
+            "thinking_budget_default": 131072
+          }
+        },
+        "by_mode_note": "Thinking-mode maximum input 983,616 is an INPUT limit published by the vendor on this model's doc page and both cards. It is not a context window (that is 1,000,000) and is unrelated to the CLAUDE_CODE_MAX_CONTEXT_TOKENS client value that circulated as a qwen3.8 context window (standing project trap) - same number, different fact, do not conflate."
+      },
+      "modalities": {
+        "input": [
+          "text",
+          "image",
+          "video"
+        ],
+        "output": [
+          "text"
+        ]
+      },
+      "capabilities": {
+        "reasoning": true,
+        "tool_call": true,
+        "attachment": true,
+        "structured_output": "json_schema",
+        "responses_api": true,
+        "builtin_tools": true,
+        "anthropic_surface": true,
+        "explicit_cache": "qwen4",
+        "cot_summary": true,
+        "batch": false,
+        "fine_tune": false
+      },
+      "endpoint": "/compatible-mode/v1/chat/completions",
+      "aa_intelligence": 42.8914543287565,
+      "aa_url": "https://artificialanalysis.ai/models/qwen4-max",
+      "aa_evidence": {
+        "captured_at": "2026-11-17T00:33:29.887286+00:00",
+        "index_version_guess": null,
+        "resolution": "exact-slug",
+        "slug": "qwen4-max",
+        "name": "Qwen4 Max",
+        "estimated": false,
+        "deprecated": false,
+        "eval_cost_usd_per_task": 3.2681327300897323,
+        "omniscience": 27.7,
+        "source": "https://artificialanalysis.ai/leaderboards/models",
+        "scope": "AA leaderboard capture, configuration not published in the row name. Not a measured Token Plan charge and not proof of gateway reasoning-configuration parity."
+      },
+      "status_note": "GA flagship, the first model of the Qwen4 family, and unlike its preview sibling it is NOT plan-only: pay-as-you-go, a marketplace card and published per-token rates all exist (qwen4-max-preview has none of those). Vendor model changelog dated 2026-11-16 (en-changelog-models / cn-changelog-models h3 'qwen4-max') describes the flagship multimodal model for complex reasoning, coding and agentic tasks with tool calling, structured output, the new Qwen4 explicit cache and CoT summary, and points at the new 'Latest model: Qwen4-Max' doc page. First /models sighting is the 2026-11-17 matrix (global/team 31, cn/team 31, global/personal 22; was 30/30/21 on 2026-11-16) - one addition, no removals, Personal still a strict subset of Team, and qwen4-max-preview STILL listed. Both editions' overview model tables (EN + CN, docs.qwencloud.com and the qianwenai.com / alibabacloud mirrors) now carry a qwen4-max row above the preview row with capability 'Reasoning, vision understanding, text generation'. Not scheduled to retire on the preview's 2026-11-25 window; the preview keeps its own end date until it actually leaves /models.",
+      "cost": {
+        "published": true,
+        "currency": "RMB",
+        "unit": "per_1m_tokens",
+        "input": 10,
+        "output": 30,
+        "cache_hit": 0.5,
+        "source": "qianwenai.com marketplace card /models/qwen4-max, cross-checked against qwencloud.com /models/qwen4-max",
+        "verified": "2026-11-17",
+        "note": "CN card (RMB): input \u00a510/M, output \u00a530/M, input cache hit \u00a50.5/M, 5-minute explicit cache creation \u00a512.5/M, 1-hour explicit cache creation \u00a520/M, explicit cache read \u00a50.5/M. The EN pricing page (en-pricing capture .fresh-ep80) publishes the same schedule in USD with two columns - Singapore (International) input $1.5 / output $4.5 / 5m cache write $1.875 / 1h cache write $3 / cache read $0.075, and Beijing (China) + Global input $1.413 / output $4.24 / $1.767 / $2.827 / $0.071 - under the heading 'Qwen4-Max prices', with 'Thinking and non-thinking modes use the same price, with no input-length tiers'. These are PAYG monetary rates and a marketplace card, NOT measured Token Plan credit coefficients.",
+        "usd_payg": {
+          "singapore_international": {
+            "input": 1.5,
+            "output": 4.5,
+            "cache_write_5m": 1.875,
+            "cache_write_1h": 3,
+            "cache_read": 0.075
+          },
+          "beijing_and_global": {
+            "input": 1.413,
+            "output": 4.24,
+            "cache_write_5m": 1.767,
+            "cache_write_1h": 2.827,
+            "cache_read": 0.071
+          },
+          "source": "docs.qwencloud.com developer-guides/getting-started/pricing, 'Qwen4-Max prices' section, captured .fresh-ep80 (2026-11-17) and read on the live page the same day",
+          "note": "Beijing and Global share one price column; Singapore is priced separately. Billed per million tokens, input and output separately. Thinking tokens bill as output."
+        },
+        "cache": {
+          "state": "known",
+          "mode": "implicit_and_explicit_qwen4",
+          "implicit_read_rmb": 0.5,
+          "explicit_create_5m_rmb": 12.5,
+          "explicit_create_1h_rmb": 20,
+          "explicit_read_rmb": 0.5,
+          "source": "qianwenai.com card, 2026-11-17",
+          "note": "Qwen4 introduces its own explicit-cache mode (cache breakpoints, deterministic hits, TTL 5 minutes or 1 hour); it is supported on Chat Completions, Responses and Anthropic Messages but NOT on DashScope. The earlier OpenAI-compatible cache_control marker stays compatible."
+        },
+        "batch": {
+          "state": "not_applicable",
+          "reason": "Batch inference is documented 'Not supported' for this id, and the Token Plan gateway carries no /batches or /files route; marketplace card batch rows are Model-Studio PAYG scope.",
+          "verified": "2026-11-17"
+        },
+        "launch_promo": {
+          "claim": "as low as 50% off (\u4f4e\u81f3 5 \u6298)",
+          "state": "vendor marketing claim",
+          "source": "qianwenai.com Token Plan banner and the CN sales page headline 'Qwen4-Max \u9996\u53d1\u4e0a\u7ebf Token Plan\uff0c\u4f4e\u81f35\u6298', 2026-11-17",
+          "note": "No period, tier scope, base rate or in-plan Credit mechanics are published on the pages held. This is NOT a measured credit coefficient and must not be used to build cost economics; it also does not carry the preview's 2\u6298 / night-4\u6298 promotion, which stays scoped to qwen4-max-preview until 2026-11-25."
+        }
+      },
+      "thinking": {
+        "mode": "hybrid",
+        "can_disable": true,
+        "can_disable_note": "Vendor-documented, not probed: the thinking page lists qwen4-max as 'hybrid thinking mode, enabled by default' and shows enable_thinking in every qwen4-max example; reasoning_effort 'none' also disables thinking. No enable_thinking:false call has been made on this id, so treat the toggle as documented platform behaviour rather than a measured plan-host behaviour.",
+        "reasoning_effort": {
+          "documented": [
+            "minimal",
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+            "max",
+            "none"
+          ],
+          "default": "high",
+          "accepted": [],
+          "mapping": {
+            "minimal": "low",
+            "low": "low",
+            "medium": "high",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": "xhigh",
+            "none": "disables thinking"
+          },
+          "doc_note": "Thinking page, 'Qwen4-Max thinking configuration' section (accessed 2026-11-17): defaults enable_thinking=true, preserve_thinking=true, reasoning_effort=high, thinking_budget=131072. minimal/low map to low, medium/high to high, xhigh/max to xhigh, none disables thinking. Effort alone retains the 131,072 budget; budget alone maps 1-4096 to low, 4097-131072 to high and 131073-262144 to xhigh while retaining the supplied budget. Responses uses reasoning.effort; the Anthropic surface uses output_config.effort with low / high (default) / xhigh, where medium maps to high and max to xhigh. Gateway acceptance of any of these was NOT probed. NOTE the GA contract differs from qwen4-max-preview's recorded low/medium/xhigh default xhigh - do not copy the preview's enum onto this id."
+        },
+        "budget_max": 262144,
+        "budget_default": 131072,
+        "budget_note": "Vendor-published: default thinking budget 131,072 and thinking plus final answer share an output budget of up to 262,144 with thinking on (131,072 with thinking off). Gateway enforcement unmeasured.",
+        "default": true,
+        "returned_field": "reasoning_content",
+        "returned_field_scope": "Thinking page describes OpenAI-compatible reasoning_content; the Anthropic surface uses a thinking block and the Responses API reasoning events (documented compatibility, unprobed here).",
+        "preserve_thinking": {
+          "default": true,
+          "source": "Thinking page Qwen4-Max configuration, accessed 2026-11-17: preserve_thinking=true by default; return historical thinking to the model rather than concatenating it into content.",
+          "verified": "2026-11-17"
+        },
+        "mutually_exclusive": true,
+        "mutually_exclusive_note": "The Qwen4-Max configuration section documents effort-alone and budget-alone behaviour only, and the preview page states the two must not be set together; treat reasoning_effort and thinking_budget as exclusive for this family until measured.",
+        "cot_summary": {
+          "supported": true,
+          "parameter": "thinking_display=\"summarized\"",
+          "summary_field": "choices[i].message.reasoning_content",
+          "encrypted_field": "choices[i].message.encrypted_content",
+          "anchor_surface": "Anthropic thinking.display / signature; Responses reasoning.summary",
+          "source": "CoT summary doc page ('Supported model: qwen4-max'), accessed 2026-11-17",
+          "note": "Full thinking is returned by default; enabling the summary returns a displayable summary plus encrypted full thinking for history replay. Summaries may be incomplete and ciphertext may be absent - raw reasoning is then unavailable."
+        }
+      },
+      "card": {
+        "state": "available",
+        "cn_url": "https://www.qianwenai.com/models/qwen4-max",
+        "en_url": "https://www.qwencloud.com/models/qwen4-max",
+        "accessed": "2026-11-17",
+        "note": "Unlike the preview, this id is a full marketplace model on both properties with its own pricing, rate-limit and built-in-tool panels."
+      }
+    },
     {
       "id": "qwen4-max-preview",
       "vendor": "Qwen",
@@ -69,7 +250,7 @@
         "builtin_tools": true
       },
       "endpoint": "/compatible-mode/v1/chat/completions",
-      "status_note": "Preview id, Token Plan ONLY (vendor: pay-as-you-go access is not supported, which is why no marketplace card exists on either qwencloud.com or qianwenai.com - both returned 404 on 2026-11-11). Vendor docs (EN docs.qwencloud.com + CN platform.qianwenai.com latest-model pages, accessed 2026-11-11): preview window 2026-11-11 10:00 to 2026-11-25 24:00 UTC+8, no changes during the window, model retired when it ends. Gateway GET /models carries it on global/team, global/personal and cn/team with created=1794362561 (2026-11-11T02:02:41Z = 10:02:41 +08:00), i.e. the advertised opening minute. Reconsidered for removal when it leaves /models; do not assume a GA successor id without evidence.",
+      "status_note": "Preview id, Token Plan ONLY (vendor: pay-as-you-go access is not supported, which is why no marketplace card exists on either qwencloud.com or qianwenai.com - both returned 404 on 2026-11-11). Vendor docs (EN docs.qwencloud.com + CN platform.qianwenai.com latest-model pages, accessed 2026-11-11): preview window 2026-11-11 10:00 to 2026-11-25 24:00 UTC+8, no changes during the window, model retired when it ends. Gateway GET /models carries it on global/team, global/personal and cn/team with created=1794362561 (2026-11-11T02:02:41Z = 10:02:41 +08:00), i.e. the advertised opening minute. Reconsidered for removal when it leaves /models; do not assume a GA successor id without evidence. 2026-11-17 (ep.80): the GA successor id qwen4-max appeared on /models (all three keyable plans) and in both editions' model tables, with a marketplace card, a published PAYG rate card and a different published contract. This row keeps its own 2026-11-25 end date (not retired early, and it is still listed on 2026-11-17); its promotion, 393,216 shared output ceiling and low/medium/xhigh-with-xhigh-default effort enum must NOT be carried onto qwen4-max.",
       "aliases": [
         "qwen4.0-max-preview"
       ],
