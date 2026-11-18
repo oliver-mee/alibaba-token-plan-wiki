@@ -34,7 +34,7 @@ catalogues can lag or disagree with runtime behaviour.
 ## Current catalogue
 
 <!-- BEGIN GENERATED:catalogue -->
-As of 17 November 2026:
+As of 18 November 2026:
 
 - Team exposes 21 chat models; Personal exposes 14 (a strict subset).
 - `/models` lists 31 ids per Team key: 21 chat + 1 TTS + 1 realtime audio +
